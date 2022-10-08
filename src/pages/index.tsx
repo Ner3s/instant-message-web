@@ -1,5 +1,9 @@
-import { Main } from '@/components/Main';
+import Link from 'next/link';
 
 export default function Index() {
-  return <Main />;
+  return (
+    <div>
+      <Link href="/signin">Ir para SignIn</Link>
+    </div>
+  );
 }

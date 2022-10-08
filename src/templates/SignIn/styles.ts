@@ -1,3 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.section`
+  ${({ theme }) => css`
+    height: 100%;
+    background-image: ${theme.colors.gradient.vertical};
+  `}
+`;
+
+export const Content = styled.div``;
