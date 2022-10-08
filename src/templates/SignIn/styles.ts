@@ -7,4 +7,12 @@ export const Container = styled.section`
   `}
 `;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+  width: 100%;
+  height: 50rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+`;

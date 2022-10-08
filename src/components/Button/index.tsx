@@ -2,12 +2,15 @@ import { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 
 import * as S from './styles';
 
+export type TAppearance = 'primary' | 'secondary';
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   txtColor?: string;
   bgColor?: string;
   isLoading?: boolean;
   children: ReactNode | string;
   containerStyles?: CSSProperties;
+  appearance?: TAppearance;
 }
 
 function Button({
@@ -16,6 +19,7 @@ function Button({
   children,
   containerStyles,
   isLoading,
+  appearance = 'primary',
   ...rest
 }: ButtonProps) {
   return (
@@ -24,6 +28,7 @@ function Button({
       bgColor={bgColor}
       isLoading={isLoading}
       style={containerStyles}
+      appearance={appearance}
       type="button"
       {...rest}
     >

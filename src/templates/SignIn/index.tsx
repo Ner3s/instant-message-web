@@ -6,7 +6,9 @@ function SignInTemplate() {
   return (
     <S.Container>
       <h1>SignInTemplate</h1>
-      <Button>Botão</Button>
+      <S.Content>
+        <Button appearance="primary">Botão</Button>
+      </S.Content>
     </S.Container>
   );
 }
