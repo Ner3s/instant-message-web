@@ -1,6 +1,6 @@
 export const colors = {
-  primary: 'rgb(43, 38, 178)',
-  secondary: 'rgb(247, 38, 115)',
+  primary: '#0097B8',
+  secondary: '#A8EDDD',
   warning: 'rgb(247, 38, 115)',
   success: 'rgb(172, 243, 157)',
   info: 'rgb(85, 193, 255)',
@@ -19,5 +19,9 @@ export const colors = {
   gray10: 'rgb(61, 61, 64)',
   gray11: 'rgb(41, 41, 44)',
   gray12: 'rgb(21, 21, 24)',
-  deepBlack: 'rgb(0, 0, 0)'
+  deepBlack: 'rgb(0, 0, 0)',
+  gradient: {
+    vertical: 'linear-gradient(0deg, #A8EDDD 0%, #0097B8 100.95%)',
+    horizontal: 'linear-gradient(90deg, #A8EDDD 0%, #0097B8 100%)'
+  }
 } as const;

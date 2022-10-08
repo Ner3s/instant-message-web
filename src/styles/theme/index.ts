@@ -3,6 +3,7 @@ import { colors } from './colors';
 import { font } from './font';
 import { frameSizes } from './frameSizes';
 import { layers } from './layers';
+import { shadows } from './shadow';
 import { spacings } from './spacings';
 import { transitions } from './transitions';
 
@@ -13,7 +14,8 @@ const theme = {
   spacings,
   breakPoints,
   frameSizes,
-  transitions
+  transitions,
+  shadows
 };
 
 export default theme;
