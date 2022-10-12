@@ -4,7 +4,7 @@ import * as S from './styles';
 
 export type TAppearance = 'primary' | 'secondary';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   txtColor?: string;
   bgColor?: string;
   isLoading?: boolean;
@@ -23,7 +23,7 @@ function Button({
   ...rest
 }: ButtonProps) {
   return (
-    <S.Container
+    <S.Button
       txtColor={txtColor}
       bgColor={bgColor}
       isLoading={isLoading}
@@ -33,7 +33,7 @@ function Button({
       {...rest}
     >
       {isLoading ? '' : children}
-    </S.Container>
+    </S.Button>
   );
 }
 

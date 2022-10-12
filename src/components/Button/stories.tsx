@@ -8,6 +8,9 @@ export default {
   args: {
     children: 'Text',
     disabled: false
+  },
+  argTypes: {
+    onClick: { action: 'clicked' }
   }
 } as ComponentMeta<typeof Button>;
 
@@ -20,6 +23,5 @@ export const Border: ComponentStory<typeof Button> = (args) => (
 );
 
 Border.args = {
-  bgColor: 'transparent',
-  txtColor: '#1e12e'
+  appearance: 'secondary'
 };

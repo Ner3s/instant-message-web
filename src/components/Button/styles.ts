@@ -20,33 +20,33 @@ const modifier = {
   secondary: ({ bgColor, theme, txtColor }: TModiefier) => css`
     color: ${txtColor ?? theme.colors.primary};
     background-color: ${bgColor ?? theme.colors.deepWhite};
-    background-image: ${theme.colors.gradient.horizontal};
-
+    border: ${theme.spacings.tiny} solid ${theme.colors.primary};
+    /* background-image: ${theme.colors.gradient.horizontal}; */
+    /* border: ${theme.spacings.tiny} solid transparent;
     background: linear-gradient(
           ${bgColor ?? theme.colors.deepWhite},
           ${bgColor ?? theme.colors.deepWhite}
         )
         padding-box,
-      ${theme.colors.gradient.horizontal};
-    border: 4px solid transparent;
+      ${theme.colors.gradient.horizontal}; */
   `
 };
 
-export const Container = styled.button<IButtonProps>`
+export const Button = styled.button<IButtonProps>`
   ${({ theme, isLoading, bgColor, txtColor, appearance = 'primary' }) => css`
-    width: 100%;g
-    height: ${theme.spacings.xhuge};
+    width: 100%;
+    height: ${theme.spacings.huge};
     font-weight: 600;
     color: ${txtColor ?? theme.colors.deepWhite};
     transition: all 200ms ease-in;
     outline: none;
     border: none;
-    border-radius: ${theme.spacings.xhuge};
+    border-radius: ${theme.spacings.huge};
     position: relative;
     cursor: pointer;
     padding: 0;
 
-    ${modifier[appearance]({ bgColor, theme })}
+    ${modifier[appearance]({ bgColor, theme, txtColor })}
 
     :hover {
       opacity: 0.8;
@@ -65,27 +65,25 @@ export const Container = styled.button<IButtonProps>`
       cursor: not-allowed;
     }
 
-    ${
-      isLoading &&
-      css`
-        cursor: not-allowed;
-        opacity: 0.4 !important;
-        ::after {
-          width: 2rem;
-          height: 2rem;
-          content: '';
-          position: absolute;
-          border: 0.2rem solid;
-          border-top-color: transparent;
-          border-bottom-color: transparent;
-          left: 50%;
-          top: 50%;
-          transform: translate3d(-50%, -50%, 0);
-          border-radius: 50%;
-          animation: rotateLoading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        }
-      `
-    }
+    ${isLoading &&
+    css`
+      cursor: not-allowed;
+      opacity: 0.4 !important;
+      ::after {
+        width: 2rem;
+        height: 2rem;
+        content: '';
+        position: absolute;
+        border: 0.2rem solid;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        border-radius: 50%;
+        animation: rotateLoading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      }
+    `}
 
     @keyframes rotateLoading {
       0% {
