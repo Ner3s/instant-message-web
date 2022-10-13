@@ -15,4 +15,5 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   padding: 3rem;
+  flex-direction: column;
 `;

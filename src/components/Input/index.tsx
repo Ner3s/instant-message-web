@@ -26,6 +26,7 @@ function Input({
         isErrored={!errorMessage}
         margin={margin}
         style={containerStyles}
+        hasIcon={!!Icon}
       >
         {iconAlign === 'left' && Icon}
         <input type="text" name={name} {...rest} />
