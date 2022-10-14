@@ -14,14 +14,17 @@ export default {
   }
 } as ComponentMeta<typeof Button>;
 
-export const Basic: ComponentStory<typeof Button> = (args) => (
-  <Button {...args} />
-);
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-export const Border: ComponentStory<typeof Button> = (args) => (
-  <Button {...args} />
-);
+export const Default = Template.bind({});
 
+export const Border = Template.bind({});
 Border.args = {
   appearance: 'secondary'
+};
+
+export const SolidColor = Template.bind({});
+SolidColor.args = {
+  bgColor: 'blue',
+  txtColor: 'white'
 };

@@ -3,26 +3,24 @@ import styled, { css } from 'styled-components';
 interface IInputProps {
   isErrored?: boolean;
   margin?: boolean;
-  hasIcon?: boolean;
+  txtColor?: string;
 }
 
 export const Container = styled.label<IInputProps>`
-  ${({ theme, isErrored, margin, hasIcon }) => css`
-    all: unset;
-    ${isErrored &&
-    `border: ${theme.spacings.xxtiny} solid ${theme.colors.error}`}
-    width: 100%;
-    min-width: 100%;
-    height: ${theme.spacings.large};
-    position: relative;
+  ${({ theme, isErrored, margin, txtColor }) => css`
     display: flex;
+    width: 100%;
+    height: ${theme.spacings.huge};
+    position: relative;
     align-items: center;
     border-radius: ${theme.spacings.huge};
-    padding: ${hasIcon
-      ? `${theme.spacings.xxsmall} ${theme.spacings.xsmall}`
-      : theme.spacings.xxsmall};
+    padding: ${theme.spacings.xxsmall} ${theme.spacings.xsmall};
     margin: ${margin ? theme.spacings.small : 0};
     background-color: ${theme.colors.gray2};
+    ${isErrored &&
+    css`
+      border: ${theme.spacings.xtiny} solid ${theme.colors.error};
+    `}
 
     input {
       height: 100%;
@@ -31,11 +29,15 @@ export const Container = styled.label<IInputProps>`
       padding: 0 ${theme.spacings.tiny};
       border: none;
       outline: none;
+      ${txtColor && `color: ${txtColor}`};
     }
   `}
 `;
 
 export const ErrorMsg = styled.p`
-  color: red;
-  margin: ${({ theme }) => theme.spacings.small} 0;
+  ${({ theme }) => css`
+    color: red;
+    margin: ${({ theme }) => theme.spacings.xxsmall} 0;
+    font-size: ${theme.spacings.xsmall};
+  `}
 `;
