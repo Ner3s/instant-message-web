@@ -3,18 +3,14 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
 
   * {
+    outline: 0;
     margin: 0;
     padding: 0;
-    outline: 0;
     box-sizing: border-box;
   }
 
   html {
     font-size: 62.5%;
-
-    @media (min-width: 1981px) {
-      font-size: 80%;
-    };
   }
 
   html, body, #__next {

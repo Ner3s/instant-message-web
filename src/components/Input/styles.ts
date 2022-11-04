@@ -15,7 +15,7 @@ export const Container = styled.label<IInputProps>`
     align-items: center;
     border-radius: ${theme.spacings.huge};
     padding: ${theme.spacings.xxsmall} ${theme.spacings.xsmall};
-    margin: ${margin ? theme.spacings.small : 0};
+    margin: ${margin ? `${theme.spacings.xsmall} 0` : 0};
     background-color: ${theme.colors.gray2};
     ${isErrored &&
     css`

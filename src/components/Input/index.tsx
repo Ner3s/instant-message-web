@@ -26,6 +26,11 @@ function Input({
   ...rest
 }: InputProps) {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
+
+  const handleInputVisibility = () => {
+    setPasswordIsVisible((prevState) => !prevState);
+  };
+
   return (
     <>
       <S.Container
@@ -45,17 +50,21 @@ function Input({
         {showIconPassword &&
           (!passwordIsVisible ? (
             <AiOutlineEye
-              role="showPassword"
+              role="button"
+              tabIndex={0}
               fontSize={24}
               color="black"
-              onClick={() => setPasswordIsVisible((prevState) => !prevState)}
+              aria-label="show password"
+              onClick={handleInputVisibility}
             />
           ) : (
             <AiOutlineEyeInvisible
-              role="hidePassword"
+              role="button"
+              tabIndex={0}
               fontSize={24}
               color="black"
-              onClick={() => setPasswordIsVisible((prevState) => !prevState)}
+              aria-label="hide password"
+              onClick={handleInputVisibility}
             />
           ))}
       </S.Container>

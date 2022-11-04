@@ -38,9 +38,9 @@ describe('<Input />', () => {
     // Add showIconPassword in props
     const { user } = makeSut({ ...props, showIconPassword: true });
 
-    const showPassword = screen.getByRole('showPassword');
+    const showPassword = screen.getAllByRole('button');
 
-    await act(async () => await user.click(showPassword));
+    await act(async () => await user.click(showPassword[0]));
 
     const InputText = screen.getByRole('textbox') as HTMLInputElement;
 
