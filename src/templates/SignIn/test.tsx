@@ -8,7 +8,7 @@ describe('<SignInTemplate />', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: /SignInTemplate/i
+        name: /Sign/i
       })
     ).toBeInTheDocument();
   });

@@ -8,7 +8,7 @@ describe('<SignUpTemplate />', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: /SignUpTemplate/i
+        name: /register/i
       })
     ).toBeInTheDocument();
   });
