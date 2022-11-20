@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 
 import * as S from './styles';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   txtColor?: string;
   bgColor?: string;
   isLoading?: boolean;

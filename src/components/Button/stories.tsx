@@ -7,4 +7,6 @@ export default {
   component: Button
 } as ComponentMeta<typeof Button>;
 
-export const Basic: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+export const Basic: ComponentStory<typeof Button> = (args) => (
+  <Button {...args} />
+);
