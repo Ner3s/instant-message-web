@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 
 import * as S from './styles';
 
-export type TAppearance = 'primary' | 'secondary';
+export type TAppearance = 'primary' | 'secondary' | 'danger';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   txtColor?: string;

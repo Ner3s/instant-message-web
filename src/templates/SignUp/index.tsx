@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   FiAtSign,
   FiBookOpen,
@@ -13,6 +13,8 @@ import { Input } from '@/components/Input';
 import * as S from './styles';
 
 function SignUpTemplate() {
+  const router = useRouter();
+
   return (
     <S.Container>
       <S.Content>
@@ -43,25 +45,30 @@ function SignUpTemplate() {
             icon={<FiBookOpen size={22} />}
           />
           <Input
-            name="confirm_password"
-            iconAlign="left"
-            placeholder="Password"
-            showIconPassword
-            icon={<FiLock size={22} />}
-          />
-          <Input
             name="password"
             iconAlign="left"
             placeholder="Password"
             showIconPassword
             icon={<FiLock size={22} />}
           />
+          <Input
+            name="confirm_password"
+            iconAlign="left"
+            placeholder="Confirm password"
+            showIconPassword
+            icon={<FiLock size={22} />}
+          />
 
           <Button appearance="primary">Register</Button>
 
-          <Link href="/signin">
-            <Button appearance="secondary">I have account</Button>
-          </Link>
+          <Button
+            appearance="secondary"
+            onClick={() => {
+              router.push('/signin');
+            }}
+          >
+            I have account
+          </Button>
         </S.Form>
       </S.Content>
     </S.Container>

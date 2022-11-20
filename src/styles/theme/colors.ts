@@ -23,6 +23,7 @@ export const colors = {
   deepBlack: 'rgb(0, 0, 0)',
   gradient: {
     vertical: 'linear-gradient(0deg, #A8EDDD 0%, #0097B8 100.95%)',
-    horizontal: 'linear-gradient(90deg, #A8EDDD 0%, #0097B8 100%)'
+    horizontal: 'linear-gradient(90deg, #A8EDDD 0%, #0097B8 100%)',
+    dangerHorizontal: 'linear-gradient(90deg, #EDA8A8 0%, #B80000 100%)'
   }
 } as const;
