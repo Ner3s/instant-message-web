@@ -4,7 +4,6 @@ export const Container = styled.section`
   ${({ theme }) => css`
     height: auto;
     background-image: ${theme.colors.gradient.vertical};
-    overflow-y: hidden;
 
     @media (min-height: 820px) {
       height: 100%;
@@ -25,6 +24,7 @@ export const Content = styled.div`
       color: ${theme.colors.deepWhite};
       text-align: center;
       margin: ${theme.spacings.small} 0;
+      padding: ${theme.spacings.large} 0;
     `};
   }
 `;
@@ -70,4 +70,20 @@ export const Form = styled.form`
       }
     }
   `}
+`;
+
+export const Circle = styled.div`
+  ${({ theme }) => css`
+    width: ${theme.frameSizes.xsmall};
+    height: ${theme.frameSizes.xsmall};
+    border-radius: ${theme.spacings.hero};
+    background-color: ${theme.colors.gray11};
+    margin: -${theme.spacings.xxhero} 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `}
+
+  & > img {
+  }
 `;

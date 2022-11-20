@@ -5,6 +5,14 @@ const nextConfig = {
   swcMinify: true,
   compiler: {
     styledComponents: true
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'lorempixel.com.br'
+      }
+    ]
   }
 };
 

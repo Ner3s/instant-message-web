@@ -21,14 +21,11 @@ const modifier = {
     color: ${txtColor ?? theme.colors.primary};
     background-color: ${bgColor ?? theme.colors.deepWhite};
     border: ${theme.spacings.tiny} solid ${theme.colors.primary};
-    /* background-image: ${theme.colors.gradient.horizontal}; */
-    /* border: ${theme.spacings.tiny} solid transparent;
-    background: linear-gradient(
-          ${bgColor ?? theme.colors.deepWhite},
-          ${bgColor ?? theme.colors.deepWhite}
-        )
-        padding-box,
-      ${theme.colors.gradient.horizontal}; */
+  `,
+  danger: ({ bgColor, theme }: TModiefier) => css`
+    ${!bgColor
+      ? `background-image: ${theme.colors.gradient.dangerHorizontal}`
+      : `background-color: ${bgColor}`};
   `
 };
 

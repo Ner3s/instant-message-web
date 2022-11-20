@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FiLock, FiUser } from 'react-icons/fi';
 
 import { Button } from '@/components/Button';
@@ -7,6 +8,8 @@ import { Input } from '@/components/Input';
 import * as S from './styles';
 
 function SignInTemplate() {
+  const router = useRouter();
+
   return (
     <S.Container>
       <S.Content>
@@ -26,13 +29,25 @@ function SignInTemplate() {
             icon={<FiLock size={22} />}
           />
 
-          <Button appearance="primary">Sign In</Button>
+          <Button
+            appearance="primary"
+            onClick={() => {
+              router.push('/profile');
+            }}
+          >
+            Sign In
+          </Button>
 
           <Link href="/forgot">Forgot password?</Link>
 
-          <Link href="/signup">
-            <Button appearance="secondary">Register</Button>
-          </Link>
+          <Button
+            appearance="secondary"
+            onClick={() => {
+              router.push('/signup');
+            }}
+          >
+            Register
+          </Button>
         </S.Form>
       </S.Content>
     </S.Container>
