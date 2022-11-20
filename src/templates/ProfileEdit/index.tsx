@@ -19,7 +19,7 @@ function ProfileEditTemplate({ imageUrl }: Partial<IProfileEditTemplate>) {
   return (
     <S.Container>
       <S.Content>
-        <h1>Profile EDIT</h1>
+        <h1>Profile Edit</h1>
         <S.Form>
           <S.Circle>
             {imageUrl ? (
@@ -29,16 +29,16 @@ function ProfileEditTemplate({ imageUrl }: Partial<IProfileEditTemplate>) {
             )}
           </S.Circle>
           <Input
-            name="email"
-            placeholder="E-mail"
-            iconAlign="left"
-            icon={<FiAtSign size={22} />}
-          />
-          <Input
             name="name"
             placeholder="Name"
             iconAlign="left"
             icon={<FiUser size={22} />}
+          />
+          <Input
+            name="email"
+            placeholder="E-mail"
+            iconAlign="left"
+            icon={<FiAtSign size={22} />}
           />
           <Input
             name="birth_date"

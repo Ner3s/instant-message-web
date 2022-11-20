@@ -106,13 +106,6 @@ export const BirthDate = styled.span`
   `}
 `;
 
-export const Email = styled.span`
-  ${({ theme }) => css`
-    font-size: ${theme.font.sizes.small};
-    margin: 0 0 ${theme.spacings.xsmall} 0;
-  `}
-`;
-
 export const Description = styled.span`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.small};

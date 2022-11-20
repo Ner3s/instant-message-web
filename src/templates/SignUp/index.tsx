@@ -45,16 +45,16 @@ function SignUpTemplate() {
             icon={<FiBookOpen size={22} />}
           />
           <Input
-            name="confirm_password"
+            name="password"
             iconAlign="left"
             placeholder="Password"
             showIconPassword
             icon={<FiLock size={22} />}
           />
           <Input
-            name="password"
+            name="confirm_password"
             iconAlign="left"
-            placeholder="Password"
+            placeholder="Confirm password"
             showIconPassword
             icon={<FiLock size={22} />}
           />
