@@ -9,48 +9,31 @@ import * as S from './styles';
 function SignInTemplate() {
   return (
     <S.Container>
-      <S.Title>Sign In</S.Title>
       <S.Content>
-        <Input
-          name="email"
-          placeholder="E-mail"
-          icon={<FiUser size={22} />}
-          iconAlign="left"
-          margin
-        />
-        <Input
-          iconAlign="left"
-          name="password"
-          placeholder="Password"
-          icon={<FiLock size={22} />}
-          showIconPassword
-          margin
-        />
-        <Button type="submit" containerStyles={{ margin: '1.2rem 0' }}>
-          Sign In
-        </Button>
+        <h1>Sign In</h1>
+        <S.Form>
+          <Input
+            name="name"
+            placeholder="Name"
+            iconAlign="left"
+            icon={<FiUser size={22} />}
+          />
+          <Input
+            name="password"
+            iconAlign="left"
+            placeholder="Password"
+            showIconPassword
+            icon={<FiLock size={22} />}
+          />
 
-        <Link href="/forgot">
-          <S.LinkToForgot
-            tabIndex={0}
-            aria-label="link to forgot password"
-            role="link"
-          >
-            Forgot password
-          </S.LinkToForgot>
-        </Link>
+          <Button appearance="primary">Sign In</Button>
 
-        <Link href="/signup">
-          <Button
-            aria-label="link to sign up"
-            type="button"
-            role="link"
-            containerStyles={{ margin: '1.2rem 0' }}
-            appearance="secondary"
-          >
-            Sign Up
-          </Button>
-        </Link>
+          <Link href="/forgot">Forgot password?</Link>
+
+          <Link href="/signup">
+            <Button appearance="secondary">Register</Button>
+          </Link>
+        </S.Form>
       </S.Content>
     </S.Container>
   );
