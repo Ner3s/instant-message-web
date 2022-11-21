@@ -11,7 +11,7 @@ export interface BaseProps {
 function Base({ children }: BaseProps) {
   return (
     <S.Container>
-      {children}
+      <S.Main>{children}</S.Main>
       <Navbar />
     </S.Container>
   );
