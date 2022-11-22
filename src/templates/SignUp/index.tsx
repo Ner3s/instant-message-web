@@ -10,6 +10,8 @@ import {
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
+import { ROUTE_LIST } from '@/utils/constants/route-list';
+
 import * as S from './styles';
 
 function SignUpTemplate() {
@@ -64,7 +66,7 @@ function SignUpTemplate() {
           <Button
             appearance="secondary"
             onClick={() => {
-              router.push('/signin');
+              router.push(ROUTE_LIST.SIGN_IN);
             }}
           >
             I have account

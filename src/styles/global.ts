@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body, button, input, label, textarea {
+    font-size: ${({ theme }) => theme.font.sizes.small};
     font-family: -apple-system, BlinkMacSystemFont, 'Poppins', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 

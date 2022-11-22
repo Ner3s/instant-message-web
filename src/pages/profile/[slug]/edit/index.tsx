@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 
+import { Base } from '@/components/Base';
+
 import { ProfileEditTemplate } from '@/templates/ProfileEdit';
 
 export default function Profile() {
@@ -8,5 +10,9 @@ export default function Profile() {
 
   console.log(slug);
 
-  return <ProfileEditTemplate />;
+  return (
+    <Base>
+      <ProfileEditTemplate />
+    </Base>
+  );
 }

@@ -13,7 +13,8 @@
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
     "prettier/prettier": "error",
     "import-helpers/order-imports": [
       "warn", // exibe um alerta no editor

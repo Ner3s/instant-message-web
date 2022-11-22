@@ -29,7 +29,7 @@ export const TitlePage = styled.h1`
   `};
 `;
 
-export const Form = styled.form`
+export const Form = styled.section`
   ${({ theme }) => css`
     width: 100%;
     max-width: ${theme.frameSizes.largeMedium};

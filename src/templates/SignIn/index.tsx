@@ -5,6 +5,8 @@ import { FiLock, FiUser } from 'react-icons/fi';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
+import { ROUTE_LIST } from '@/utils/constants/route-list';
+
 import * as S from './styles';
 
 function SignInTemplate() {
@@ -32,18 +34,18 @@ function SignInTemplate() {
           <Button
             appearance="primary"
             onClick={() => {
-              router.push('/profile');
+              router.push(ROUTE_LIST.USERS);
             }}
           >
             Sign In
           </Button>
 
-          <Link href="/forgot">Forgot password?</Link>
+          <Link href={ROUTE_LIST.FORGOT}>Forgot password?</Link>
 
           <Button
             appearance="secondary"
             onClick={() => {
-              router.push('/signup');
+              router.push(ROUTE_LIST.SIGN_UP);
             }}
           >
             Register

@@ -3,6 +3,8 @@ import { FiEdit, FiUser, FiMessageCircle } from 'react-icons/fi';
 
 import { Button } from '@/components/Button';
 
+import { ROUTE_LIST } from '@/utils/constants/route-list';
+
 import * as S from './styles';
 
 interface IProfileTemplate {
@@ -46,7 +48,7 @@ function ProfileTemplate({
             <Button
               appearance="primary"
               onClick={() => {
-                router.push('/profile/ID/edit');
+                router.push(ROUTE_LIST.PROFILE_SLUG_EDIT);
               }}
             >
               <FiEdit size={15} /> Edit
