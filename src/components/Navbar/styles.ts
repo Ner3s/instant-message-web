@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.nav`
   ${({ theme }) => css`
     width: 100%;
     height: ${theme.spacings.xhuge};
@@ -8,21 +8,24 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
   `};
 `;
 
 export const SvgWrapper = styled.div`
-  ${({ theme }) => css`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
 
-    & > span {
-      padding: 0 ${theme.spacings.xxsmall};
-      font-size: ${theme.font.sizes.small};
-      color: ${theme.colors.deepWhite};
-    }
+export const MenuLabel = styled.span`
+  ${({ theme }) => css`
+    padding: 0 ${theme.spacings.xxsmall};
+    font-size: ${theme.font.sizes.small};
+    color: ${theme.colors.deepWhite};
   `};
 `;

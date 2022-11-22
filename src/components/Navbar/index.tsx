@@ -15,11 +15,11 @@ function Navbar() {
     <S.Container>
       <S.SvgWrapper role="link" onClick={() => router.push(ROUTE_LIST.USERS)}>
         <FiUsers size={ITEMS_SIZES} color={ITEMS_COLORS} />
-        <span>Users</span>
+        <S.MenuLabel>Users</S.MenuLabel>
       </S.SvgWrapper>
       <S.SvgWrapper role="link" onClick={() => router.push(ROUTE_LIST.CHAT)}>
         <FiMessageCircle size={ITEMS_SIZES} color={ITEMS_COLORS} />
-        <span>Chat</span>
+        <S.MenuLabel>Chat</S.MenuLabel>
       </S.SvgWrapper>
     </S.Container>
   );
