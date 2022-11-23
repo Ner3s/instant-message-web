@@ -1,7 +1,11 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { ThemeProvider } from 'styled-components';
+
+import { AppProvider } from '@/contexts';
 
 import GlobalStyles from '@/styles/global';
 import theme from '@/styles/theme';
@@ -19,10 +23,24 @@ function App({ Component, pageProps }: AppProps) {
           content="A simple project for sending messages between employees of a company"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <AppProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </AppProvider>
     </>
   );
 }
