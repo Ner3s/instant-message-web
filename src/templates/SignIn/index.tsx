@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FiLock, FiUser } from 'react-icons/fi';
+import { FiAtSign, FiLock } from 'react-icons/fi';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -18,10 +18,10 @@ function SignInTemplate() {
         <h1>Sign In</h1>
         <S.Form>
           <Input
-            name="name"
-            placeholder="Name"
+            name="email"
+            placeholder="E-mail"
             iconAlign="left"
-            icon={<FiUser size={22} />}
+            icon={<FiAtSign size={22} />}
           />
           <Input
             name="password"
