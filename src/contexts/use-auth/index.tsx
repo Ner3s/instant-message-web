@@ -7,9 +7,11 @@ import {
   useState
 } from 'react';
 
+import { IUser } from '@/models/user';
+
 interface IAuthContextData {
-  user: unknown;
-  setUser: Dispatch<SetStateAction<unknown>>;
+  user: IUser;
+  setUser: Dispatch<SetStateAction<IUser>>;
 }
 
 interface IAuthProvider {
@@ -19,7 +21,7 @@ interface IAuthProvider {
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 function AuthProvider({ children }: IAuthProvider) {
-  const [user, setUser] = useState<unknown>();
+  const [user, setUser] = useState<IUser>({} as IUser);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
