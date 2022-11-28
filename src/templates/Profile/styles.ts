@@ -113,3 +113,16 @@ export const Description = styled.span`
     color: ${theme.colors.gray7};
   `}
 `;
+
+export const Logout = styled.span`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    color: ${theme.colors.error};
+    cursor: pointer;
+
+    & > svg {
+      margin-right: ${theme.spacings.tiny};
+    }
+  `}
+`;
