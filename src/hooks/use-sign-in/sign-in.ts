@@ -1,23 +1,29 @@
+import { NextRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 
-import { ISignInDTO } from '@/models/sign-in.dto';
+import { ISignInWithAuthDTO } from '@/models/sign-in.dto';
 import { IUser } from '@/models/user';
 import { remoteSignIn } from '@/services/auth/sign-in';
 import { remoteGetUserData } from '@/services/user/get-user-data';
+import { ROUTE_LIST } from '@/utils/constants/route-list';
 import storedUserDataMapper from '@/utils/mapping/stored-user-data-mapper';
 
-type TSignIn = ISignInDTO & {
+type TSignIn = ISignInWithAuthDTO & {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   setUser: Dispatch<SetStateAction<IUser>>;
+  router: NextRouter;
 };
+
+const TWO_SECONDS = 1500;
 
 async function signIn({
   auth,
   email,
   password,
   setIsLoading,
-  setUser
+  setUser,
+  router
 }: TSignIn) {
   let userMapped: IUser | null = null;
   setIsLoading(true);
@@ -37,6 +43,9 @@ async function signIn({
     });
 
     setUser(userMapped);
+    setTimeout(() => {
+      router.push(ROUTE_LIST.USERS);
+    }, TWO_SECONDS);
   } catch (error) {
     toast.error('User not found');
   } finally {
