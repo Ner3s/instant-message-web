@@ -1,42 +1,73 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useForm, Controller } from 'react-hook-form';
 import { FiAtSign, FiLock } from 'react-icons/fi';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
+import { INITIAL_FORM_VALUES } from './form';
+import { validationSchema } from './validations';
+
+import { TSignInDTO } from '@/models/sign-in.dto';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
+import { joiResolver } from '@hookform/resolvers/joi';
 
 import * as S from './styles';
 
-function SignInTemplate() {
+interface SignInTemplateProps {
+  onSubmit: (data: TSignInDTO) => void;
+  isLoading: boolean;
+}
+
+function SignInTemplate({ onSubmit, isLoading }: SignInTemplateProps) {
   const router = useRouter();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    defaultValues: INITIAL_FORM_VALUES,
+    resolver: joiResolver(validationSchema)
+  });
 
   return (
     <S.Container>
       <S.Content>
         <h1>Sign In</h1>
-        <S.Form>
-          <Input
+        <S.Form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
             name="email"
-            placeholder="E-mail"
-            iconAlign="left"
-            icon={<FiAtSign size={22} />}
-          />
-          <Input
-            name="password"
-            iconAlign="left"
-            placeholder="Password"
-            showIconPassword
-            icon={<FiLock size={22} />}
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <Input
+                placeholder="E-mail"
+                iconAlign="left"
+                icon={<FiAtSign size={22} />}
+                {...props}
+                errorMessage={errors.email?.message}
+              />
+            )}
           />
 
-          <Button
-            appearance="primary"
-            onClick={() => {
-              router.push(ROUTE_LIST.USERS);
-            }}
-          >
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <Input
+                iconAlign="left"
+                placeholder="Password"
+                showIconPassword
+                icon={<FiLock size={22} />}
+                {...props}
+                errorMessage={errors.password?.message}
+              />
+            )}
+          />
+
+          <Button type="submit" appearance="primary" isLoading={isLoading}>
             Sign In
           </Button>
 
