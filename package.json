@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lint:fix": "eslint . --ext .tsx,.ts --fix --max-warnings=0",
     "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --coverage=false",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
