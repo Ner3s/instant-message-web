@@ -16,7 +16,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 
 import * as S from './styles';
 
-interface SignInTemplateProps {
+export interface SignInTemplateProps {
   onSubmit: (data: TSignInDTO) => void;
   isLoading: boolean;
 }
