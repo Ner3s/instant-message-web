@@ -17,7 +17,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 function Input({
   name,
   containerStyles,
-  margin,
+  margin = true,
   icon: Icon,
   iconAlign = 'right',
   errorMessage,
@@ -39,8 +39,11 @@ function Input({
         style={containerStyles}
         txtColor={txtColor}
       >
+        <S.LabelAccessibility>{rest.placeholder}</S.LabelAccessibility>
         {iconAlign === 'left' && Icon}
         <input
+          aria-label={rest.placeholder}
+          title={rest.placeholder}
           type="text"
           name={name}
           {...(showIconPassword && !passwordIsVisible && { type: 'password' })}

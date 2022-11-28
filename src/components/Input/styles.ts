@@ -37,7 +37,10 @@ export const Container = styled.label<IInputProps>`
 export const ErrorMsg = styled.p`
   ${({ theme }) => css`
     color: red;
-    margin: ${({ theme }) => theme.spacings.xxsmall} 0;
     font-size: ${theme.spacings.xsmall};
   `}
+`;
+
+export const LabelAccessibility = styled.span`
+  display: none;
 `;
