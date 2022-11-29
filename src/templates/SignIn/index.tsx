@@ -45,6 +45,7 @@ function SignInTemplate({ onSubmit, isLoading }: SignInTemplateProps) {
               <Input
                 placeholder="E-mail"
                 iconAlign="left"
+                role="textbox"
                 icon={<FiAtSign size={22} />}
                 {...props}
                 errorMessage={errors.email?.message}
@@ -59,6 +60,7 @@ function SignInTemplate({ onSubmit, isLoading }: SignInTemplateProps) {
               <Input
                 iconAlign="left"
                 placeholder="Password"
+                role="textbox"
                 showIconPassword
                 icon={<FiLock size={22} />}
                 {...props}

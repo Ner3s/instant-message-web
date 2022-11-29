@@ -1,5 +1,6 @@
 import { SignInTemplate, SignInTemplateProps } from '.';
 
+import { TSignInDTO } from '@/models/sign-in.dto';
 import { screen, render, userEvent } from '@/utils/test';
 
 const onSubmitMock = jest.fn();
@@ -7,6 +8,11 @@ const onSubmitMock = jest.fn();
 const propsMock: SignInTemplateProps = {
   onSubmit: onSubmitMock,
   isLoading: false
+};
+
+const inputsMock: TSignInDTO = {
+  email: 'mock@mock.com',
+  password: 'mock'
 };
 
 const makeSut = (props: SignInTemplateProps) => {
@@ -31,12 +37,17 @@ describe('<SignInTemplate />', () => {
     ).toBeInTheDocument();
   });
 
-  it.skip('should send data in onSubmit', async () => {
+  it('should fill in all the fields and send the form', async () => {
     const { user } = makeSut(propsMock);
+
+    const allInputs = screen.getAllByRole('textbox') as HTMLInputElement[];
+
+    await user.type(allInputs[0], inputsMock.email);
+    await user.type(allInputs[1], inputsMock.password);
 
     await user.click(screen.getByRole('button', { name: /sign in/i }));
 
-    expect(onSubmitMock).toHaveBeenCalledTimes(1);
+    expect(onSubmitMock).toBeCalledTimes(1);
   });
 
   it('should button is loading', () => {

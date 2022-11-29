@@ -1,5 +1,9 @@
 import { SignUpTemplate } from '@/templates/SignUp';
 
+import { useSignUp } from '@/hooks/use-sign-up';
+
 export default function SignIn() {
-  return <SignUpTemplate />;
+  const { handleSignUp, isLoading } = useSignUp();
+
+  return <SignUpTemplate handleSignUp={handleSignUp} isLoading={isLoading} />;
 }
