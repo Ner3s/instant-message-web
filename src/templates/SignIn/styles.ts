@@ -46,7 +46,7 @@ export const Form = styled.form`
     animation-timing-function: ease-in-out;
 
     label {
-      margin: ${theme.spacings.xsmall} 0;
+      /* margin: ${theme.spacings.xsmall} 0; */
     }
 
     button {

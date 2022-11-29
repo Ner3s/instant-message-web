@@ -13,6 +13,7 @@ function Base({ children }: BaseProps) {
     <S.Container>
       <S.Main>{children}</S.Main>
       <Navbar />
+      <S.SpaceBottom />
     </S.Container>
   );
 }

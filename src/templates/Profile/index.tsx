@@ -1,13 +1,15 @@
 import { useRouter } from 'next/router';
-import { FiEdit, FiUser, FiMessageCircle } from 'react-icons/fi';
+import { FiEdit, FiUser, FiMessageCircle, FiLogOut } from 'react-icons/fi';
 
 import { Button } from '@/components/Button';
+
+import { useAuth } from '@/contexts/use-auth';
 
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 
 import * as S from './styles';
 
-interface IProfileTemplate {
+export interface ProfileTemplateProps {
   name: string;
   birthDate: string;
   description: string;
@@ -25,8 +27,10 @@ function ProfileTemplate({
     laoreet purus posuere in. Ut nec ultricies dui. Vestibulum bibendum, nisl id maximus interdum, neque odio molestie mauris, eget viverra massa nulla in leo. Quisque posuere urna tellus, quis varius nisl luctus quis. Phasellus aliquet id velit eget tincidunt. Aliquam aliquam luctus ultricies. Fusce nec mollis diam.`,
   imageUrl = 'http://lorempixel.com.br/400/400',
   myAccount = false
-}: Partial<IProfileTemplate>) {
+}: Partial<ProfileTemplateProps>) {
   const router = useRouter();
+
+  const { handleClearSession } = useAuth();
 
   return (
     <S.Container>
@@ -45,14 +49,19 @@ function ProfileTemplate({
           <S.BirthDate>{birthDate}</S.BirthDate>
           <S.Description>{description}</S.Description>
           {myAccount ? (
-            <Button
-              appearance="primary"
-              onClick={() => {
-                router.push(ROUTE_LIST.PROFILE_SLUG_EDIT);
-              }}
-            >
-              <FiEdit size={15} /> Edit
-            </Button>
+            <>
+              <Button
+                appearance="primary"
+                onClick={() => {
+                  router.push(ROUTE_LIST.PROFILE_SLUG_EDIT);
+                }}
+              >
+                <FiEdit size={15} /> Edit
+              </Button>
+              <S.Logout role="button" onClick={() => handleClearSession()}>
+                <FiLogOut size={15} /> Sign Out
+              </S.Logout>
+            </>
           ) : (
             <Button
               appearance="primary"
