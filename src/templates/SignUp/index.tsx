@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRouter } from 'next/router';
+import { Controller, useForm } from 'react-hook-form';
 import {
   FiAtSign,
   FiBookOpen,
@@ -10,58 +12,140 @@ import {
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
+import { INITIAL_FORM_VALUES, TSignUpForm } from './form';
+import { validationSchema } from './validations';
+
+import { ISignUpDTO } from '@/models/sign-up.dto';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
+import { joiResolver } from '@hookform/resolvers/joi';
 
 import * as S from './styles';
 
-function SignUpTemplate() {
+export interface SignUpTemplateProps {
+  handleSignUp: (signUpData: ISignUpDTO) => Promise<void>;
+  isLoading: boolean;
+}
+
+function SignUpTemplate({ handleSignUp, isLoading }: SignUpTemplateProps) {
   const router = useRouter();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    defaultValues: INITIAL_FORM_VALUES,
+    resolver: joiResolver(validationSchema)
+  });
+
+  function onSubmit(formData: TSignUpForm) {
+    const data: ISignUpDTO = {
+      ...formData,
+      created_at: new Date().toISOString(),
+      updated_at: null
+    };
+
+    handleSignUp(data);
+  }
 
   return (
     <S.Container>
       <S.Content>
         <h1>Register</h1>
-        <S.Form>
-          <Input
+        <S.Form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
             name="email"
-            placeholder="E-mail"
-            iconAlign="left"
-            icon={<FiAtSign size={22} />}
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <Input
+                placeholder="E-mail"
+                iconAlign="left"
+                role="textbox"
+                icon={<FiAtSign size={22} />}
+                errorMessage={errors.email?.message}
+                {...props}
+              />
+            )}
           />
-          <Input
+          <Controller
             name="name"
-            placeholder="Name"
-            iconAlign="left"
-            icon={<FiUser size={22} />}
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <Input
+                placeholder="Name"
+                iconAlign="left"
+                role="textbox"
+                icon={<FiUser size={22} />}
+                errorMessage={errors.name?.message}
+                {...props}
+              />
+            )}
           />
-          <Input
+          <Controller
             name="birth_date"
-            iconAlign="left"
-            placeholder="Birthdate"
-            icon={<FiCalendar size={22} />}
-          />
-          <Input
-            name="description"
-            iconAlign="left"
-            placeholder="Description"
-            icon={<FiBookOpen size={22} />}
-          />
-          <Input
-            name="password"
-            iconAlign="left"
-            placeholder="Password"
-            showIconPassword
-            icon={<FiLock size={22} />}
-          />
-          <Input
-            name="confirm_password"
-            iconAlign="left"
-            placeholder="Confirm password"
-            showIconPassword
-            icon={<FiLock size={22} />}
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <Input
+                iconAlign="left"
+                placeholder="Birthdate"
+                type="date"
+                role="textbox"
+                icon={<FiCalendar size={22} />}
+                errorMessage={errors.birth_date?.message}
+                {...props}
+              />
+            )}
           />
 
-          <Button appearance="primary">Register</Button>
+          <Controller
+            name="description"
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <Input
+                iconAlign="left"
+                placeholder="Description"
+                role="textbox"
+                icon={<FiBookOpen size={22} />}
+                errorMessage={errors.description?.message}
+                {...props}
+              />
+            )}
+          />
+
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <Input
+                iconAlign="left"
+                placeholder="Password"
+                role="textbox"
+                showIconPassword
+                icon={<FiLock size={22} />}
+                errorMessage={errors.password?.message}
+                {...props}
+              />
+            )}
+          />
+          <Controller
+            name="confirm_password"
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <Input
+                iconAlign="left"
+                placeholder="Confirm password"
+                role="textbox"
+                showIconPassword
+                icon={<FiLock size={22} />}
+                errorMessage={errors.confirm_password?.message}
+                {...props}
+              />
+            )}
+          />
+
+          <Button type="submit" appearance="primary" isLoading={isLoading}>
+            Register
+          </Button>
 
           <Button
             appearance="secondary"

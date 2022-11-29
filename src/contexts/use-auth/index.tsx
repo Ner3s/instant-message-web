@@ -58,7 +58,7 @@ function AuthProvider({ children }: IAuthProvider) {
       }
 
       try {
-        const response = await remoteGetUserData(user);
+        const response = await remoteGetUserData(user, false);
 
         if (response?.storedData) {
           userMapped = storedUserDataMapper({
@@ -68,6 +68,11 @@ function AuthProvider({ children }: IAuthProvider) {
         }
 
         setUser(userMapped);
+
+        if (user) {
+          GUEST_ROUTES.includes(router.pathname as ROUTE_LIST) &&
+            router.push(ROUTE_LIST.USERS);
+        }
       } catch (error) {
         toast.error('Unexpected error');
       }
