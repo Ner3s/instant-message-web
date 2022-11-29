@@ -7,7 +7,7 @@ import { firebaseStore } from '@/configs/firebase';
 import { IStoredUserData } from '@/models/stored-user-data';
 import { TStoredUserDTO } from '@/models/stored-user-data.dto';
 
-async function remoteGetUserData(data?: User) {
+async function remoteGetUserData(data?: User, enableToast = true) {
   let responseData: IStoredUserData;
 
   if (!data) {
@@ -28,7 +28,7 @@ async function remoteGetUserData(data?: User) {
       storedData: docSnap.data() as TStoredUserDTO
     };
 
-    toast.success('User logged!');
+    enableToast && toast.success('User logged!');
     return responseData;
   } catch (error) {
     toast.error('User not found or not exists!');
