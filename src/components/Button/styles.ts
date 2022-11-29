@@ -1,38 +1,63 @@
-import styled, { css } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
+
+import { TAppearance } from '.';
 
 interface IButtonProps {
   txtColor?: string;
   bgColor?: string;
   isLoading?: boolean;
+  appearance?: TAppearance;
 }
 
-export const Container = styled.button<IButtonProps>`
-  ${({ theme, isLoading }) => css`
+type TModiefier = IButtonProps & { theme: DefaultTheme };
+
+const modifier = {
+  primary: ({ bgColor, theme }: TModiefier) => css`
+    ${!bgColor
+      ? `background-image: ${theme.colors.gradient.horizontal}`
+      : `background-color: ${bgColor}`};
+  `,
+  secondary: ({ bgColor, theme, txtColor }: TModiefier) => css`
+    color: ${txtColor ?? theme.colors.primary};
+    background-color: ${bgColor ?? theme.colors.deepWhite};
+    border: ${theme.spacings.tiny} solid ${theme.colors.primary};
+  `,
+  danger: ({ bgColor, theme }: TModiefier) => css`
+    ${!bgColor
+      ? `background-image: ${theme.colors.gradient.dangerHorizontal}`
+      : `background-color: ${bgColor}`};
+  `
+};
+
+export const Button = styled.button<IButtonProps>`
+  ${({ theme, isLoading, bgColor, txtColor, appearance = 'primary' }) => css`
     width: 100%;
-    height: 5rem;
-    color: ${theme.colors.deepWhite};
-    background-image: ${theme.colors.gradient.horizontal};
+    height: ${theme.spacings.huge};
+    font-weight: 600;
+    color: ${txtColor ?? theme.colors.deepWhite};
     transition: all 200ms ease-in;
     outline: none;
     border: none;
-    border-radius: 5rem;
+    border-radius: ${theme.spacings.huge};
     position: relative;
     cursor: pointer;
     padding: 0;
+
+    ${modifier[appearance]({ bgColor, theme, txtColor })}
 
     :hover {
       opacity: 0.8;
     }
 
     :active {
-      background-image: ${theme.colors.gradient.horizontal};
       opacity: 1;
     }
 
     :disabled {
       border: none !important;
-      color: #fff;
-      background-color: #cccccc;
+      color: ${theme.colors.deepWhite};
+      background-color: ${theme.colors.gray3};
+      background-image: none;
       opacity: 1;
       cursor: not-allowed;
     }
