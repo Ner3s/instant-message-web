@@ -9,6 +9,7 @@ export interface ISignUpWithAuthDTO {
 export interface ISignUpDTO {
   email: string;
   name: string;
+  image_url?: string;
   password: string;
   confirm_password: string;
   description: string;
