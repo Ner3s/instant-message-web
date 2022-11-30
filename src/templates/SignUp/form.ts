@@ -8,7 +8,8 @@ const INITIAL_FORM_VALUES: TSignUpForm = {
   name: '',
   confirm_password: '',
   description: '',
-  birth_date: ''
+  birth_date: '',
+  image_url: ''
 };
 
 export { INITIAL_FORM_VALUES };

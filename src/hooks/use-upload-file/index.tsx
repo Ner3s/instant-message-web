@@ -8,13 +8,13 @@ interface IHandleUploadFile {
 }
 
 function useUploadFile() {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleUploadFile = async ({ name, file }: IHandleUploadFile) => {
-    uploadFile({ setLoading, name, file });
+    return uploadFile({ setIsLoading, name, file });
   };
 
-  return { loading, handleUploadFile };
+  return { isLoading, handleUploadFile };
 }
 
 export { useUploadFile };

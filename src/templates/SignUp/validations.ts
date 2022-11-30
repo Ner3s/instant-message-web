@@ -10,6 +10,7 @@ export const validationSchema = Joi.object<TSignUpForm>({
       'string.empty': `E-mail empty isn't valid`,
       'string.email': `E-mail is required`
     }),
+  image_url: Joi.string().allow(''),
   description: Joi.string().max(255).min(8).messages({
     'string.empty': `Description is required`,
     'string.min': `Description must be longer than 8 digits`,

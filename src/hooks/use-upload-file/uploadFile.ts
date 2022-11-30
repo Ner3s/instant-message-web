@@ -1,24 +1,28 @@
+import { toast } from 'react-toastify';
+
 import { IUploadFile } from '@/models/upload-file';
 import { remoteUploadFile } from '@/services/file/upload';
 
 type TUploadFile = IUploadFile & {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 /**
  *  Function is responsible for Upload file
  */
-async function uploadFile({ setLoading, name, file }: TUploadFile) {
+async function uploadFile({ setIsLoading, name, file }: TUploadFile) {
+  setIsLoading(true);
+  let image_url: string | null = null;
   try {
     const response = await remoteUploadFile({ name, file });
-
-    console.log(response);
-  } catch (error: unknown) {
-    //
+    image_url = response;
+  } catch (error) {
+    toast.error('Error upload file');
   } finally {
-    setLoading(false);
-    //
+    setIsLoading(false);
   }
+
+  return image_url;
 }
 
 export { uploadFile };
