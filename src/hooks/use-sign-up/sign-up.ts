@@ -8,7 +8,7 @@ import { ISignUpDTO } from '@/models/sign-up.dto';
 import { IUser } from '@/models/user';
 import { remoteSignUp } from '@/services/auth/sign-up';
 import { remoteStoreUserData } from '@/services/user/store-user-data';
-import storedUserDataMapper from '@/utils/mapping/stored-user-data-mapper';
+import storedUserDataMapper from '@/utils/mappings/stored-user-data-mapper';
 
 interface ISignUp {
   auth: Auth;

@@ -16,7 +16,7 @@ import { IUser } from '@/models/user';
 import { remoteGetUserData } from '@/services/user/get-user-data';
 import { GUEST_ROUTES } from '@/utils/constants/guest-routes';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
-import storedUserDataMapper from '@/utils/mapping/stored-user-data-mapper';
+import storedUserDataMapper from '@/utils/mappings/stored-user-data-mapper';
 
 interface IAuthContextData {
   user: IUser;

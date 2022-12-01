@@ -16,6 +16,7 @@ export const InputContainer = styled(Input)`
     justify-content: center;
     align-items: center;
     padding: 0;
+    cursor: pointer;
 
     & span {
       font-size: ${theme.font.sizes.xsmall};

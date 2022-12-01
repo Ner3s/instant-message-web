@@ -96,6 +96,7 @@ function SignUpTemplate({
             control={control}
             render={({ field: { ref, ...props } }) => (
               <FileInput
+                fileClassName="file-input"
                 placeholder="Image profile"
                 image_url={imageProfile && imageProfile}
                 icon={<FiCamera size={26} />}

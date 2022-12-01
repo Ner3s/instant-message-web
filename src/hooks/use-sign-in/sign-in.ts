@@ -8,7 +8,7 @@ import { remoteSignIn } from '@/services/auth/sign-in';
 import { remoteGetUserData } from '@/services/user/get-user-data';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 import { TIME_SECONDS } from '@/utils/constants/time';
-import storedUserDataMapper from '@/utils/mapping/stored-user-data-mapper';
+import storedUserDataMapper from '@/utils/mappings/stored-user-data-mapper';
 
 type TSignIn = ISignInWithAuthDTO & {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
@@ -44,7 +44,7 @@ async function signIn({
     setUser(userMapped);
     setTimeout(() => {
       router.push(ROUTE_LIST.USERS);
-    }, TIME_SECONDS.TWO);
+    }, TIME_SECONDS.ONE);
   } catch (error) {
     toast.error('User not found');
   } finally {
