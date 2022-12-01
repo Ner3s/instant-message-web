@@ -1,21 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRouter } from 'next/router';
+import { ChangeEvent, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   FiAtSign,
   FiBookOpen,
   FiCalendar,
+  FiCamera,
   FiLock,
   FiUser
 } from 'react-icons/fi';
 
 import { Button } from '@/components/Button';
+import { FileInput } from '@/components/FileInput';
 import { Input } from '@/components/Input';
 
 import { INITIAL_FORM_VALUES, TSignUpForm } from './form';
 import { validationSchema } from './validations';
 
 import { ISignUpDTO } from '@/models/sign-up.dto';
+import { IUploadFile } from '@/models/upload-file';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 import { joiResolver } from '@hookform/resolvers/joi';
 
@@ -23,10 +27,19 @@ import * as S from './styles';
 
 export interface SignUpTemplateProps {
   handleSignUp: (signUpData: ISignUpDTO) => Promise<void>;
-  isLoading: boolean;
+  handleUploadFile: (uploadFileData: IUploadFile) => Promise<string | null>;
+  isLoadingSignUp: boolean;
+  isLoadingUploadFile: boolean;
 }
 
-function SignUpTemplate({ handleSignUp, isLoading }: SignUpTemplateProps) {
+function SignUpTemplate({
+  handleSignUp,
+  isLoadingSignUp,
+  handleUploadFile,
+  isLoadingUploadFile
+}: SignUpTemplateProps) {
+  const [file, setFile] = useState<File | null>(null);
+  const [imageProfile, setImageProfile] = useState('');
   const router = useRouter();
 
   const {
@@ -45,7 +58,32 @@ function SignUpTemplate({ handleSignUp, isLoading }: SignUpTemplateProps) {
       updated_at: null
     };
 
-    handleSignUp(data);
+    if (file) {
+      handleUploadFile({ name: data.email, file }).then(async (response) => {
+        console.log('Value form', data);
+        console.log('Value response', response);
+
+        await handleSignUp({ ...data, image_url: response as never });
+      });
+
+      return null;
+    }
+
+    handleSignUp({ ...data, image_url: null as never });
+  }
+
+  function handleInputFile(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.files?.length) {
+      setFile(e.target.files[0]);
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        setImageProfile(reader.result as string);
+      };
+    } else {
+      setImageProfile('');
+      setFile(null);
+    }
   }
 
   return (
@@ -53,6 +91,25 @@ function SignUpTemplate({ handleSignUp, isLoading }: SignUpTemplateProps) {
       <S.Content>
         <h1>Register</h1>
         <S.Form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="image_url"
+            control={control}
+            render={({ field: { ref, ...props } }) => (
+              <FileInput
+                fileClassName="file-input"
+                placeholder="Image profile"
+                image_url={imageProfile && imageProfile}
+                icon={<FiCamera size={26} />}
+                accept="image/*"
+                data-testid="input-file"
+                {...props}
+                onChange={(e) => {
+                  handleInputFile(e);
+                  props.onChange(e);
+                }}
+              />
+            )}
+          />
           <Controller
             name="email"
             control={control}
@@ -143,7 +200,11 @@ function SignUpTemplate({ handleSignUp, isLoading }: SignUpTemplateProps) {
             )}
           />
 
-          <Button type="submit" appearance="primary" isLoading={isLoading}>
+          <Button
+            type="submit"
+            appearance="primary"
+            isLoading={isLoadingSignUp || isLoadingUploadFile}
+          >
             Register
           </Button>
 

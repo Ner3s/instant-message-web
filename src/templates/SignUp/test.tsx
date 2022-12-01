@@ -4,10 +4,13 @@ import { TSignUpForm } from './form';
 import { screen, render, userEvent } from '@/utils/test';
 
 const onSubmitMock = jest.fn();
+const onUploadFileMock = jest.fn();
 
 const propsMock: SignUpTemplateProps = {
   handleSignUp: onSubmitMock,
-  isLoading: false
+  isLoadingSignUp: false,
+  isLoadingUploadFile: false,
+  handleUploadFile: onUploadFileMock
 };
 
 const inputsMock: TSignUpForm = {
@@ -16,7 +19,8 @@ const inputsMock: TSignUpForm = {
   description: 'mock description',
   password: 'mock',
   confirm_password: 'mock',
-  birth_date: '2022-01-01'
+  birth_date: '2022-01-01',
+  image_url: 'file-mock'
 };
 
 const makeSut = (props: SignUpTemplateProps) => {
@@ -57,7 +61,11 @@ describe('<SignUpTemplate />', () => {
     const { user } = makeSut(propsMock);
 
     const allInputs = screen.getAllByRole('textbox') as HTMLInputElement[];
+    const inputFile = screen.getByTestId('input-file');
 
+    const file = new File(['mock'], 'text/txt');
+
+    await user.upload(inputFile, file);
     await user.type(allInputs[0], inputsMock.email);
     await user.type(allInputs[1], inputsMock.name);
     await user.type(allInputs[2], inputsMock.birth_date);
@@ -71,7 +79,7 @@ describe('<SignUpTemplate />', () => {
   });
 
   it('should button is loading', () => {
-    Object.assign(propsMock, { ...propsMock, isLoading: true });
+    Object.assign(propsMock, { ...propsMock, isLoadingSignUp: true });
 
     makeSut(propsMock);
 

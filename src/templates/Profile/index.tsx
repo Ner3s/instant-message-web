@@ -14,18 +14,17 @@ export interface ProfileTemplateProps {
   birthDate: string;
   description: string;
   imageUrl: string;
+  uid?: string;
   myAccount?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ProfileTemplate({
-  name = 'Alan',
-  birthDate = '2000-01-01',
-  description = `Lorem ipsum dolor sit
-    amet, consectetur adipiscing elit. Morbi volutpat fermentum viverra.
-    Pellentesque sit amet justo urna. Maecenas auctor sodales mauris, a
-    laoreet purus posuere in. Ut nec ultricies dui. Vestibulum bibendum, nisl id maximus interdum, neque odio molestie mauris, eget viverra massa nulla in leo. Quisque posuere urna tellus, quis varius nisl luctus quis. Phasellus aliquet id velit eget tincidunt. Aliquam aliquam luctus ultricies. Fusce nec mollis diam.`,
-  imageUrl = 'http://lorempixel.com.br/400/400',
+  name,
+  birthDate,
+  description,
+  imageUrl,
+  uid,
   myAccount = false
 }: Partial<ProfileTemplateProps>) {
   const router = useRouter();
@@ -66,7 +65,7 @@ function ProfileTemplate({
             <Button
               appearance="primary"
               onClick={() => {
-                console.log('Send message');
+                console.log('Send message to --> ', uid, ' UID');
               }}
             >
               Send message <FiMessageCircle size={15} />

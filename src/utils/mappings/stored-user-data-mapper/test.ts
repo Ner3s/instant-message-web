@@ -6,7 +6,9 @@ const mockData = {
     name: 'Test',
     email: 'test@mock.com',
     created_at: 'test',
-    updated_at: 'test'
+    updated_at: 'test',
+    image_url: 'test',
+    birth_date: 'test'
   }
 };
 

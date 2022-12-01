@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { UserCredential } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
-import { firebaseStore } from '@/configs/firebase';
+import { firebaseDatabase } from '@/configs/firebase';
 import { ISignUpDTO } from '@/models/sign-up.dto';
 import { IStoredUserData } from '@/models/stored-user-data';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
@@ -27,7 +27,7 @@ async function remoteStoreUserData({
   const { password, confirm_password, ...data } = signUpData;
 
   try {
-    const docRef = doc(firebaseStore, 'users', userCredential.user.uid);
+    const docRef = doc(firebaseDatabase, 'users', userCredential.user.uid);
     await setDoc(docRef, data);
 
     responseData = { auth: userCredential.user, storedData: data };

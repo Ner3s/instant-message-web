@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 import * as S from './styles';
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   margin?: boolean;
   containerStyles?: CSSProperties;
@@ -12,7 +12,8 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   showIconPassword?: boolean;
   txtColor?: string;
-}
+  className?: string;
+};
 
 function Input({
   name,
@@ -23,6 +24,7 @@ function Input({
   errorMessage,
   showIconPassword,
   txtColor,
+  className,
   ...rest
 }: InputProps) {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
@@ -34,6 +36,7 @@ function Input({
   return (
     <>
       <S.Container
+        {...(className && { className: className })}
         isErrored={!!errorMessage}
         margin={margin}
         style={containerStyles}
