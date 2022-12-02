@@ -6,6 +6,7 @@ import { screen, render, userEvent } from '@/utils/test';
 const onUpdateProfile = jest.fn();
 const onUploadFileMock = jest.fn();
 const onUpdateEmail = jest.fn();
+const onPasswordReset = jest.fn();
 
 const inputsMock: IUser = {
   name: 'mock',
@@ -22,6 +23,9 @@ const propsMock: IProfileEditTemplate = {
   handleUpdateEmail: onUpdateEmail,
   handleUpdateProfile: onUpdateProfile,
   handleUploadFile: onUploadFileMock,
+  handlePasswordReset: onPasswordReset,
+  isLoadingPasswordReset: false,
+  isLoading: false,
   userProfile: inputsMock
 };
 
@@ -58,6 +62,18 @@ describe('<ProfileEditTemplate />', () => {
     await user.type(inputName, 'teste mock');
 
     expect(inputName.value).toStrictEqual('teste mock');
+  });
+
+  it('should call password reset function', async () => {
+    const { user } = makeSut(propsMock);
+
+    const button = screen.getByRole('button', {
+      name: /change password/i
+    });
+
+    await user.click(button);
+
+    expect(onPasswordReset).toBeCalledTimes(1);
   });
 
   // @TODO - FIX THIS TEST

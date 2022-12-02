@@ -7,7 +7,6 @@ import { firebaseDatabase } from '@/configs/firebase';
 import { TProfileEdit } from '@/models/profile-edit';
 import { IStoredUserData } from '@/models/stored-user-data';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
-import { TIME_SECONDS } from '@/utils/constants/time';
 
 type TFeedbackMessage = { success: string; error: string };
 
@@ -39,10 +38,9 @@ async function remoteUpdateUserProfile({
 
     toast.success(feedbackMessage.success);
 
-    redirect &&
-      setTimeout(() => {
-        router.push(ROUTE_LIST.PROFILE);
-      }, TIME_SECONDS.TWO);
+    redirect && router.push(ROUTE_LIST.PROFILE);
+    // setTimeout(() => {
+    // }, TIME_SECONDS.TWO);
   } catch (error) {
     toast.error(feedbackMessage.error);
   }

@@ -28,13 +28,19 @@ export interface IProfileEditTemplate {
   handleUploadFile: (uploadFileData: IUploadFile) => Promise<string | null>;
   handleUpdateProfile: (userData: TProfileEdit) => Promise<null | undefined>;
   handleUpdateEmail: (email: string) => Promise<void>;
+  handlePasswordReset: (email: string) => Promise<void>;
+  isLoadingPasswordReset: boolean;
+  isLoading: boolean;
 }
 
 function ProfileEditTemplate({
   userProfile,
   handleUploadFile,
   handleUpdateEmail,
-  handleUpdateProfile
+  handleUpdateProfile,
+  handlePasswordReset,
+  isLoading,
+  isLoadingPasswordReset
 }: IProfileEditTemplate) {
   const [file, setFile] = useState<File | null>(null);
   const [imageProfile, setImageProfile] = useState('');
@@ -43,6 +49,7 @@ function ProfileEditTemplate({
     control,
     handleSubmit,
     formState: { errors },
+    getValues,
     reset
   } = useForm({
     defaultValues: INITIAL_FORM_VALUES,
@@ -183,13 +190,24 @@ function ProfileEditTemplate({
               />
             )}
           />
-          <Button type="submit" appearance="primary">
+          <Button type="submit" appearance="primary" isLoading={isLoading}>
             Save
           </Button>
 
-          <Button appearance="secondary">Change password</Button>
-
-          <Button appearance="danger">Delete my profile</Button>
+          <Button
+            appearance="secondary"
+            type="button"
+            isLoading={isLoadingPasswordReset}
+            onClick={() => {
+              handlePasswordReset(getValues('email'));
+            }}
+          >
+            Change password
+          </Button>
+          {/* @TODO - Create delete profile and data */}
+          <Button type="button" appearance="danger">
+            Delete my profile
+          </Button>
         </S.Form>
       </S.Content>
     </S.Container>

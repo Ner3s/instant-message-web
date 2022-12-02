@@ -8,7 +8,6 @@ import { firebaseDatabase } from '@/configs/firebase';
 import { ISignUpDTO } from '@/models/sign-up.dto';
 import { IStoredUserData } from '@/models/stored-user-data';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
-import { TIME_SECONDS } from '@/utils/constants/time';
 
 type TFeedbackMessage = { success: string; error: string };
 
@@ -44,10 +43,9 @@ async function remoteStoreUserData({
     // Feedback de sucesso e redirect
     toast.success(feedbackMessage.success);
 
-    redirect &&
-      setTimeout(() => {
-        router.push(ROUTE_LIST.USERS);
-      }, TIME_SECONDS.TWO);
+    redirect && router.push(ROUTE_LIST.USERS);
+    // setTimeout(() => {
+    // }, TIME_SECONDS.TWO);
   } catch (error) {
     toast.error(feedbackMessage.error);
   }

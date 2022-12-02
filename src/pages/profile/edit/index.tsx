@@ -4,6 +4,7 @@ import { ProfileEditTemplate } from '@/templates/ProfileEdit';
 
 import { useAuth } from '@/contexts/use-auth';
 
+import { usePasswordReset } from '@/hooks/use-password-reset';
 import { useUpdateUserProfile } from '@/hooks/use-update-user-profile';
 import { useUploadFile } from '@/hooks/use-upload-file';
 
@@ -11,8 +12,14 @@ export default function ProfileEdit() {
   const { user } = useAuth();
 
   // @TODO - ADD IsLoading in button ProfileEdit ---
-  const { handleUploadFile } = useUploadFile();
-  const { handleUpdateEmail, handleUpdateProfile } = useUpdateUserProfile();
+  const { handleUploadFile, isLoading: isLoadingUploadFile } = useUploadFile();
+  const {
+    handleUpdateEmail,
+    handleUpdateProfile,
+    isLoading: isLoadingUpdateUserProfile
+  } = useUpdateUserProfile();
+  const { handlePasswordReset, isLoading: isLoadingPasswordReset } =
+    usePasswordReset();
 
   return (
     <Base>
@@ -20,7 +27,10 @@ export default function ProfileEdit() {
         handleUpdateEmail={handleUpdateEmail}
         handleUploadFile={handleUploadFile}
         handleUpdateProfile={handleUpdateProfile}
+        handlePasswordReset={handlePasswordReset}
+        isLoadingPasswordReset={isLoadingPasswordReset}
         userProfile={user}
+        isLoading={isLoadingUploadFile || isLoadingUpdateUserProfile}
       />
     </Base>
   );
