@@ -60,9 +60,6 @@ function SignUpTemplate({
 
     if (file) {
       handleUploadFile({ name: data.email, file }).then(async (response) => {
-        console.log('Value form', data);
-        console.log('Value response', response);
-
         await handleSignUp({ ...data, image_url: response as never });
       });
 
@@ -72,6 +69,7 @@ function SignUpTemplate({
     handleSignUp({ ...data, image_url: null as never });
   }
 
+  // @TODO - Refactor this function
   function handleInputFile(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files?.length) {
       setFile(e.target.files[0]);
