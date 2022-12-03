@@ -7,5 +7,5 @@ export enum ROUTE_LIST {
   USERS = '/users',
   PROFILE = '/profile',
   PROFILE_SLUG = '/profile/:slug',
-  PROFILE_SLUG_EDIT = '/profile/edit'
+  PROFILE_EDIT = '/profile/edit'
 }

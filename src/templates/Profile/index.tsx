@@ -52,7 +52,7 @@ function ProfileTemplate({
               <Button
                 appearance="primary"
                 onClick={() => {
-                  router.push(ROUTE_LIST.PROFILE_SLUG_EDIT);
+                  router.push(ROUTE_LIST.PROFILE_EDIT);
                 }}
               >
                 <FiEdit size={15} /> Edit
