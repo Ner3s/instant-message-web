@@ -1,49 +1,44 @@
 import { NextRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-import { UserCredential } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
 import { firebaseDatabase } from '@/configs/firebase';
-import { ISignUpDTO } from '@/models/sign-up.dto';
+import { TProfileEdit } from '@/models/profile-edit';
 import { IStoredUserData } from '@/models/stored-user-data';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 
 type TFeedbackMessage = { success: string; error: string };
 
 interface IStoreUserDataService {
-  userCredential: UserCredential;
-  signUpData: ISignUpDTO;
+  uid: string;
+  userData: TProfileEdit;
   router: NextRouter;
   redirect?: boolean;
   feedbackMessage?: TFeedbackMessage;
 }
 
-async function remoteStoreUserData({
-  userCredential,
-  signUpData,
+async function remoteUpdateUserProfile({
+  uid,
+  userData,
   router,
   redirect = true,
   feedbackMessage = {
-    success: 'User created!',
-    error: 'Error, User not created!'
+    success: 'User updated!',
+    error: 'User update error!'
   }
 }: IStoreUserDataService) {
   let responseData: IStoredUserData | null = null;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { password, confirm_password, ...data } = signUpData;
-
   try {
-    const docRef = doc(firebaseDatabase, 'users', userCredential.user.uid);
-    await setDoc(docRef, data);
+    const docRef = doc(firebaseDatabase, 'users', uid);
+    await setDoc(docRef, userData);
 
-    responseData = { auth: userCredential.user, storedData: data };
+    responseData = { auth: { uid: uid } as never, storedData: userData };
 
-    // Feedback de sucesso e redirect
     toast.success(feedbackMessage.success);
 
-    redirect && router.push(ROUTE_LIST.USERS);
+    redirect && router.push(ROUTE_LIST.PROFILE);
     // setTimeout(() => {
     // }, TIME_SECONDS.TWO);
   } catch (error) {
@@ -53,4 +48,4 @@ async function remoteStoreUserData({
   return responseData;
 }
 
-export { remoteStoreUserData };
+export { remoteUpdateUserProfile };
