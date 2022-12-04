@@ -71,7 +71,7 @@ function AuthProvider({ children }: IAuthProvider) {
 
         if (user) {
           GUEST_ROUTES.includes(router.pathname as ROUTE_LIST) &&
-            router.push(ROUTE_LIST.USERS);
+            router.push(ROUTE_LIST.HOME);
         }
       } catch (error) {
         toast.error('Unexpected error');

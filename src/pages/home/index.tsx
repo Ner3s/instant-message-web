@@ -1,15 +1,15 @@
 import { Base } from '@/components/Base';
 
-import { UsersTemplate } from '@/templates/Users';
+import { HomeTemplate } from '@/templates/Home';
 
 import { useAuth } from '@/contexts/use-auth';
 
-export default function Users() {
+export default function Home() {
   const { user, handleClearSession } = useAuth();
 
   return (
     <Base>
-      <UsersTemplate
+      <HomeTemplate
         handleLogout={handleClearSession}
         imageUrl={user.imageUrl}
         name={user.name}
