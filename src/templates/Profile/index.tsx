@@ -57,7 +57,7 @@ function ProfileTemplate({
                 <FiEdit size={15} /> Edit
               </Button>
               <S.Logout role="button" onClick={() => handleClearSession()}>
-                <FiLogOut size={15} /> Sign Out
+                <FiLogOut size={15} /> Logout
               </S.Logout>
             </>
           ) : (
