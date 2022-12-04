@@ -4,6 +4,7 @@ export const Container = styled.section`
   ${({ theme }) => css`
     height: auto;
     background-image: ${theme.colors.gradient.vertical};
+    overflow-y: hidden;
 
     @media (min-height: 820px) {
       height: 100%;
@@ -82,12 +83,15 @@ export const Circle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  `}
+`;
 
-    & > img {
-      width: 100%;
-      height: 100%;
-      border-radius: ${theme.spacings.hero};
-    }
+export const ImageProfile = styled.img`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: ${theme.spacings.hero};
   `}
 `;
 

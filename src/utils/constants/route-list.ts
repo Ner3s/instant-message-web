@@ -4,7 +4,7 @@ export enum ROUTE_LIST {
   SIGN_UP = '/signup',
   FORGOT = '/forgot',
   CHAT = '/chat',
-  USERS = '/users',
+  HOME = '/home',
   PROFILE = '/profile',
   PROFILE_SLUG = '/profile/:slug',
   PROFILE_EDIT = '/profile/edit'

@@ -38,8 +38,7 @@ function ProfileTemplate({
         <S.Form>
           <S.Circle>
             {imageUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={`${imageUrl}`} alt="Profile Picture" />
+              <S.ImageProfile src={`${imageUrl}`} alt="Profile Picture" />
             ) : (
               <FiUser size={60} color="white" />
             )}
