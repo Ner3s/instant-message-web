@@ -40,7 +40,7 @@ function ProfileTemplate({
             {imageUrl ? (
               <S.ImageProfile src={`${imageUrl}`} alt="Profile Picture" />
             ) : (
-              <FiUser size={60} color="white" />
+              <FiUser size={48} color="white" />
             )}
           </S.Circle>
           <S.Name>{name}</S.Name>

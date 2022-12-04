@@ -52,12 +52,20 @@ function HomeTemplate({ handleLogout, imageUrl, name }: HomeTemplateProps) {
       {search && (
         <S.Content>
           <S.Subtitle>Result: </S.Subtitle>
-          <UserModal
-            name="User 1"
-            description="lorem ipsum"
-            handleGotoProfile={() => console.log('go to profile')}
-            imageUrl="http://lorempixel.com.br/500/400/?1"
-          />
+          <S.WrapperUsers>
+            <UserModal
+              name="User 1"
+              description="lorem ipsum"
+              handleGotoProfile={() => console.log('go to profile')}
+              imageUrl="http://lorempixel.com.br/500/400/?1"
+            />
+            <UserModal
+              name="User 2"
+              description="lorem ipsum 2"
+              handleGotoProfile={() => console.log('go to profile 2')}
+              imageUrl=""
+            />
+          </S.WrapperUsers>
         </S.Content>
       )}
     </S.Container>

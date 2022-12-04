@@ -56,6 +56,18 @@ export const ImageProfile = styled.img`
   `}
 `;
 
+export const Circle = styled.div`
+  ${({ theme }) => css`
+    width: ${theme.frameSizes.xxsmall};
+    height: ${theme.frameSizes.xxsmall};
+    border-radius: ${theme.spacings.hero};
+    background-color: ${theme.colors.gray11};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `}
+`;
+
 export const WrapperButtonActions = styled.div`
   ${({ theme }) => css`
     display: flex;

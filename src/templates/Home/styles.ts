@@ -19,6 +19,7 @@ export const Title = styled.h1`
 export const Subtitle = styled.h2`
   ${({ theme }) => css`
     color: ${theme.colors.deepWhite};
+    margin: ${theme.spacings.xxsmall} 0 0 0;
   `}
 `;
 
@@ -33,3 +34,11 @@ export const Form = styled.form`
 `;
 
 export const Content = styled.section``;
+
+export const WrapperUsers = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacings.small};
+  `}
+`;

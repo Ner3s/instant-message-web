@@ -1,4 +1,4 @@
-import { FiEdit, FiLogOut } from 'react-icons/fi';
+import { FiEdit, FiLogOut, FiUser } from 'react-icons/fi';
 
 import * as S from './styles';
 
@@ -25,7 +25,13 @@ function MyProfileModal({
           aria-label="Goto profile"
           onClick={handleGotoProfile}
         >
-          <S.ImageProfile src={imageUrl} alt="Your image profile" />
+          {imageUrl ? (
+            <S.ImageProfile src={imageUrl} alt="Your image profile" />
+          ) : (
+            <S.Circle>
+              <FiUser size={32} color="fff" />
+            </S.Circle>
+          )}
           <S.Title>{name}</S.Title>
         </S.ProfileAreaClick>
       </S.Content>

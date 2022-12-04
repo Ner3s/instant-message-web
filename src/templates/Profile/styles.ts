@@ -78,8 +78,8 @@ export const Circle = styled.div`
     width: ${theme.frameSizes.xsmall};
     height: ${theme.frameSizes.xsmall};
     border-radius: ${theme.spacings.hero};
-    background-color: ${theme.colors.gray11};
     margin: -${theme.spacings.xxhero} 0 0 0;
+    background-color: ${theme.colors.gray11};
     display: flex;
     align-items: center;
     justify-content: center;

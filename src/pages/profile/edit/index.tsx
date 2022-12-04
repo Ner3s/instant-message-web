@@ -11,7 +11,6 @@ import { useUploadFile } from '@/hooks/use-upload-file';
 export default function ProfileEdit() {
   const { user } = useAuth();
 
-  // @TODO - ADD IsLoading in button ProfileEdit ---
   const { handleUploadFile, isLoading: isLoadingUploadFile } = useUploadFile();
   const {
     handleUpdateEmail,

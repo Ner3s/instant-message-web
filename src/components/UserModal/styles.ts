@@ -66,6 +66,18 @@ export const Title = styled.h1`
   `}
 `;
 
+export const Circle = styled.div`
+  ${({ theme }) => css`
+    width: ${theme.frameSizes.xxsmall};
+    height: ${theme.frameSizes.xxsmall};
+    border-radius: ${theme.spacings.hero};
+    background-color: ${theme.colors.gray11};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `}
+`;
+
 export const Description = styled.span`
   text-align: center;
 `;
