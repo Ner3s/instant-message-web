@@ -1,28 +1,50 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 import { Input } from '@/components/Input';
 import { MyProfileModal } from '@/components/MyProfileModal';
+import { Spinner } from '@/components/Spinner';
 import { UserModal } from '@/components/UserModal';
 
 import { useDebounce } from '@/hooks/use-debounce';
 
+import { IUser } from '@/models/user';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 
 import * as S from './styles';
 
-interface HomeTemplateProps {
+export interface HomeTemplateProps {
   handleLogout: () => void;
-  name: string;
-  imageUrl: string;
+  myProfile: Pick<IUser, 'name' | 'imageUrl'>;
+  users?: IUser[];
+  handleFindUser: (search: string) => Promise<void>;
+  setCurrentUser: React.Dispatch<React.SetStateAction<IUser>>;
+  isLoading: boolean;
 }
 
-function HomeTemplate({ handleLogout, imageUrl, name }: HomeTemplateProps) {
+function HomeTemplate({
+  handleLogout,
+  myProfile,
+  users,
+  handleFindUser,
+  setCurrentUser,
+  isLoading
+}: HomeTemplateProps) {
   const [search, setSearch] = useState('');
   const router = useRouter();
 
   const deboucedSearch = useDebounce(setSearch, 500);
+
+  const handleGotoUserProfile = (user: IUser) => {
+    setCurrentUser(user);
+    router.push(ROUTE_LIST.PROFILE_SLUG.replace(':slug', user.uid));
+  };
+
+  useEffect(() => {
+    search !== '' && handleFindUser(search);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   return (
     <S.Container>
@@ -34,8 +56,8 @@ function HomeTemplate({ handleLogout, imageUrl, name }: HomeTemplateProps) {
           router.push(ROUTE_LIST.PROFILE_EDIT);
         }}
         handleLogout={handleLogout}
-        name={name}
-        imageUrl={imageUrl}
+        name={myProfile.name}
+        imageUrl={myProfile.imageUrl}
       />
       <S.Form>
         <Input
@@ -45,26 +67,29 @@ function HomeTemplate({ handleLogout, imageUrl, name }: HomeTemplateProps) {
           iconAlign="left"
           placeholder="Search users"
           onChange={(e) => {
-            deboucedSearch(e.target.value);
+            e.target.value.length !== 0 &&
+              deboucedSearch(e.target.value.toLocaleLowerCase());
           }}
         />
       </S.Form>
-      {search && (
+      {isLoading && (
+        <S.WrapperSpinner>
+          <Spinner />
+        </S.WrapperSpinner>
+      )}
+      {!!users?.length && (
         <S.Content>
           <S.Subtitle>Result: </S.Subtitle>
           <S.WrapperUsers>
-            <UserModal
-              name="User 1"
-              description="lorem ipsum"
-              handleGotoProfile={() => console.log('go to profile')}
-              imageUrl="http://lorempixel.com.br/500/400/?1"
-            />
-            <UserModal
-              name="User 2"
-              description="lorem ipsum 2"
-              handleGotoProfile={() => console.log('go to profile 2')}
-              imageUrl=""
-            />
+            {users?.map((user) => (
+              <UserModal
+                key={user.uid}
+                name={user.name}
+                description={user.description}
+                handleGotoProfile={() => handleGotoUserProfile(user)}
+                imageUrl={user.imageUrl}
+              />
+            ))}
           </S.WrapperUsers>
         </S.Content>
       )}

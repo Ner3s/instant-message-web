@@ -76,6 +76,8 @@ function ProfileEditTemplate({
   async function onSubmit(formData: TProfileEditForm) {
     const data: TProfileEdit = {
       ...formData,
+      name: formData.name.toLocaleLowerCase(),
+      email: formData.email.toLocaleLowerCase(),
       created_at: userProfile?.createdAt || '',
       updated_at: new Date().toISOString()
     };

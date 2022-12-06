@@ -7,6 +7,11 @@ export const Container = styled.div`
     flex-direction: column;
     padding: ${theme.spacings.mediumSmall};
     background-image: ${theme.colors.gradient.vertical};
+
+    @media (min-height: 780px) {
+      padding: ${theme.spacings.mediumSmall} ${theme.spacings.mediumSmall}
+        ${theme.spacings.xxhuge} ${theme.spacings.mediumSmall};
+    }
   `}
 `;
 
@@ -34,6 +39,17 @@ export const Form = styled.form`
 `;
 
 export const Content = styled.section``;
+
+export const WrapperSpinner = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+    background-color: ${theme.colors.deepWhite};
+    border-radius: ${theme.spacings.xxsmall};
+    padding: ${theme.spacings.small};
+    margin: ${theme.spacings.mediumSmall} 0;
+    border-bottom: ${theme.spacings.tiny} solid ${theme.colors.primary};
+  `}
+`;
 
 export const WrapperUsers = styled.div`
   ${({ theme }) => css`

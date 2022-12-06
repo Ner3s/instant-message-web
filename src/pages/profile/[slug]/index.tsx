@@ -13,21 +13,21 @@ export default function SlugProfile() {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { userProfile, handleGetUserProfile } = useGetUserProfile();
+  const { currentUser, handleGetUserProfile } = useGetUserProfile();
 
   useEffect(() => {
-    handleGetUserProfile({ slug: slug as string });
+    !currentUser.uid && slug && handleGetUserProfile({ slug: slug as string });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [slug]);
 
   return (
     <Base>
       <ProfileTemplate
-        name={userProfile.name}
-        birthDate={dateFormatter({ date: userProfile.birthDate })}
-        description={userProfile.description}
-        imageUrl={userProfile.imageUrl}
-        uid={userProfile.uid}
+        name={currentUser.name}
+        birthDate={dateFormatter({ date: currentUser.birthDate })}
+        description={currentUser.description}
+        imageUrl={currentUser.imageUrl}
+        uid={currentUser.uid}
       />
     </Base>
   );

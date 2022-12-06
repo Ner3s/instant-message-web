@@ -56,6 +56,8 @@ function SignUpTemplate({
   function onSubmit(formData: TSignUpForm) {
     const data: ISignUpDTO = {
       ...formData,
+      name: formData.name.toLocaleLowerCase(),
+      email: formData.email.toLocaleLowerCase(),
       created_at: new Date().toISOString(),
       updated_at: null
     };

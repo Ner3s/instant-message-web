@@ -98,6 +98,7 @@ export const ImageProfile = styled.img`
 export const Name = styled.h1`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.normal};
+    text-transform: capitalize;
     margin: ${theme.spacings.xsmall} 0 0 0;
   `}
 `;
