@@ -40,6 +40,7 @@ export const ProfileAreaClick = styled.div`
 export const Title = styled.h1`
   ${({ theme }) => css`
     margin: 0;
+    text-transform: capitalize;
 
     @media (${theme.breakPoints.minS}) {
       margin: 0 0 0 ${theme.spacings.xsmall};

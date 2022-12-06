@@ -59,6 +59,7 @@ export const Title = styled.h1`
   ${({ theme }) => css`
     margin: 0;
     text-align: center;
+    text-transform: capitalize;
 
     @media (${theme.breakPoints.minS}) {
       text-align: left;
