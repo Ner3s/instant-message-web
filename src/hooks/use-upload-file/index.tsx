@@ -10,9 +10,9 @@ interface IHandleUploadFile {
 function useUploadFile() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleUploadFile = async ({ name, file }: IHandleUploadFile) => {
+  async function handleUploadFile({ name, file }: IHandleUploadFile) {
     return uploadFile({ setIsLoading, name, file });
-  };
+  }
 
   return { isLoading, handleUploadFile };
 }

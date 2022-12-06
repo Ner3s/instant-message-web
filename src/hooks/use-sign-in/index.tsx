@@ -17,7 +17,7 @@ function useSignIn() {
   const auth = getAuth();
   const { setUser } = useAuth();
 
-  const handleSignIn = async ({ email, password }: TSignInDTO) => {
+  async function handleSignIn({ email, password }: TSignInDTO) {
     await signIn({
       auth,
       email,
@@ -26,7 +26,7 @@ function useSignIn() {
       setUser,
       router
     });
-  };
+  }
 
   return { handleSignIn, isLoading };
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { getUserProfile } from './get-user-profile';
 
-import { IUser } from '@/models/user';
+import { useUsers } from '@/contexts/use-users';
 
 interface IUseGetUserProfile {
   slug: string;
@@ -10,13 +10,13 @@ interface IUseGetUserProfile {
 
 function useGetUserProfile() {
   const [isLoading, setIsLoading] = useState(false);
-  const [userProfile, setUserProfile] = useState({} as IUser);
+  const { setCurrentUser, currentUser } = useUsers();
 
   async function handleGetUserProfile({ slug }: IUseGetUserProfile) {
-    await getUserProfile({ slug, setIsLoading, setUserProfile });
+    await getUserProfile({ slug, setIsLoading, setCurrentUser });
   }
 
-  return { isLoading, userProfile, handleGetUserProfile };
+  return { isLoading, currentUser, handleGetUserProfile };
 }
 
 export { useGetUserProfile };
