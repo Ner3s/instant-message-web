@@ -3,11 +3,11 @@ import { toast } from 'react-toastify';
 import { User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
-import { firebaseStore } from '@/configs/firebase';
+import { firebaseDatabase } from '@/configs/firebase';
 import { IStoredUserData } from '@/models/stored-user-data';
 import { TStoredUserDTO } from '@/models/stored-user-data.dto';
 
-async function remoteGetUserData(data?: User) {
+async function remoteGetUserData(data?: User, enableToast = true) {
   let responseData: IStoredUserData;
 
   if (!data) {
@@ -15,7 +15,7 @@ async function remoteGetUserData(data?: User) {
   }
 
   try {
-    const docRef = doc(firebaseStore, 'users', data?.uid);
+    const docRef = doc(firebaseDatabase, 'users', data?.uid);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -28,7 +28,7 @@ async function remoteGetUserData(data?: User) {
       storedData: docSnap.data() as TStoredUserDTO
     };
 
-    toast.success('User logged!');
+    enableToast && toast.success('User logged!');
     return responseData;
   } catch (error) {
     toast.error('User not found or not exists!');

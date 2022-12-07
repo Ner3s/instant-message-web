@@ -25,6 +25,7 @@ export const Content = styled.div`
       color: ${theme.colors.deepWhite};
       text-align: center;
       margin: ${theme.spacings.small} 0;
+      padding: ${theme.spacings.large} 0;
     `};
   }
 `;
@@ -57,6 +58,10 @@ export const Form = styled.form`
       color: ${theme.colors.deepBlack};
       font-size: ${theme.font.sizes.xsmall};
       text-decoration: none;
+    }
+
+    .file-input {
+      margin: -${theme.spacings.xxhero} 0 0 0;
     }
 
     @keyframes form-animate {

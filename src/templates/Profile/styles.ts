@@ -4,6 +4,7 @@ export const Container = styled.section`
   ${({ theme }) => css`
     height: auto;
     background-image: ${theme.colors.gradient.vertical};
+    overflow-y: hidden;
 
     @media (min-height: 820px) {
       height: 100%;
@@ -77,23 +78,27 @@ export const Circle = styled.div`
     width: ${theme.frameSizes.xsmall};
     height: ${theme.frameSizes.xsmall};
     border-radius: ${theme.spacings.hero};
-    background-color: ${theme.colors.gray11};
     margin: -${theme.spacings.xxhero} 0 0 0;
+    background-color: ${theme.colors.gray11};
     display: flex;
     align-items: center;
     justify-content: center;
+  `}
+`;
 
-    & > img {
-      width: 100%;
-      height: 100%;
-      border-radius: ${theme.spacings.hero};
-    }
+export const ImageProfile = styled.img`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: ${theme.spacings.hero};
   `}
 `;
 
 export const Name = styled.h1`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.normal};
+    text-transform: capitalize;
     margin: ${theme.spacings.xsmall} 0 0 0;
   `}
 `;

@@ -45,7 +45,7 @@ describe('<ProfileTemplate />', () => {
 
     const { user } = makeSut(propsMock);
 
-    await user.click(screen.getByRole('button', { name: /sign out/i }));
+    await user.click(screen.getByRole('button', { name: /logout/i }));
 
     expect(handleClearSessionMock).toBeCalledTimes(1);
   });

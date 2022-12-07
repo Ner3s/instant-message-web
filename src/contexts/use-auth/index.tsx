@@ -16,7 +16,7 @@ import { IUser } from '@/models/user';
 import { remoteGetUserData } from '@/services/user/get-user-data';
 import { GUEST_ROUTES } from '@/utils/constants/guest-routes';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
-import storedUserDataMapper from '@/utils/mapping/stored-user-data-mapper';
+import storedUserDataMapper from '@/utils/mappings/stored-user-data-mapper';
 
 interface IAuthContextData {
   user: IUser;
@@ -58,7 +58,7 @@ function AuthProvider({ children }: IAuthProvider) {
       }
 
       try {
-        const response = await remoteGetUserData(user);
+        const response = await remoteGetUserData(user, false);
 
         if (response?.storedData) {
           userMapped = storedUserDataMapper({
@@ -68,6 +68,11 @@ function AuthProvider({ children }: IAuthProvider) {
         }
 
         setUser(userMapped);
+
+        if (user) {
+          GUEST_ROUTES.includes(router.pathname as ROUTE_LIST) &&
+            router.push(ROUTE_LIST.HOME);
+        }
       } catch (error) {
         toast.error('Unexpected error');
       }
