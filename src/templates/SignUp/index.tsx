@@ -18,6 +18,8 @@ import { Input } from '@/components/Input';
 import { INITIAL_FORM_VALUES, TSignUpForm } from './form';
 import { validationSchema } from './validations';
 
+import { useFileInput } from '@/hooks/use-file-input';
+
 import { ISignUpDTO } from '@/models/sign-up.dto';
 import { IUploadFile } from '@/models/upload-file';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
@@ -38,9 +40,9 @@ function SignUpTemplate({
   handleUploadFile,
   isLoadingUploadFile
 }: SignUpTemplateProps) {
-  const [file, setFile] = useState<File | null>(null);
-  const [imageProfile, setImageProfile] = useState('');
   const router = useRouter();
+
+  const { handleFileInput, showImages, files } = useFileInput();
 
   const {
     control,
@@ -54,34 +56,23 @@ function SignUpTemplate({
   function onSubmit(formData: TSignUpForm) {
     const data: ISignUpDTO = {
       ...formData,
+      name: formData.name.toLocaleLowerCase(),
+      email: formData.email.toLocaleLowerCase(),
       created_at: new Date().toISOString(),
       updated_at: null
     };
 
-    if (file) {
-      handleUploadFile({ name: data.email, file }).then(async (response) => {
-        await handleSignUp({ ...data, image_url: response as never });
-      });
+    if (files) {
+      handleUploadFile({ name: data.email, file: files[0] }).then(
+        async (response) => {
+          await handleSignUp({ ...data, image_url: response as never });
+        }
+      );
 
       return null;
     }
 
     handleSignUp({ ...data, image_url: null as never });
-  }
-
-  // @TODO - Refactor this function
-  function handleInputFile(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.files?.length) {
-      setFile(e.target.files[0]);
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload = () => {
-        setImageProfile(reader.result as string);
-      };
-    } else {
-      setImageProfile('');
-      setFile(null);
-    }
   }
 
   return (
@@ -96,13 +87,13 @@ function SignUpTemplate({
               <FileInput
                 fileClassName="file-input"
                 placeholder="Image profile"
-                image_url={imageProfile && imageProfile}
+                image_url={showImages && showImages[0]}
                 icon={<FiCamera size={26} />}
                 accept="image/*"
                 data-testid="input-file"
                 {...props}
                 onChange={(e) => {
-                  handleInputFile(e);
+                  handleFileInput(e);
                   props.onChange(e);
                 }}
               />

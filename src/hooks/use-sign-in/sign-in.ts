@@ -43,7 +43,7 @@ async function signIn({
 
     setUser(userMapped);
     setTimeout(() => {
-      router.push(ROUTE_LIST.USERS);
+      router.push(ROUTE_LIST.HOME);
     }, TIME_SECONDS.ONE);
   } catch (error) {
     toast.error('User not found');

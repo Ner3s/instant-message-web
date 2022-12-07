@@ -38,10 +38,9 @@ function ProfileTemplate({
         <S.Form>
           <S.Circle>
             {imageUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={`${imageUrl}`} alt="Profile Picture" />
+              <S.ImageProfile src={`${imageUrl}`} alt="Profile Picture" />
             ) : (
-              <FiUser size={60} color="white" />
+              <FiUser size={48} color="white" />
             )}
           </S.Circle>
           <S.Name>{name}</S.Name>
@@ -52,13 +51,13 @@ function ProfileTemplate({
               <Button
                 appearance="primary"
                 onClick={() => {
-                  router.push(ROUTE_LIST.PROFILE_SLUG_EDIT);
+                  router.push(ROUTE_LIST.PROFILE_EDIT);
                 }}
               >
                 <FiEdit size={15} /> Edit
               </Button>
               <S.Logout role="button" onClick={() => handleClearSession()}>
-                <FiLogOut size={15} /> Sign Out
+                <FiLogOut size={15} /> Logout
               </S.Logout>
             </>
           ) : (

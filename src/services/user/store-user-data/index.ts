@@ -43,7 +43,7 @@ async function remoteStoreUserData({
     // Feedback de sucesso e redirect
     toast.success(feedbackMessage.success);
 
-    redirect && router.push(ROUTE_LIST.USERS);
+    redirect && router.push(ROUTE_LIST.HOME);
     // setTimeout(() => {
     // }, TIME_SECONDS.TWO);
   } catch (error) {

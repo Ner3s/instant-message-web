@@ -6,12 +6,12 @@ import storedUserDataMapper from '@/utils/mappings/stored-user-data-mapper';
 interface IGetUserProfile {
   slug: string;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setUserProfile: React.Dispatch<React.SetStateAction<IUser>>;
+  setCurrentUser: React.Dispatch<React.SetStateAction<IUser>>;
 }
 
 async function getUserProfile({
   setIsLoading,
-  setUserProfile,
+  setCurrentUser,
   slug
 }: IGetUserProfile) {
   setIsLoading(true);
@@ -27,7 +27,7 @@ async function getUserProfile({
       return null;
     }
 
-    setUserProfile(
+    setCurrentUser(
       storedUserDataMapper({
         auth: response.auth,
         storedData: response.storedData

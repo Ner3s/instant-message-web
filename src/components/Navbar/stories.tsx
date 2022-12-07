@@ -7,4 +7,6 @@ export default {
   component: Navbar
 } as ComponentMeta<typeof Navbar>;
 
-export const Basic: ComponentStory<typeof Navbar> = () => <Navbar />;
+const Template: ComponentStory<typeof Navbar> = () => <Navbar />;
+
+export const Default = Template.bind({});

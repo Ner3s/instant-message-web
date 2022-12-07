@@ -16,6 +16,8 @@ import { Input } from '@/components/Input';
 import { INITIAL_FORM_VALUES, TProfileEditForm } from './form';
 import { validationSchema } from './validation';
 
+import { useFileInput } from '@/hooks/use-file-input';
+
 import { TProfileEdit } from '@/models/profile-edit';
 import { IUploadFile } from '@/models/upload-file';
 import { IUser } from '@/models/user';
@@ -42,8 +44,7 @@ function ProfileEditTemplate({
   isLoading,
   isLoadingPasswordReset
 }: IProfileEditTemplate) {
-  const [file, setFile] = useState<File | null>(null);
-  const [imageProfile, setImageProfile] = useState('');
+  const { files, showImages, handleFileInput } = useFileInput();
 
   const {
     control,
@@ -75,33 +76,22 @@ function ProfileEditTemplate({
   async function onSubmit(formData: TProfileEditForm) {
     const data: TProfileEdit = {
       ...formData,
+      name: formData.name.toLocaleLowerCase(),
+      email: formData.email.toLocaleLowerCase(),
       created_at: userProfile?.createdAt || '',
       updated_at: new Date().toISOString()
     };
 
     userProfile.email !== data.email && (await handleUpdateEmail(data.email));
 
-    if (file) {
-      handleUploadFile({ name: data.email, file }).then(async (response) => {
-        await handleUpdateProfile({ ...data, image_url: response as never });
-      });
+    if (files) {
+      handleUploadFile({ name: data.email, file: files[0] }).then(
+        async (response) => {
+          await handleUpdateProfile({ ...data, image_url: response as never });
+        }
+      );
     } else {
       handleUpdateProfile({ ...data, image_url: userProfile.imageUrl });
-    }
-  }
-
-  // @TODO - Refactor this function
-  function handleInputFile(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.files?.length) {
-      setFile(e.target.files[0]);
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload = () => {
-        setImageProfile(reader.result as string);
-      };
-    } else {
-      setImageProfile('');
-      setFile(null);
     }
   }
 
@@ -119,14 +109,14 @@ function ProfileEditTemplate({
                 placeholder="Image profile"
                 image_url={handleRenderImage(
                   userProfile?.imageUrl || '',
-                  imageProfile
+                  showImages[0]
                 )}
                 icon={<FiCamera size={26} />}
                 accept="image/*"
                 data-testid="input-file"
                 {...props}
                 onChange={(e) => {
-                  handleInputFile(e);
+                  handleFileInput(e);
                   props.onChange(e);
                 }}
               />

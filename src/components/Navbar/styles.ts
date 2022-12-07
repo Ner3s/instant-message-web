@@ -14,12 +14,33 @@ export const Container = styled.nav`
   `};
 `;
 
-export const SvgWrapper = styled.div`
+export const MenuItem = styled.div<{ isActive?: boolean }>`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  ${({ theme, isActive }) =>
+    isActive &&
+    css`
+      > div {
+        background-color: ${theme.colors.deepWhite};
+
+        span {
+          color: ${theme.colors.primary};
+        }
+      }
+    `}
+`;
+
+export const WrapperMenuItem = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: ${theme.spacings.tiny};
+    border-radius: ${theme.spacings.small};
+  `}
 `;
 
 export const MenuLabel = styled.span`
