@@ -10,7 +10,7 @@ export interface MyProfileModalProps {
   handleGotoProfileEdit: () => void;
 }
 
-// @TODO - CREATE STORYBOOK
+// @TODO - CREATE STORYBOOK /// RENAME TO MYPROFILECARD
 function MyProfileModal({
   imageUrl,
   name,

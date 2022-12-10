@@ -3,24 +3,28 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
   ${({ theme }) => css`
     position: relative;
-    width: 100%;
     display: flex;
-    flex-direction: column;
-    background-color: ${theme.colors.deepWhite};
-    padding: ${theme.spacings.mediumLarge};
-    border-radius: ${theme.spacings.small};
-    border-bottom: 5px solid ${theme.colors.primary};
+    padding: ${theme.spacings.small} ${theme.spacings.xxsmall};
     cursor: pointer;
-    transition: transform 200ms ease-in;
 
-    @media (${theme.breakPoints.minS}) {
-      border-bottom: 0;
-      border-right: 5px solid ${theme.colors.primary};
-      flex-direction: row;
+    // Animation left to right
+    background: ${theme.colors.deepWhite};
+    background: linear-gradient(
+        to left,
+        ${theme.colors.deepWhite} 50%,
+        ${theme.colors.gray1} 50%
+      )
+      right;
+    background-size: 200%;
+    transition: 0.5s ease-out;
+    &:hover {
+      background-position: left;
     }
 
-    &:hover {
-      transform: scale(1.02);
+    border-top: 1px solid ${theme.colors.gray1};
+
+    :last-of-type {
+      border-bottom: 1px solid ${theme.colors.gray1};
     }
   `}
 `;
@@ -33,8 +37,6 @@ export const Content = styled.div`
 export const WrapperContent = styled.div`
   ${({ theme }) => css`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
 
@@ -48,29 +50,22 @@ export const WrapperContent = styled.div`
 
 export const ImageProfile = styled.img`
   ${({ theme }) => css`
-    width: ${theme.frameSizes.xxsmall};
-    height: ${theme.frameSizes.xxsmall};
+    width: ${theme.spacings.hero};
+    height: ${theme.spacings.hero};
     object-fit: cover;
     border-radius: ${theme.spacings.hero};
   `}
 `;
 
-export const Title = styled.h1`
-  ${({ theme }) => css`
-    margin: 0;
-    text-align: center;
-    text-transform: capitalize;
-
-    @media (${theme.breakPoints.minS}) {
-      text-align: left;
-    }
-  `}
+export const Title = styled.h4`
+  margin: 0;
+  text-transform: capitalize;
 `;
 
 export const Circle = styled.div`
   ${({ theme }) => css`
-    width: ${theme.frameSizes.xxsmall};
-    height: ${theme.frameSizes.xxsmall};
+    width: ${theme.spacings.hero};
+    height: ${theme.spacings.hero};
     border-radius: ${theme.spacings.hero};
     background-color: ${theme.colors.gray11};
     display: flex;
@@ -85,10 +80,10 @@ export const Description = styled.span`
 
 export const WrapperText = styled.div`
   ${({ theme }) => css`
-    margin: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-left: ${theme.spacings.xsmall};
 
     @media (${theme.breakPoints.minS}) {
       margin: 0 0 0 ${theme.spacings.xsmall};

@@ -2,28 +2,27 @@ import { FiUser } from 'react-icons/fi';
 
 import * as S from './styles';
 
-export interface UserModalProps {
-  imageUrl: string;
+export interface ContactCardProps {
+  imageUrl?: string;
   name: string;
   description: string;
-  handleGotoProfile: () => void;
+  handleGoToChat: () => void;
 }
 
-// TODO - RENAME TO USER CARD
-function UserModal({
+function ContactCard({
   imageUrl,
   name,
   description,
-  handleGotoProfile
-}: UserModalProps) {
+  handleGoToChat
+}: ContactCardProps) {
   return (
-    <S.Container onClick={handleGotoProfile} aria-label="Goto profile">
+    <S.Container onClick={handleGoToChat} aria-label="">
       <S.Content>
         <S.WrapperContent>
           {imageUrl ? (
-            <S.ImageProfile src={imageUrl} alt="User image profile" />
+            <S.ImageProfile src={imageUrl} alt="The contact profile image" />
           ) : (
-            <S.Circle>
+            <S.Circle aria-label="The contact icon is shown when the user doesn't have a profile image">
               <FiUser size={32} color="fff" />
             </S.Circle>
           )}
@@ -37,4 +36,4 @@ function UserModal({
   );
 }
 
-export { UserModal };
+export { ContactCard };
