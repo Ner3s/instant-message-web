@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FiHome, FiMessageCircle } from 'react-icons/fi';
+import { FiHome, FiUsers } from 'react-icons/fi';
 
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 
@@ -36,16 +36,16 @@ function Navbar() {
         </S.WrapperMenuItem>
       </S.MenuItem>
       <S.MenuItem
-        isActive={handleActiveRoute(ROUTE_LIST.CHAT)}
+        isActive={handleActiveRoute(ROUTE_LIST.CONTACT)}
         role="link"
-        onClick={() => router.push(ROUTE_LIST.CHAT)}
+        onClick={() => router.push(ROUTE_LIST.CONTACT)}
       >
         <S.WrapperMenuItem>
-          <FiMessageCircle
+          <FiUsers
             size={ITEMS_SIZES}
-            color={handleIconColors(ROUTE_LIST.CHAT)}
+            color={handleIconColors(ROUTE_LIST.CONTACT)}
           />
-          <S.MenuLabel>Chat</S.MenuLabel>
+          <S.MenuLabel>Contacts</S.MenuLabel>
         </S.WrapperMenuItem>
       </S.MenuItem>
     </S.Container>

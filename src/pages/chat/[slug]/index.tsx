@@ -1,9 +1,7 @@
-import { Base } from '@/components/Base';
-
 export default function Chat() {
   return (
-    <Base>
+    <div>
       <h1>CHAT</h1>
-    </Base>
+    </div>
   );
 }

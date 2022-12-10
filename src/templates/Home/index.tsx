@@ -67,8 +67,7 @@ function HomeTemplate({
           iconAlign="left"
           placeholder="Search users"
           onChange={(e) => {
-            e.target.value.length !== 0 &&
-              deboucedSearch(e.target.value.toLocaleLowerCase());
+            deboucedSearch(e.target.value.toLocaleLowerCase());
           }}
         />
       </S.Form>
