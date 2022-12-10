@@ -8,7 +8,7 @@ describe('<ContactsTemplate />', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: /ContactsTemplate/i
+        name: /Contacts/i
       })
     ).toBeInTheDocument();
   });
