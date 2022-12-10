@@ -55,18 +55,6 @@ export const ImageProfile = styled.img`
   `}
 `;
 
-export const Title = styled.h1`
-  ${({ theme }) => css`
-    margin: 0;
-    text-align: center;
-    text-transform: capitalize;
-
-    @media (${theme.breakPoints.minS}) {
-      text-align: left;
-    }
-  `}
-`;
-
 export const Circle = styled.div`
   ${({ theme }) => css`
     width: ${theme.frameSizes.xxsmall};
@@ -76,6 +64,18 @@ export const Circle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  `}
+`;
+
+export const Title = styled.h1`
+  ${({ theme }) => css`
+    margin: 0;
+    text-align: center;
+    text-transform: capitalize;
+
+    @media (${theme.breakPoints.minS}) {
+      text-align: left;
+    }
   `}
 `;
 

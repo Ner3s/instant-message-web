@@ -47,19 +47,24 @@ function ContactsTemplate() {
         />
       </S.Form>
       <S.ContactsWrapper>
-        {Array.from({ length: 5 }, () => (
-          <ContactCard
-            key={Math.floor(Math.random() * 100)}
-            name={'teste' + Math.floor(Math.random() * 100)}
-            imageUrl={`http://lorempixel.com.br/500/400?${Math.floor(
-              Math.random() * 100
-            )}`}
-            description="lorem ipsum"
-            handleGoToChat={() =>
-              handleGoToUserChat({ name: 'teste', uid: '123' })
-            }
-          />
-        ))}
+        <ContactCard
+          name={'teste ' + Math.floor(Math.random() * 100)}
+          imageUrl={`https://picsum.photos/200/300?${Math.floor(
+            Math.random() * 100
+          )}`}
+          description="lorem ipsum"
+          handleGoToChat={() =>
+            handleGoToUserChat({ name: 'teste', uid: '123' })
+          }
+        />
+        <ContactCard
+          name={'teste ' + Math.floor(Math.random() * 100)}
+          imageUrl={`https://picsum.photos/200/300?`}
+          description="lorem ipsum"
+          handleGoToChat={() =>
+            handleGoToUserChat({ name: 'teste', uid: '123' })
+          }
+        />
       </S.ContactsWrapper>
     </S.Container>
   );
