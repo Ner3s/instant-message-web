@@ -4,9 +4,10 @@ interface BallonMessage {
   side: 'RIGHT' | 'LEFT';
 }
 
-export const Container = styled.span<BallonMessage>`
+export const Container = styled.div<BallonMessage>`
   ${({ theme, side }) => css`
     display: flex;
+    flex-direction: column;
     padding: ${theme.spacings.xsmall};
     background-color: ${side === 'RIGHT'
       ? theme.colors.secondary
@@ -34,4 +35,10 @@ export const Container = styled.span<BallonMessage>`
         ${side === 'RIGHT' ? theme.colors.secondary : theme.colors.gray1};
     }
   `};
+`;
+
+export const Datetime = styled.span`
+  display: flex;
+  justify-content: flex-end;
+  font-size: ${({ theme }) => theme.font.sizes.xxsmall};
 `;

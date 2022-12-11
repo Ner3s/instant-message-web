@@ -62,8 +62,9 @@ function ChatTemplate({ user = mock.user }: ChatTemplateProps) {
         </S.UserName>
       </S.NavBarUser>
       <S.Main>
-        <h1>Mensagens</h1>
-        <BalloonMessage side="LEFT">te enviei mensagem ontem</BalloonMessage>
+        <BalloonMessage side="LEFT" dateTime={new Date().toISOString()}>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
+        </BalloonMessage>
         <BalloonMessage>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
           alias ipsum at ducimus accusamus laboriosam voluptas, provident
