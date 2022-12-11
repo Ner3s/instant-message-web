@@ -49,6 +49,11 @@ export const Form = styled.form`
       display: flex;
       justify-content: center;
       align-items: center;
+
+      > svg {
+        transform: rotate(42deg);
+        font-size: ${theme.font.sizes.normal};
+      }
     }
   `};
 `;

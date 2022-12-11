@@ -2,6 +2,7 @@
 import { useRouter } from 'next/router';
 import { FiArrowLeft, FiSend, FiUser } from 'react-icons/fi';
 
+import { BalloonMessage } from '@/components/BalloonMessage';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
@@ -62,39 +63,16 @@ function ChatTemplate({ user = mock.user }: ChatTemplateProps) {
       </S.NavBarUser>
       <S.Main>
         <h1>Mensagens</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem at
-          veritatis eum, odio facere consectetur. Rem explicabo officia quisquam
-          beatae! Earum nisi perspiciatis laborum possimus distinctio?
-          Voluptatum animi est assumenda!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem at
-          veritatis eum, odio facere consectetur. Rem explicabo officia quisquam
-          beatae! Earum nisi perspiciatis laborum possimus distinctio?
-          Voluptatum animi est assumenda!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem at
-          veritatis eum, odio facere consectetur. Rem explicabo officia quisquam
-          beatae! Earum nisi perspiciatis laborum possimus distinctio?
-          Voluptatum animi est assumenda!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem at
-          veritatis eum, odio facere consectetur. Rem explicabo officia quisquam
-          beatae! Earum nisi perspiciatis laborum possimus distinctio?
-          Voluptatum animi est assumenda!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem at
-          veritatis eum, odio facere consectetur. Rem explicabo officia quisquam
-          beatae! Earum nisi perspiciatis laborum possimus distinctio?
-          Voluptatum animi est assumenda!
-        </p>
+        <BalloonMessage side="LEFT">te enviei mensagem ontem</BalloonMessage>
+        <BalloonMessage>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
+          alias ipsum at ducimus accusamus laboriosam voluptas, provident
+          molestiae iste exercitationem sequi earum et. Itaque saepe velit minus
+          ipsum soluta maxime?
+        </BalloonMessage>
       </S.Main>
       <S.Form>
-        <Input name="text_send" />
+        <Input name="text_send" placeholder="Send message" />
         <Button>
           <FiSend />
         </Button>
