@@ -2,13 +2,9 @@ import styled, { css } from 'styled-components';
 
 export const Container = styled.section`
   ${({ theme }) => css`
-    height: auto;
     background-image: ${theme.colors.gradient.vertical};
     overflow-y: hidden;
-
-    @media (min-height: 820px) {
-      height: 100%;
-    }
+    height: 100%;
   `}
 `;
 

@@ -1,13 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  ${({ theme }) => css`
-    user-select: none;
-
-    @media (min-height: 780px) {
-      padding-bottom: ${theme.spacings.xxhuge};
-    }
-  `};
+  user-select: none;
 `;
 
 export const Navbar = styled.div`

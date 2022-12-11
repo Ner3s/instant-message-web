@@ -1,21 +1,14 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  height: auto;
   display: flex;
   flex-direction: column;
-
-  @media (min-height: 780px) {
-    height: 100%;
-  }
+  height: 100%;
 `;
 
 export const Main = styled.main`
-  flex-grow: 2;
-`;
-
-export const SpaceBottom = styled.div`
   ${({ theme }) => css`
-    height: ${theme.spacings.xhuge};
-  `}
+    padding-bottom: ${theme.spacings.xhuge};
+    flex-grow: 2;
+  `};
 `;
