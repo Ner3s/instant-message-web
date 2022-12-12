@@ -5,6 +5,7 @@ import { Button } from '@/components/Button';
 
 import { useAuth } from '@/contexts/use-auth';
 
+import { IUser } from '@/models/user';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 
 import * as S from './styles';
@@ -16,6 +17,8 @@ export interface ProfileTemplateProps {
   imageUrl: string;
   uid?: string;
   myAccount?: boolean;
+  isLoading: boolean;
+  handleCreateConnection?: (user: IUser) => Promise<void>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,6 +28,8 @@ function ProfileTemplate({
   description,
   imageUrl,
   uid,
+  isLoading,
+  handleCreateConnection,
   myAccount = false
 }: Partial<ProfileTemplateProps>) {
   const router = useRouter();
@@ -64,8 +69,10 @@ function ProfileTemplate({
             <Button
               appearance="primary"
               onClick={() => {
-                console.log('Send message to --> ', uid, ' UID');
+                handleCreateConnection &&
+                  handleCreateConnection({ uid, name, imageUrl } as never);
               }}
+              isLoading={isLoading}
             >
               Send message <FiMessageCircle size={15} />
             </Button>

@@ -5,6 +5,7 @@ import { Base } from '@/components/Base';
 
 import { ProfileTemplate } from '@/templates/Profile';
 
+import { useCreateConnection } from '@/hooks/use-create-connection';
 import { useGetUserProfile } from '@/hooks/use-get-user-profile';
 
 import { dateFormatter } from '@/utils/helpers/format-date';
@@ -14,6 +15,7 @@ export default function SlugProfile() {
   const { slug } = router.query;
 
   const { currentUser, handleGetUserProfile } = useGetUserProfile();
+  const { handleCreateConnection, isLoading } = useCreateConnection();
 
   useEffect(() => {
     !currentUser.uid && slug && handleGetUserProfile({ slug: slug as string });
@@ -28,6 +30,8 @@ export default function SlugProfile() {
         description={currentUser.description}
         imageUrl={currentUser.imageUrl}
         uid={currentUser.uid}
+        handleCreateConnection={handleCreateConnection}
+        isLoading={isLoading}
       />
     </Base>
   );
