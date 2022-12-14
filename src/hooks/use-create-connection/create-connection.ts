@@ -39,10 +39,18 @@ async function createConnection({
     await remoteCreateChat({ combinedId });
 
     // Add user in currentUser list contact
-    await remoteUpdateConnection({ combinedId, user: currentUser });
+    await remoteUpdateConnection({
+      combinedId,
+      uid: currentUser.uid,
+      user
+    });
 
     // Add currentUser in user list contact
-    await remoteUpdateConnection({ combinedId, user });
+    await remoteUpdateConnection({
+      combinedId,
+      uid: user.uid,
+      user: currentUser
+    });
 
     router.push(ROUTE_LIST.CONTACT);
   } catch (error: unknown) {

@@ -5,11 +5,13 @@ import { IUser } from '@/models/user';
 
 interface IRemoteUpdateConnection {
   combinedId: string;
-  user: IUser;
+  uid: string;
+  user: Pick<IUser, 'uid' | 'name' | 'imageUrl'>;
 }
 
 async function remoteUpdateConnection({
   combinedId,
+  uid,
   user
 }: IRemoteUpdateConnection) {
   const sendUserInfo = {
@@ -21,7 +23,7 @@ async function remoteUpdateConnection({
     [`${combinedId}.date`]: new Date().toISOString()
   };
 
-  const docRef = doc(firebaseDatabase, 'contacts', user.uid);
+  const docRef = doc(firebaseDatabase, 'contacts', uid);
 
   return await updateDoc(docRef, sendUserInfo);
 }
