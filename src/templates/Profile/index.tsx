@@ -17,8 +17,8 @@ export interface ProfileTemplateProps {
   imageUrl: string;
   uid?: string;
   myAccount?: boolean;
-  isLoading: boolean;
-  handleCreateConnection?: (user: IUser) => Promise<void>;
+  isLoading?: boolean;
+  handleCreateConnection: (user: IUser) => Promise<void>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,7 +31,7 @@ function ProfileTemplate({
   isLoading,
   handleCreateConnection,
   myAccount = false
-}: Partial<ProfileTemplateProps>) {
+}: ProfileTemplateProps) {
   const router = useRouter();
 
   const { handleClearSession } = useAuth();
@@ -69,8 +69,7 @@ function ProfileTemplate({
             <Button
               appearance="primary"
               onClick={() => {
-                handleCreateConnection &&
-                  handleCreateConnection({ uid, name, imageUrl } as never);
+                handleCreateConnection({ uid, name, imageUrl } as never);
               }}
               isLoading={isLoading}
             >

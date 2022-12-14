@@ -83,8 +83,6 @@ describe('<ProfileEditTemplate />', () => {
     const allInputs = screen.getAllByRole('textbox') as HTMLInputElement[];
     const inputFile = screen.getByTestId('input-file');
 
-    console.log(allInputs);
-
     const file = new File(['mock'], 'text/txt');
 
     await user.upload(inputFile, file);

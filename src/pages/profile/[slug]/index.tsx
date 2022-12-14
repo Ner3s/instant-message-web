@@ -26,7 +26,7 @@ export default function SlugProfile() {
     <Base>
       <ProfileTemplate
         name={currentUser.name}
-        birthDate={dateFormatter({ date: currentUser.birthDate })}
+        birthDate={dateFormatter({ date: currentUser.birthDate }) || ''}
         description={currentUser.description}
         imageUrl={currentUser.imageUrl}
         uid={currentUser.uid}
