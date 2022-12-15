@@ -12,6 +12,8 @@ import { IContact, TMapContacts } from '@/models/contact';
 interface IContactsContextData {
   contacts: TMapContacts;
   setContacts: Dispatch<SetStateAction<TMapContacts>>;
+  imutableContacts: TMapContacts;
+  setImutableContacts: Dispatch<SetStateAction<TMapContacts>>;
   currentContact: IContact;
   setCurrentContact: Dispatch<SetStateAction<IContact>>;
 }
@@ -26,13 +28,24 @@ const ContactsContext = createContext<IContactsContextData>(
 
 function ContactsProvider({ children }: IContactsProvider) {
   const [contacts, setContacts] = useState<TMapContacts>({} as TMapContacts);
+  const [imutableContacts, setImutableContacts] = useState<TMapContacts>(
+    {} as TMapContacts
+  );
+
   const [currentContact, setCurrentContact] = useState<IContact>(
     {} as IContact
   );
 
   return (
     <ContactsContext.Provider
-      value={{ contacts, setContacts, currentContact, setCurrentContact }}
+      value={{
+        contacts,
+        setContacts,
+        currentContact,
+        setCurrentContact,
+        imutableContacts,
+        setImutableContacts
+      }}
     >
       {children}
     </ContactsContext.Provider>

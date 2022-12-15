@@ -9,13 +9,15 @@ import { remoteGetAllContacts } from '@/services/contact/get-all-contacts';
 interface IGetContacts {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setContacts: React.Dispatch<React.SetStateAction<TMapContacts>>;
+  setImutableContacts: React.Dispatch<React.SetStateAction<TMapContacts>>;
   user: IUser;
 }
 
 async function getAllContacts({
   setIsLoading,
   user,
-  setContacts
+  setContacts,
+  setImutableContacts
 }: IGetContacts) {
   setIsLoading(true);
 
@@ -28,6 +30,7 @@ async function getAllContacts({
       ]) as TMapContacts;
 
       setContacts(contacts);
+      setImutableContacts(contacts);
     });
 
     return () => {

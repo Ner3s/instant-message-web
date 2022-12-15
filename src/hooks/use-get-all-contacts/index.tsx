@@ -12,11 +12,16 @@ interface IUseGetAllContacts {
 function useGetAllContacts({ execOnInit = false }: IUseGetAllContacts) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { setContacts } = useContacts();
+  const { setContacts, setImutableContacts } = useContacts();
   const { user } = useAuth();
 
   async function handleGetAllContacts() {
-    await getAllContacts({ setIsLoading, user, setContacts });
+    await getAllContacts({
+      setIsLoading,
+      user,
+      setContacts,
+      setImutableContacts
+    });
   }
 
   //@TODO - Implements cache time

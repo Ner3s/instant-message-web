@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 import { ContactCard } from '@/components/ContactCard';
@@ -16,28 +15,24 @@ interface ContactsTemplateProps {
   contacts?: TMapContacts;
   isLoading: boolean;
   handleCurrentContact: React.Dispatch<React.SetStateAction<IContact>>;
+  handleFindContacts(name: string): void;
 }
 
 function ContactsTemplate({
   contacts,
   isLoading,
-  handleCurrentContact
+  handleCurrentContact,
+  handleFindContacts
 }: ContactsTemplateProps) {
-  const [search, setSearch] = useState('');
   const router = useRouter();
 
-  const deboucedSearch = useDebounce(setSearch, 500);
+  const deboucedSearch = useDebounce(handleFindContacts, 500);
 
   const handleGoToUserChat = (contact: IContact) => {
     handleCurrentContact(contact);
     contact?.userInfo &&
       router.push(ROUTE_LIST.CHAT.replace(':slug', contact?.userInfo.uid));
   };
-
-  useEffect(() => {
-    search !== '' && console.log(search); // TODO - Change THIS
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
 
   return (
     <S.Container>
