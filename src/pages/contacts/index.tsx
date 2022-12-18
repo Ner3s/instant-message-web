@@ -2,6 +2,7 @@ import { Base } from '@/components/Base';
 
 import { ContactsTemplate } from '@/templates/Contacts';
 
+import { useChat } from '@/contexts/use-chat';
 import { useContacts } from '@/contexts/use-contacts';
 
 import { useGetAllContacts } from '@/hooks/use-get-all-contacts';
@@ -12,6 +13,7 @@ export default function Contacts() {
   const { isLoading } = useGetAllContacts({ execOnInit: true });
   const { contacts, imutableContacts, setContacts, setCurrentContact } =
     useContacts();
+  const { setChatId } = useChat();
 
   function handleFindContacts(name: string) {
     if (!name) {
@@ -33,6 +35,7 @@ export default function Contacts() {
         contacts={contacts}
         handleCurrentContact={setCurrentContact}
         handleFindContacts={handleFindContacts}
+        setChatId={setChatId}
       />
     </Base>
   );

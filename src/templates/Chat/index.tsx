@@ -6,31 +6,20 @@ import { BalloonMessage } from '@/components/BalloonMessage';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
-import { IUser, User } from '@/models/user';
+import { IContact } from '@/models/contact';
+import { IMessage } from '@/models/message';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 
 import * as S from './styles';
 
 interface ChatTemplateProps {
-  user?: IUser;
+  contact?: IContact;
+  messages?: IMessage[];
 }
-
-const mock: ChatTemplateProps = {
-  user: new User(
-    'userid',
-    'name mock',
-    'email@mock.com',
-    'https://picsum.photos/200/300',
-    '2000-01-01',
-    'lorem ipsum description',
-    new Date().toISOString(),
-    new Date().toISOString()
-  )
-};
 
 const WHITE_COLOR = '#fff';
 
-function ChatTemplate({ user = mock.user }: ChatTemplateProps) {
+function ChatTemplate({ contact }: ChatTemplateProps) {
   const router = useRouter();
 
   return (
@@ -43,8 +32,11 @@ function ChatTemplate({ user = mock.user }: ChatTemplateProps) {
         >
           {/* @TODO - REFACTOR THIS */}
           <FiArrowLeft size={32} color={WHITE_COLOR} />
-          {user?.imageUrl ? (
-            <S.ImageProfile src={user.imageUrl} alt="User image profile" />
+          {contact?.userInfo?.imageUrl ? (
+            <S.ImageProfile
+              src={contact?.userInfo?.imageUrl}
+              alt="User image profile"
+            />
           ) : (
             <S.Circle>
               <FiUser size={32} color={WHITE_COLOR} />
@@ -54,11 +46,14 @@ function ChatTemplate({ user = mock.user }: ChatTemplateProps) {
         <S.UserName
           onClick={() => {
             router.push(
-              ROUTE_LIST.PROFILE_SLUG.replace(':slug', `${user?.uid}`)
+              ROUTE_LIST.PROFILE_SLUG.replace(
+                ':slug',
+                `${contact?.userInfo?.uid}`
+              )
             );
           }}
         >
-          {user?.name}
+          {contact?.userInfo?.name}
         </S.UserName>
       </S.NavBarUser>
       <S.Main>
@@ -74,7 +69,7 @@ function ChatTemplate({ user = mock.user }: ChatTemplateProps) {
       </S.Main>
       <S.Form>
         <Input name="text_send" placeholder="Send message" />
-        <Button>
+        <Button type="submit">
           <FiSend />
         </Button>
       </S.Form>

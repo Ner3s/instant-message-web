@@ -16,20 +16,23 @@ export interface ContactsTemplateProps {
   isLoading: boolean;
   handleCurrentContact: React.Dispatch<React.SetStateAction<IContact>>;
   handleFindContacts(name: string): void;
+  setChatId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function ContactsTemplate({
   contacts,
   isLoading,
   handleCurrentContact,
-  handleFindContacts
+  handleFindContacts,
+  setChatId
 }: ContactsTemplateProps) {
   const router = useRouter();
 
   const deboucedSearch = useDebounce(handleFindContacts, 500);
 
-  const handleGoToUserChat = (contact: IContact) => {
+  const handleGoToUserChat = (contact: IContact, chatId: string) => {
     handleCurrentContact(contact);
+    setChatId(chatId);
     contact?.userInfo &&
       router.push(ROUTE_LIST.CHAT.replace(':slug', contact?.userInfo.uid));
   };
@@ -53,13 +56,13 @@ function ContactsTemplate({
       </S.Form>
       <S.ContactsWrapper>
         {contacts?.length
-          ? contacts?.map((contact) => (
+          ? contacts?.map(([chatId, contact]) => (
               <ContactCard
-                key={contact[0]}
-                name={contact[1].userInfo.name}
-                imageUrl={contact[1].userInfo.imageUrl}
+                key={chatId}
+                name={contact.userInfo.name}
+                imageUrl={contact.userInfo.imageUrl}
                 // lastMessage={contact[1].userInfo.lastMessage}
-                handleGoToChat={() => handleGoToUserChat(contact[1])}
+                handleGoToChat={() => handleGoToUserChat(contact, chatId)}
               />
             ))
           : !isLoading &&

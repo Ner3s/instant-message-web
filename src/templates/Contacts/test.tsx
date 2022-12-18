@@ -5,11 +5,13 @@ import { screen, render, userEvent } from '@/utils/test';
 const handleCurrentContactMock = jest.fn();
 const handleFindContactsMock = jest.fn();
 const onRouterPush = jest.fn();
+const setChatId = jest.fn();
 
 const propsMock: ContactsTemplateProps = {
   isLoading: false,
   handleCurrentContact: handleCurrentContactMock,
   handleFindContacts: handleFindContactsMock,
+  setChatId,
   contacts: [
     [
       'key 0',
