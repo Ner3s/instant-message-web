@@ -17,6 +17,9 @@ const nextConfig = {
         hostname: 'picsum.photos'
       }
     ]
+  },
+  async redirects() {
+    return [{ source: '/', destination: '/signin', permanent: true }];
   }
 };
 

@@ -11,7 +11,7 @@ import { ROUTE_LIST } from '@/utils/constants/route-list';
 
 import * as S from './styles';
 
-interface ContactsTemplateProps {
+export interface ContactsTemplateProps {
   contacts?: TMapContacts;
   isLoading: boolean;
   handleCurrentContact: React.Dispatch<React.SetStateAction<IContact>>;
