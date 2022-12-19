@@ -53,10 +53,8 @@ async function createConnection({
     });
 
     router.push(ROUTE_LIST.CONTACT);
-  } catch (error: unknown) {
+  } catch (error) {
     toast.error('Error, cannot create connection');
-
-    console.error(error);
   } finally {
     setIsLoading(false);
   }

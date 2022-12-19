@@ -24,7 +24,6 @@ export default function Chat() {
 
   useEffect(() => {
     currentContact?.userInfo?.uid ?? router.push(ROUTE_LIST.CONTACT);
-    console.log(messages);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

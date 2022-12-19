@@ -20,7 +20,6 @@ async function sendMessage({
     await remoteSendMessage({ chatId, text, senderId });
   } catch (error: unknown) {
     toast.error('Error sending message');
-    console.error(error);
   } finally {
     setIsLoading(false);
   }

@@ -26,7 +26,6 @@ function getMessagesByChatId({
     };
   } catch (error) {
     //
-    console.error(error, 'dont get messages');
   } finally {
     setIsLoading(false);
   }
