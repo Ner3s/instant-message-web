@@ -4,18 +4,14 @@ import { sendMessage } from './send-message';
 
 import { useChat } from '@/contexts/use-chat';
 
-interface IHandleSendMessage {
-  chatId: string;
-  text: string;
-  userId: string;
-}
+import { ISendMessageDTO } from '@/models/send-message.dto';
 
 function useSendMessage() {
   const [isLoading, setIsLoading] = useState(false);
   const { chatId } = useChat();
 
-  function handleSendMessage({ text, userId }: IHandleSendMessage) {
-    sendMessage({ setIsLoading, chatId, text, userId });
+  function handleSendMessage({ text, senderId }: ISendMessageDTO) {
+    sendMessage({ setIsLoading, chatId, text, senderId });
   }
 
   return { isLoading, handleSendMessage };

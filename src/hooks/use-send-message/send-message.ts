@@ -6,20 +6,21 @@ interface ISendMessage {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   chatId: string;
   text: string;
-  userId: string;
+  senderId: string;
 }
 
 async function sendMessage({
   setIsLoading,
   chatId,
   text,
-  userId
+  senderId
 }: ISendMessage) {
   setIsLoading(true);
   try {
-    await remoteSendMessage({ chatId, text, userId });
+    await remoteSendMessage({ chatId, text, senderId });
   } catch (error: unknown) {
     toast.error('Error sending message');
+    console.error(error);
   } finally {
     setIsLoading(false);
   }
