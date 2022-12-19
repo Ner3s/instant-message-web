@@ -24,6 +24,10 @@ async function getAllContacts({
   try {
     const unset = onSnapshot(remoteGetAllContacts({ uid: user.uid }), (doc) => {
       const response = doc.data();
+      if (doc.exists()) {
+        return;
+      }
+
       const contacts = Object.entries(response as never).map((contact) => [
         contact[0],
         contact[1]
