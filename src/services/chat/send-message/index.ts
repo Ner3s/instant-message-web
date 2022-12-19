@@ -6,16 +6,20 @@ import { uuidv4 } from '@firebase/util';
 interface IRemoteSendMessage {
   chatId: string;
   text: string;
-  userId: string;
+  senderId: string;
 }
 
-async function remoteSendMessage({ chatId, userId, text }: IRemoteSendMessage) {
+async function remoteSendMessage({
+  chatId,
+  senderId,
+  text
+}: IRemoteSendMessage) {
   const docRef = doc(firebaseDatabase, 'chats', chatId);
   return await updateDoc(docRef, {
     messages: arrayUnion({
       id: uuidv4(),
       text,
-      userId,
+      senderId,
       date: new Date().toISOString()
     })
   });

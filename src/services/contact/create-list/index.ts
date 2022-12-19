@@ -1,4 +1,4 @@
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 
 import { firebaseDatabase } from '@/configs/firebase';
 
@@ -9,7 +9,7 @@ interface IRemoteCreateListContact {
 async function remoteCreateListContact({ uid }: IRemoteCreateListContact) {
   const docRef = doc(firebaseDatabase, 'contacts', uid);
 
-  return await updateDoc(docRef, {});
+  return await setDoc(docRef, {});
 }
 
 export { remoteCreateListContact };

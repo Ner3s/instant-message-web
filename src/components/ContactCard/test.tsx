@@ -7,7 +7,7 @@ const goToChatMock = jest.fn();
 const propsMock: ContactCardProps = {
   imageUrl: 'image mock',
   name: 'name mock',
-  description: 'description mock',
+  lastMessage: '',
   handleGoToChat: goToChatMock
 };
 

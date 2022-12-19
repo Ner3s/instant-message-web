@@ -2,12 +2,12 @@ import { doc } from 'firebase/firestore';
 
 import { firebaseDatabase } from '@/configs/firebase';
 
-interface IRemoteGetMessagesById {
+interface IRemoteGetMessagesByChatId {
   chatId: string;
 }
 
-async function remoteGetMessagesById({ chatId }: IRemoteGetMessagesById) {
+function remoteGetMessagesByChatId({ chatId }: IRemoteGetMessagesByChatId) {
   return doc(firebaseDatabase, 'chats', chatId);
 }
 
-export { remoteGetMessagesById };
+export { remoteGetMessagesByChatId };

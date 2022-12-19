@@ -66,7 +66,7 @@ function ContactsTemplate({
               />
             ))
           : !isLoading &&
-            contacts?.length && <p>You don&apos;t have contacts!</p>}
+            !contacts?.length && <p>You don&apos;t have contacts!</p>}
       </S.ContactsWrapper>
     </S.Container>
   );

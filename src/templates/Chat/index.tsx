@@ -1,31 +1,57 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router';
+import { Controller, useForm } from 'react-hook-form';
 import { FiArrowLeft, FiSend, FiUser } from 'react-icons/fi';
 
 import { BalloonMessage } from '@/components/BalloonMessage';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
+import { IFormSendMesage, INITIAL_FORM_VALUES } from './form';
+import { validationSchema } from './validations';
+
 import { IContact } from '@/models/contact';
 import { IMessage } from '@/models/message';
+import { ISendMessageDTO } from '@/models/send-message.dto';
+import { IUser } from '@/models/user';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
+import { joiResolver } from '@hookform/resolvers/joi';
 
 import * as S from './styles';
 
-interface ChatTemplateProps {
+export interface ChatTemplateProps {
+  user: IUser;
   contact?: IContact;
   messages?: IMessage[];
+  handleSendMessage: ({ text, senderId }: ISendMessageDTO) => void;
 }
 
 const WHITE_COLOR = '#fff';
 
-function ChatTemplate({ contact }: ChatTemplateProps) {
+function ChatTemplate({
+  user,
+  contact,
+  messages,
+  handleSendMessage
+}: ChatTemplateProps) {
   const router = useRouter();
+
+  const { control, reset, handleSubmit } = useForm({
+    defaultValues: INITIAL_FORM_VALUES,
+    resolver: joiResolver(validationSchema)
+  });
+
+  function onSubmit({ text }: IFormSendMesage) {
+    handleSendMessage({ senderId: user.uid, text });
+    reset();
+  }
 
   return (
     <S.Container>
       <S.NavBarUser>
         <S.WrapperArrowAndImage
+          aria-label="button to return contact page"
           onClick={() => {
             router.back();
           }}
@@ -38,12 +64,13 @@ function ChatTemplate({ contact }: ChatTemplateProps) {
               alt="User image profile"
             />
           ) : (
-            <S.Circle>
+            <S.Circle aria-label="this icon represents the user image">
               <FiUser size={32} color={WHITE_COLOR} />
             </S.Circle>
           )}
         </S.WrapperArrowAndImage>
         <S.UserName
+          aria-label="contact name, if clicked go to profile contact"
           onClick={() => {
             router.push(
               ROUTE_LIST.PROFILE_SLUG.replace(
@@ -57,18 +84,25 @@ function ChatTemplate({ contact }: ChatTemplateProps) {
         </S.UserName>
       </S.NavBarUser>
       <S.Main>
-        <BalloonMessage side="LEFT" dateTime={new Date().toISOString()}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
-        </BalloonMessage>
-        <BalloonMessage>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
-          alias ipsum at ducimus accusamus laboriosam voluptas, provident
-          molestiae iste exercitationem sequi earum et. Itaque saepe velit minus
-          ipsum soluta maxime?
-        </BalloonMessage>
+        {messages &&
+          messages.map((message) => (
+            <BalloonMessage
+              key={message.uid}
+              side={user.uid === message.senderId ? 'RIGHT' : 'LEFT'}
+              dateTime={message.date}
+            >
+              {message.text}
+            </BalloonMessage>
+          ))}
       </S.Main>
-      <S.Form>
-        <Input name="text_send" placeholder="Send message" />
+      <S.Form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="text"
+          control={control}
+          render={({ field: { ref, ...props } }) => (
+            <Input placeholder="Send message" {...props} />
+          )}
+        />
         <Button type="submit">
           <FiSend />
         </Button>
