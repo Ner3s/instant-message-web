@@ -5,18 +5,18 @@ import * as S from './styles';
 export interface ContactCardProps {
   imageUrl?: string;
   name: string;
-  description: string;
+  lastMessage?: string;
   handleGoToChat: () => void;
 }
 
 function ContactCard({
   imageUrl,
   name,
-  description,
+  lastMessage,
   handleGoToChat
 }: ContactCardProps) {
   return (
-    <S.Container onClick={handleGoToChat} aria-label="">
+    <S.Container onClick={handleGoToChat} aria-label="contact card">
       <S.Content>
         <S.WrapperContent>
           {imageUrl ? (
@@ -28,7 +28,7 @@ function ContactCard({
           )}
           <S.WrapperText>
             <S.Title>{name}</S.Title>
-            <S.Description>{description}</S.Description>
+            <S.Description>{lastMessage}</S.Description>
           </S.WrapperText>
         </S.WrapperContent>
       </S.Content>

@@ -4,6 +4,7 @@ import { ProfileTemplate } from '@/templates/Profile';
 
 import { useAuth } from '@/contexts/use-auth';
 
+import { IUser } from '@/models/user';
 import { dateFormatter } from '@/utils/helpers/format-date';
 
 export default function Profile() {
@@ -13,9 +14,13 @@ export default function Profile() {
     <Base>
       <ProfileTemplate
         name={user.name}
-        birthDate={dateFormatter({ date: user.birthDate })}
+        birthDate={dateFormatter({ date: user.birthDate }) || ''}
         description={user.description}
         imageUrl={user.imageUrl}
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        handleCreateConnection={(user: IUser) =>
+          new Promise<void>((resolve) => resolve())
+        }
         myAccount
       />
     </Base>
