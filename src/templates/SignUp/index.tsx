@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/Button';
 import { FileInput } from '@/components/FileInput';
 import { Input } from '@/components/Input';
+import { Textarea } from '@/components/Textarea';
 
 import { INITIAL_FORM_VALUES, TSignUpForm } from './form';
 import { validationSchema } from './validations';
@@ -127,13 +128,18 @@ function SignUpTemplate({
               />
             )}
           />
+          <S.LabelBirthDate aria-labelledby="birth_date">
+            Birth date
+          </S.LabelBirthDate>
           <Controller
             name="birth_date"
             control={control}
             render={({ field: { ref, ...props } }) => (
               <Input
+                id="birth_date"
                 iconAlign="left"
                 placeholder="Birthdate"
+                containerStyles={{ marginTop: 0 }}
                 type="date"
                 role="textbox"
                 icon={<FiCalendar size={22} />}
@@ -147,7 +153,7 @@ function SignUpTemplate({
             name="description"
             control={control}
             render={({ field: { ref, ...props } }) => (
-              <Input
+              <Textarea
                 iconAlign="left"
                 placeholder="Description"
                 role="textbox"

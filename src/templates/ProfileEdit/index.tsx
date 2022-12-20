@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/Button';
 import { FileInput } from '@/components/FileInput';
 import { Input } from '@/components/Input';
+import { Textarea } from '@/components/Textarea';
 
 import { INITIAL_FORM_VALUES, TProfileEditForm } from './form';
 import { validationSchema } from './validation';
@@ -150,15 +151,20 @@ function ProfileEditTemplate({
               />
             )}
           />
+          <S.LabelBirthDate aria-labelledby="birth_date">
+            Birth date
+          </S.LabelBirthDate>
           <Controller
             name="birth_date"
             control={control}
             render={({ field: { ref, ...props } }) => (
               <Input
+                id="birth_date"
                 iconAlign="left"
                 placeholder="Birthdate"
                 type="date"
                 role="textbox"
+                containerStyles={{ marginTop: 0 }}
                 icon={<FiCalendar size={22} />}
                 errorMessage={errors.birth_date?.message}
                 {...props}
@@ -170,7 +176,7 @@ function ProfileEditTemplate({
             name="description"
             control={control}
             render={({ field: { ref, ...props } }) => (
-              <Input
+              <Textarea
                 iconAlign="left"
                 placeholder="Description"
                 role="textbox"
