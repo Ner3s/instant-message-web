@@ -26,6 +26,7 @@ export const NavBarUser = styled.section`
     height: ${theme.spacings.xhero};
     position: fixed;
     background-image: ${theme.colors.gradient.horizontal};
+    z-index: ${theme.layers.layer1};
   `};
 `;
 
@@ -105,5 +106,6 @@ export const UserName = styled.span`
     text-transform: Capitalize;
     font-weight: ${theme.font.weight.bold};
     font-size: ${theme.font.sizes.normal};
+    cursor: pointer;
   `}
 `;

@@ -195,9 +195,9 @@ function ProfileEditTemplate({
             Change password
           </Button>
           {/* @TODO - Create delete profile and data */}
-          <Button type="button" appearance="danger">
+          {/* <Button type="button" appearance="danger">
             Delete my profile
-          </Button>
+          </Button> */}
         </S.Form>
       </S.Content>
     </S.Container>
