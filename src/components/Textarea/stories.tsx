@@ -1,25 +1,27 @@
 import { FiUser } from 'react-icons/fi';
 
-import { Input } from '.';
+import { Textarea } from '.';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'Input',
-  component: Input,
+  title: 'Textarea',
+  component: Textarea,
   args: {
-    placeholder: 'Input'
+    placeholder: 'Textarea'
   },
   argTypes: {
     onChange: { action: 'onChange' }
   }
-} as ComponentMeta<typeof Input>;
+} as ComponentMeta<typeof Textarea>;
 
-const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
+const Template: ComponentStory<typeof Textarea> = (args) => (
+  <Textarea {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
-  placeholder: 'Input'
+  placeholder: 'Textarea'
 };
 
 export const WithIcons = Template.bind({});
@@ -35,9 +37,4 @@ CustomStyles.args = {
   },
   txtColor: 'white',
   icon: <FiUser size={22} color="white" />
-};
-
-export const Password = Template.bind({});
-Password.args = {
-  showIconPassword: true
 };
