@@ -7,6 +7,7 @@ import { Auth } from 'firebase/auth';
 import { ISignUpDTO } from '@/models/sign-up.dto';
 import { IUser } from '@/models/user';
 import { remoteSignUp } from '@/services/auth/sign-up';
+import { remoteCreateListContact } from '@/services/contact/create-list';
 import { remoteStoreUserData } from '@/services/user/store-user-data';
 import storedUserDataMapper from '@/utils/mappings/stored-user-data-mapper';
 
@@ -41,9 +42,12 @@ async function signUp({
       userCredential: response
     });
 
+    await remoteCreateListContact({ uid: response.user.uid });
+
     if (!userData) {
       return null;
     }
+
     userMapped = storedUserDataMapper({
       auth: userData.auth,
       storedData: userData.storedData

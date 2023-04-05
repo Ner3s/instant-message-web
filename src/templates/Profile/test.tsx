@@ -3,6 +3,7 @@ import { ProfileTemplate, ProfileTemplateProps } from '.';
 import { screen, render, userEvent } from '@/utils/test';
 
 const handleClearSessionMock = jest.fn();
+const handleCreateConnectionMock = jest.fn();
 
 jest.mock('@/contexts/use-auth', () => ({
   useAuth: () => ({
@@ -15,7 +16,10 @@ const propsMock: ProfileTemplateProps = {
   birthDate: '2000-01-01',
   description: `DESCRIPTION MOCK`,
   imageUrl: 'IMG MOCK',
-  myAccount: false
+  myAccount: false,
+  handleCreateConnection: handleCreateConnectionMock,
+  isLoading: false,
+  uid: '123'
 };
 
 const makeSut = (props: ProfileTemplateProps) => {

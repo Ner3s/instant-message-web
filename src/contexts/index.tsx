@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 
 import { AuthProvider } from './use-auth';
+import { ChatProvider } from './use-chat';
+import { ContactsProvider } from './use-contacts';
 import { UsersProvider } from './use-users';
 
 interface AppProviderProps {
@@ -10,7 +12,11 @@ interface AppProviderProps {
 function AppProvider({ children }: AppProviderProps) {
   return (
     <UsersProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <ContactsProvider>
+        <ChatProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ChatProvider>
+      </ContactsProvider>
     </UsersProvider>
   );
 }

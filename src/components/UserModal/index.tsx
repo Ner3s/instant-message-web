@@ -9,6 +9,7 @@ export interface UserModalProps {
   handleGotoProfile: () => void;
 }
 
+// TODO - RENAME TO USER CARD
 function UserModal({
   imageUrl,
   name,
@@ -19,6 +20,7 @@ function UserModal({
     <S.Container onClick={handleGotoProfile} aria-label="Goto profile">
       <S.Content>
         <S.WrapperContent>
+          {/* @TODO - REFACTOR THIS, FOR NEW COMPONENT RULE */}
           {imageUrl ? (
             <S.ImageProfile src={imageUrl} alt="User image profile" />
           ) : (

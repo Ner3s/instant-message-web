@@ -76,3 +76,8 @@ export const Form = styled.form`
     }
   `}
 `;
+
+export const LabelBirthDate = styled.span`
+  align-self: flex-start;
+  padding-left: ${({ theme }) => theme.spacings.small};
+`;

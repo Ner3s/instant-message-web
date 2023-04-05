@@ -2,13 +2,9 @@ import styled, { css } from 'styled-components';
 
 export const Container = styled.section`
   ${({ theme }) => css`
-    height: auto;
     background-image: ${theme.colors.gradient.vertical};
     overflow-y: hidden;
-
-    @media (min-height: 820px) {
-      height: 100%;
-    }
+    height: 100%;
   `}
 `;
 
@@ -87,4 +83,9 @@ export const Circle = styled.div`
 
   & > img {
   }
+`;
+
+export const LabelBirthDate = styled.span`
+  align-self: flex-start;
+  padding-left: ${({ theme }) => theme.spacings.small};
 `;
