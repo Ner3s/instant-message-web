@@ -9,6 +9,6 @@ export interface IContact {
 
 export type TMapContacts = [[string, IContact]];
 
-export class Contact {
+export class Contact implements IContact {
   constructor(public date: string, public userInfo: TUserInfo) {}
 }
