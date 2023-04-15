@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
-import { FiHome, FiUsers } from 'react-icons/fi';
 
-import { ROUTE_LIST } from '@/utils/constants/route-list';
+import { IMenuLinks } from '@/utils/constants/menu-links';
 
 import * as S from './styles';
 
@@ -11,7 +10,11 @@ const ITEMS_COLORS = {
 };
 const ITEMS_SIZES = 24;
 
-function Navbar() {
+interface INavbarProps {
+  menuLinks: IMenuLinks[];
+}
+
+function Navbar({ menuLinks }: INavbarProps) {
   const router = useRouter();
 
   const handleActiveRoute = (linkToRedirect: string) =>
@@ -22,7 +25,7 @@ function Navbar() {
 
   return (
     <S.Container>
-      <S.MenuItem
+      {/* <S.MenuItem
         isActive={handleActiveRoute(ROUTE_LIST.HOME)}
         role="link"
         onClick={() => router.push(ROUTE_LIST.HOME)}
@@ -34,8 +37,8 @@ function Navbar() {
           />
           <S.MenuLabel>Home</S.MenuLabel>
         </S.WrapperMenuItem>
-      </S.MenuItem>
-      <S.MenuItem
+      </S.MenuItem> */}
+      {/* <S.MenuItem
         isActive={handleActiveRoute(ROUTE_LIST.CONTACT)}
         role="link"
         onClick={() => router.push(ROUTE_LIST.CONTACT)}
@@ -47,7 +50,20 @@ function Navbar() {
           />
           <S.MenuLabel>Contacts</S.MenuLabel>
         </S.WrapperMenuItem>
-      </S.MenuItem>
+      </S.MenuItem> */}
+      {menuLinks.map(({ icon: Icon, path, label }) => (
+        <S.MenuItem
+          key={label}
+          isActive={handleActiveRoute(path)}
+          role="link"
+          onClick={() => router.push(path)}
+        >
+          <S.WrapperMenuItem>
+            <Icon size={ITEMS_SIZES} color={handleIconColors(path)} />
+            <S.MenuLabel>{label}</S.MenuLabel>
+          </S.WrapperMenuItem>
+        </S.MenuItem>
+      ))}
     </S.Container>
   );
 }
