@@ -41,7 +41,7 @@ export const Form = styled.form`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: ${theme.spacings.large};
+    padding: 0 0 ${theme.spacings.large} 0;
     flex-direction: column;
     border-radius: ${theme.spacings.xhuge} ${theme.spacings.xhuge} 0 0;
 
@@ -77,16 +77,37 @@ export const Form = styled.form`
 `;
 
 export const WrapperFileInput = styled.div`
-  width: 100%;
+  ${({ theme }) => css`
+    width: 100%;
+    height: ${theme.frameSizes.small};
+    margin: 0%;
 
-  .test {
-    max-width: ${({ theme }) => theme.frameSizes.largeMedium};
-    width: auto;
-    height: 23rem;
-    background-color: red;
+    .test {
+      max-width: ${theme.frameSizes.largeMedium};
+      width: auto;
+      margin: 0;
+      height: ${theme.frameSizes.small};
+      border-radius: ${theme.spacings.xhuge} ${theme.spacings.xhuge} 0 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+      padding: ${theme.spacings.small};
+      background-color: ${theme.colors.gray7};
 
-    label {
-      width: 100% !important;
+      > svg {
+        margin: 0 ${theme.spacings.xhuge};
+      }
+
+      > span {
+        margin: 0 ${theme.spacings.medium};
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        max-height: ${theme.frameSizes.small};
+        border-radius: ${theme.spacings.xhuge} ${theme.spacings.xhuge} 0 0;
+      }
     }
-  }
+  `}
 `;

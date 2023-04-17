@@ -7,7 +7,7 @@ import { FileInput } from '@/components/FileInput';
 import { INITIAL_FORM_VALUES } from './form';
 import { validationSchema } from './validation';
 
-// import { useFileInput } from '@/hooks/use-file-input';
+import { useFileInput } from '@/hooks/use-file-input';
 
 import { CreateProject } from '@/models/project/create-project';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -15,7 +15,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import * as S from './styles';
 
 function CreateProjectTemplate() {
-  // const { files, showImages, handleFileInput } = useFileInput();
+  const { files, showImages, handleFileInput } = useFileInput();
 
   const {
     control,
@@ -49,16 +49,13 @@ function CreateProjectTemplate() {
                   placeholder="Image profile"
                   appearance="none"
                   className="test"
-                  // image_url={handleRenderImage(
-                  //   userProfile?.imageUrl || '',
-                  //   showImages[0]
-                  // )}
+                  image_url={showImages[0]}
                   icon={<FiCamera size={26} />}
                   accept="image/*"
                   data-testid="input-file"
                   {...props}
                   onChange={(e) => {
-                    // handleFileInput(e);
+                    handleFileInput(e);
                     props.onChange(e);
                   }}
                 />
