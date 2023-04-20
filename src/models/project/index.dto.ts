@@ -1,5 +1,6 @@
 export interface IProjectDTO {
   start_date: string;
+  name: string;
   description: string;
   status: boolean;
   image_profile?: string;

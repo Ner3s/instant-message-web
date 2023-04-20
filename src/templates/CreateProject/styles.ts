@@ -43,7 +43,7 @@ export const Form = styled.form`
     align-items: center;
     padding: 0 0 ${theme.spacings.large} 0;
     flex-direction: column;
-    border-radius: ${theme.spacings.xhuge} ${theme.spacings.xhuge} 0 0;
+    border-radius: ${theme.spacings.xhuge};
 
     animation-name: form-animate;
     animation-duration: 0.7s;
@@ -76,13 +76,13 @@ export const Form = styled.form`
   `}
 `;
 
-export const WrapperFileInput = styled.div`
+export const WrapperCoverFileInput = styled.div`
   ${({ theme }) => css`
     width: 100%;
     height: ${theme.frameSizes.small};
     margin: 0%;
 
-    .test {
+    .cover {
       max-width: ${theme.frameSizes.largeMedium};
       width: auto;
       margin: 0;
@@ -91,7 +91,6 @@ export const WrapperFileInput = styled.div`
       display: flex;
       justify-content: flex-start;
       align-items: flex-end;
-      padding: ${theme.spacings.small};
       background-color: ${theme.colors.gray7};
 
       > svg {
@@ -99,7 +98,7 @@ export const WrapperFileInput = styled.div`
       }
 
       > span {
-        margin: 0 ${theme.spacings.medium};
+        margin: 0 ${theme.spacings.medium} ${theme.spacings.mediumSmall} 0;
       }
 
       img {
@@ -110,4 +109,38 @@ export const WrapperFileInput = styled.div`
       }
     }
   `}
+`;
+
+export const WrapperProfileFileInput = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+    margin-top: -${theme.spacings.xxhuge};
+    display: flex;
+    justify-content: center;
+  `}
+`;
+
+export const WrapperInputs = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+    padding: 0 ${theme.spacings.mediumSmall};
+  `}
+`;
+
+export const Label = styled.span`
+  align-self: flex-start;
+  padding-left: ${({ theme }) => theme.spacings.small};
+`;
+
+export const WrapperStatus = styled.span`
+  ${({ theme }) => css`
+    display: flex;
+    padding-left: ${theme.spacings.small};
+    align-items: center;
+
+    > svg {
+      margin: 0 ${theme.spacings.xxsmall};
+      color: ${theme.colors.primary};
+    }
+  `};
 `;
