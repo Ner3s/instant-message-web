@@ -5,7 +5,6 @@ import * as S from './styles';
 export type CheckboxProps = {
   name: string;
   errorMessage?: string;
-  txtColor?: string;
   containerStyles?: CSSProperties;
   className?: string;
   value: string | number | string[] | undefined | boolean;
