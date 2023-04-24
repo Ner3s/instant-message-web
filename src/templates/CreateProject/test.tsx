@@ -2,13 +2,20 @@ import { CreateProjectTemplate } from '.';
 
 import { screen, render } from '@/utils/test';
 
-describe.skip('<CreateProjectTemplate />', () => {
+describe('<CreateProjectTemplate />', () => {
   it('should render CreateProjectTemplate', () => {
-    render(<CreateProjectTemplate />);
+    render(
+      <CreateProjectTemplate
+        handleUploadFile={jest.fn()}
+        owner_id="owner_id_mock"
+      />
+    );
+
+    screen.logTestingPlaygroundURL();
 
     expect(
       screen.getByRole('heading', {
-        name: /CreateProjectTemplate/i
+        name: /Create project/i
       })
     ).toBeInTheDocument();
   });

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   FiAtSign,
@@ -8,8 +7,10 @@ import {
   FiBookOpen,
   FiAlertCircle
 } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
+import { Checkbox } from '@/components/Checkbox';
 import { FileInput } from '@/components/FileInput';
 import { Input } from '@/components/Input';
 import { Textarea } from '@/components/Textarea';
@@ -20,14 +21,29 @@ import { validationSchema } from './validation';
 import { useFileInput } from '@/hooks/use-file-input';
 
 import { CreateProject } from '@/models/project/create-project';
+import { IProjectDTO } from '@/models/project/index.dto';
+import { IUploadFile } from '@/models/upload-file';
+import { uuidv4 } from '@firebase/util';
 import { joiResolver } from '@hookform/resolvers/joi';
 
 import * as S from './styles';
 
 const ICON_SIZE = 22;
 
-export function CreateProjectTemplate() {
-  const [status, setStatus] = useState(false);
+interface IHandleUploadImg {
+  key: string;
+  value: File;
+}
+
+interface CreateProjectTemplateProps {
+  handleUploadFile: (uploadFileData: IUploadFile) => Promise<string | null>;
+  owner_id: string;
+}
+
+export function CreateProjectTemplate({
+  handleUploadFile,
+  owner_id
+}: CreateProjectTemplateProps) {
   const {
     files: coverFiles,
     showImages: showCoverImage,
@@ -50,13 +66,42 @@ export function CreateProjectTemplate() {
     resolver: joiResolver(validationSchema)
   });
 
-  const onSubmit = (data: CreateProject) => {
-    console.log(data);
+  const handleUploadImg = async ({ key, value }: IHandleUploadImg) => {
+    let urlImage = '';
+
+    try {
+      const response = await handleUploadFile({ name: uuidv4(), file: value });
+      response && (urlImage = response);
+    } catch (error) {
+      toast.error(`Error uploading ${key}`);
+    }
+
+    return { [key]: urlImage };
   };
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  const onSubmit = (formData: CreateProject) => {
+    const data: Omit<IProjectDTO, 'uid'> = {
+      ...formData,
+      created_at: new Date().toISOString(),
+      updated_at: undefined,
+      members: [],
+      owner_id
+    };
+
+    // coverFiles &&
+    //   (data = {
+    //     ...data,
+    //     ...handleUploadImg({ key: 'image_cover', value: coverFiles[0] })
+    //   });
+
+    // profileFiles &&
+    //   (data = {
+    //     ...data,
+    //     ...handleUploadImg({ key: 'image_profile', value: profileFiles[0] })
+    //   });
+
+    console.log(data);
+  };
 
   return (
     <S.Container>
@@ -117,6 +162,7 @@ export function CreateProjectTemplate() {
                   placeholder="Project name"
                   iconAlign="left"
                   icon={<FiAtSign size={ICON_SIZE} />}
+                  errorMessage={errors.name?.message}
                   {...props}
                 />
               )}
@@ -132,6 +178,7 @@ export function CreateProjectTemplate() {
                   placeholder="Birthdate"
                   type="date"
                   role="textbox"
+                  errorMessage={errors.start_date?.message}
                   containerStyles={{ marginTop: 0 }}
                   icon={<FiCalendar size={ICON_SIZE} />}
                   {...props}
@@ -145,6 +192,7 @@ export function CreateProjectTemplate() {
                 <Textarea
                   placeholder="Give more information about your project, so that people can know more about it."
                   iconAlign="left"
+                  errorMessage={errors.description?.message}
                   icon={<FiBookOpen size={ICON_SIZE} />}
                   {...props}
                 />
@@ -159,13 +207,12 @@ export function CreateProjectTemplate() {
             <Controller
               name="status"
               control={control}
-              render={({ field: { ref, ...props } }) => (
-                <Input
-                  placeholder="Ativo"
-                  type="checkbox"
-                  {...props}
-                  checked={props.value}
-                  onChange={(e) => props.onChange(e.target.checked)}
+              render={({ field }) => (
+                <Checkbox
+                  errorMessage={errors.status?.message}
+                  checked={field.value || false}
+                  label="Ativo"
+                  {...field}
                 />
               )}
             />
