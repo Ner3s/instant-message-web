@@ -2,6 +2,8 @@ import { CreateProjectTemplate } from '.';
 
 import { screen, render } from '@/utils/test';
 
+jest.mock('@firebase/util', () => ({ uuidv4: () => 'uuidv4_mock' }));
+
 describe('<CreateProjectTemplate />', () => {
   it('should render CreateProjectTemplate', () => {
     render(
@@ -10,8 +12,6 @@ describe('<CreateProjectTemplate />', () => {
         owner_id="owner_id_mock"
       />
     );
-
-    screen.logTestingPlaygroundURL();
 
     expect(
       screen.getByRole('heading', {
