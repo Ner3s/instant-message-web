@@ -1,7 +1,7 @@
 import { IMemberDTO } from '../member/member.dto';
 
 export interface IProjectDTO {
-  uid: string;
+  uid?: string;
   start_date: string;
   name: string;
   description: string;
@@ -11,5 +11,5 @@ export interface IProjectDTO {
   owner_id: string;
   members: IMemberDTO[];
   created_at: string;
-  updated_at?: string;
+  updated_at?: string | null;
 }
