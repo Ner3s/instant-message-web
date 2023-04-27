@@ -11,8 +11,8 @@ export interface ProfileBadgeProps {
   icon?: IconType;
   iconColor?: string;
   iconSize?: number;
-  height?: keyof Theme['frameSizes'];
-  width?: keyof Theme['frameSizes'] | '100%';
+  height?: keyof Theme['frameSizes'] | string;
+  width?: keyof Theme['frameSizes'] | string;
 }
 
 function ProfileBadge({

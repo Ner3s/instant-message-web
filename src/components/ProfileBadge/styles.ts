@@ -1,16 +1,24 @@
 import styled, { css } from 'styled-components';
 
+import { frameSizes } from '@/styles/theme/frameSizes';
 import { Theme } from '@/styles/theme/styled';
 
+const allFrameSizes = Object.keys(frameSizes);
+type TFrameSizes = keyof Theme['frameSizes'];
+
 interface ISizeComponent {
-  width: keyof Theme['frameSizes'] | '100%';
-  height: keyof Theme['frameSizes'];
+  width: TFrameSizes | string;
+  height: TFrameSizes | string;
 }
 
 export const ImageProfile = styled.img<ISizeComponent>`
   ${({ theme, width, height }) => css`
-    width: ${width === '100%' ? width : theme.frameSizes[width]};
-    height: ${theme.frameSizes[height]};
+    width: ${allFrameSizes.includes(width)
+      ? theme.frameSizes[width as TFrameSizes]
+      : width};
+    height: ${allFrameSizes.includes(height)
+      ? theme.frameSizes[height as TFrameSizes]
+      : height};
     object-fit: cover;
     border-radius: ${theme.spacings.hero};
   `}
@@ -18,8 +26,12 @@ export const ImageProfile = styled.img<ISizeComponent>`
 
 export const Circle = styled.div<ISizeComponent>`
   ${({ theme, width, height }) => css`
-    width: ${width === '100%' ? width : theme.frameSizes[width]};
-    height: ${theme.frameSizes[height]};
+    width: ${allFrameSizes.includes(width)
+      ? theme.frameSizes[width as TFrameSizes]
+      : width};
+    height: ${allFrameSizes.includes(height)
+      ? theme.frameSizes[height as TFrameSizes]
+      : height};
     border-radius: ${theme.spacings.hero};
     background-color: ${theme.colors.gray11};
     display: flex;
