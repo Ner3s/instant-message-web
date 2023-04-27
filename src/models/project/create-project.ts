@@ -1,4 +1,4 @@
-import { IProjectDTO } from './index.dto';
+import { IProjectDTO } from './project.dto';
 
 export type CreateProject = Omit<
   IProjectDTO,

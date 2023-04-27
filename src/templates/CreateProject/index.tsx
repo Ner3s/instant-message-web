@@ -21,7 +21,7 @@ import { validationSchema } from './validation';
 import { useFileInput } from '@/hooks/use-file-input';
 
 import { CreateProject } from '@/models/project/create-project';
-import { IProjectDTO } from '@/models/project/index.dto';
+import { IProjectDTO } from '@/models/project/project.dto';
 import { IUploadFile } from '@/models/upload-file';
 import { uuidv4 } from '@firebase/util';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -35,14 +35,18 @@ interface IHandleUploadImg {
   value: File;
 }
 
-interface CreateProjectTemplateProps {
+export interface CreateProjectTemplateProps {
   handleUploadFile: (uploadFileData: IUploadFile) => Promise<string | null>;
   owner_id: string;
+  isLoading: boolean;
+  handleCreateProject: ({ data }: { data: IProjectDTO }) => void;
 }
 
 export function CreateProjectTemplate({
   handleUploadFile,
-  owner_id
+  owner_id,
+  isLoading,
+  handleCreateProject
 }: CreateProjectTemplateProps) {
   const {
     files: coverFiles,
@@ -79,28 +83,33 @@ export function CreateProjectTemplate({
     return { [key]: urlImage };
   };
 
-  const onSubmit = (formData: CreateProject) => {
-    const data: Omit<IProjectDTO, 'uid'> = {
+  const onSubmit = async (formData: CreateProject) => {
+    let data: IProjectDTO = {
       ...formData,
       created_at: new Date().toISOString(),
-      updated_at: undefined,
+      updated_at: null,
       members: [],
-      owner_id
+      owner_id,
+      image_cover: null as never,
+      image_profile: null as never
     };
 
-    // coverFiles &&
-    //   (data = {
-    //     ...data,
-    //     ...handleUploadImg({ key: 'image_cover', value: coverFiles[0] })
-    //   });
+    coverFiles &&
+      (data = {
+        ...data,
+        ...(await handleUploadImg({ key: 'image_cover', value: coverFiles[0] }))
+      });
 
-    // profileFiles &&
-    //   (data = {
-    //     ...data,
-    //     ...handleUploadImg({ key: 'image_profile', value: profileFiles[0] })
-    //   });
+    profileFiles &&
+      (data = {
+        ...data,
+        ...(await handleUploadImg({
+          key: 'image_profile',
+          value: profileFiles[0]
+        }))
+      });
 
-    console.log(data);
+    handleCreateProject({ data });
   };
 
   return (
@@ -123,7 +132,7 @@ export function CreateProjectTemplate({
                   image_url={showCoverImage[0]}
                   icon={<FiCamera size={26} />}
                   accept="image/*"
-                  data-testid="input-file"
+                  data-testid="image_cover"
                   {...props}
                   onChange={(e) => {
                     handleCoverFileInput(e);
@@ -143,7 +152,7 @@ export function CreateProjectTemplate({
                   image_url={showProfileImage[0]}
                   icon={<FiCamera size={26} />}
                   accept="image/*"
-                  data-testid="input-file"
+                  data-testid="image_profile"
                   {...props}
                   onChange={(e) => {
                     handleProfileFileInput(e);
@@ -175,7 +184,7 @@ export function CreateProjectTemplate({
                 <Input
                   id="start_date"
                   iconAlign="left"
-                  placeholder="Birthdate"
+                  placeholder="Start date"
                   type="date"
                   role="textbox"
                   errorMessage={errors.start_date?.message}
@@ -192,6 +201,7 @@ export function CreateProjectTemplate({
                 <Textarea
                   placeholder="Give more information about your project, so that people can know more about it."
                   iconAlign="left"
+                  data-testid="description"
                   errorMessage={errors.description?.message}
                   icon={<FiBookOpen size={ICON_SIZE} />}
                   {...props}
@@ -216,7 +226,9 @@ export function CreateProjectTemplate({
                 />
               )}
             />
-            <Button type="submit">Create</Button>
+            <Button type="submit" isLoading={isLoading}>
+              Create
+            </Button>
           </S.WrapperInputs>
         </S.Form>
       </S.WrapperForm>
