@@ -1,3 +1,5 @@
+import { IMember } from '../member';
+
 export interface IProject {
   uid: string;
   startDate: string;
@@ -8,6 +10,8 @@ export interface IProject {
   imageCover: string;
   createdAt: string;
   updatedAt: string;
+  ownerId: string;
+  members: IMember[];
 }
 
 export class Project implements IProject {
@@ -20,6 +24,8 @@ export class Project implements IProject {
     public imageProfile: string,
     public imageCover: string,
     public createdAt: string,
-    public updatedAt: string
+    public updatedAt: string,
+    public ownerId: string,
+    public members: IMember[]
   ) {}
 }

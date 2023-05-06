@@ -86,6 +86,7 @@ export const WrapperTitleAndStartDate = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   width: 100%;
 `;
 
@@ -110,20 +111,57 @@ export const Description = styled.span`
   `};
 `;
 
-export const WrapperPeopleSection = styled.section`
+export const WrapperUserSection = styled.section`
   margin: ${({ theme }) => theme.spacings.small} 0;
   display: flex;
   flex-direction: column;
 `;
 
+export const WrapperOwnerAndMember = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  :first-child {
+    margin-bottom: ${({ theme }) => theme.spacings.small};
+  }
+`;
+export const DFlex = styled.div`
+  display: flex;
+`;
+export const WrapperCommonUser = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const DGrid = styled.div`
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 0;
+    @media ${theme.breakPoints.minS} {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  `}
+`;
+
 export const TitleSection = styled.h3``;
-export const Name = styled.div``;
-export const WrapperPeople = styled.div`
-  display: flex;
-  flex-direction: column;
+
+export const Name = styled.span<{ owner?: boolean }>`
+  ${({ theme, owner }) => css`
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: ${owner ? '100%' : theme.spacings.xhero};
+    overflow: hidden;
+
+    @media ${theme.breakPoints.minS} {
+      max-width: ${owner ? '100%' : theme.frameSizes.xsmall};
+    }
+  `}
 `;
-export const WrapperOwner = styled.div`
+
+export const WrapperButtons = styled.section`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  width: 100%;
 `;
-export const WrapperMembers = styled.div``;
