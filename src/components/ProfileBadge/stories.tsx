@@ -1,12 +1,12 @@
-import { BadgeProfile } from '.';
+import { ProfileBadge } from '.';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'BadgeProfile',
-  component: BadgeProfile
-} as ComponentMeta<typeof BadgeProfile>;
+  title: 'ProfileBadge',
+  component: ProfileBadge
+} as ComponentMeta<typeof ProfileBadge>;
 
-export const Basic: ComponentStory<typeof BadgeProfile> = (args) => (
-  <BadgeProfile {...args} />
+export const Basic: ComponentStory<typeof ProfileBadge> = (args) => (
+  <ProfileBadge {...args} />
 );
