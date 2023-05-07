@@ -1,3 +1,5 @@
+import { FiStar } from 'react-icons/fi';
+
 import { Button } from '@/components/Button';
 import { ProfileBadge } from '@/components/ProfileBadge';
 
@@ -30,7 +32,12 @@ function ProjectSlugTemplate({
       <S.Content>
         <S.Cover />
         <S.WrapperProfile>
-          <ProfileBadge width="xsmall" height="xsmall" iconSize={44} />
+          <ProfileBadge
+            width="xsmall"
+            height="xsmall"
+            icon={FiStar}
+            iconSize={44}
+          />
         </S.WrapperProfile>
         <S.WrapperInnerContent>
           <S.WrapperTitleAndStartDate>
