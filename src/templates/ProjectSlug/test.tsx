@@ -1,15 +1,7 @@
-// import { useRouter } from 'next/router';
-
-import { Base } from '@/components/Base';
-
-import {
-  IProjectSlugTemplateProps,
-  ProjectSlugTemplate
-} from '@/templates/ProjectSlug';
-
-import { useAuth } from '@/contexts/use-auth';
+import { IProjectSlugTemplateProps, ProjectSlugTemplate } from '.';
 
 import { dateFormatter } from '@/utils/helpers/format-date';
+import { screen, render } from '@/utils/test';
 
 const projectSlugMock: IProjectSlugTemplateProps = {
   projectData: {
@@ -59,19 +51,10 @@ const projectSlugMock: IProjectSlugTemplateProps = {
   }
 };
 
-export default function SlugProject() {
-  // const router = useRouter();
-  // const { slug } = router.query;
+describe('<ProjectSlugTemplate />', () => {
+  it('should render ProjectSlugTemplate', () => {
+    render(<ProjectSlugTemplate {...projectSlugMock} />);
 
-  const { user } = useAuth();
-
-  return (
-    <Base>
-      <ProjectSlugTemplate
-        {...projectSlugMock}
-        isOwner={user.uid === projectSlugMock.projectData.ownerId}
-        isMember={false}
-      />
-    </Base>
-  );
-}
+    expect(screen.getByText(/Project Name/i)).toBeInTheDocument();
+  });
+});
