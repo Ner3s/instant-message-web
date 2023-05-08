@@ -60,8 +60,8 @@ export const WrapperInnerContent = styled.div`
   `}
 `;
 
-export const Cover = styled.div`
-  ${({ theme }) => css`
+export const Cover = styled.div<{ imageCover?: string }>`
+  ${({ theme, imageCover }) => css`
     max-width: ${theme.frameSizes.largeMedium};
     width: 100%;
     margin: 0;
@@ -71,6 +71,8 @@ export const Cover = styled.div`
     justify-content: flex-start;
     align-items: flex-end;
     background-color: ${theme.colors.secondary};
+    ${imageCover && `background: url("${imageCover}") no-repeat center;`};
+    background-size: cover;
   `}
 `;
 

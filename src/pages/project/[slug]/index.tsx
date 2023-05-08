@@ -1,76 +1,59 @@
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import { Base } from '@/components/Base';
 
-import {
-  IProjectSlugTemplateProps,
-  ProjectSlugTemplate
-} from '@/templates/ProjectSlug';
+import { ProjectSlugTemplate } from '@/templates/ProjectSlug';
 
 import { useAuth } from '@/contexts/use-auth';
 
-import { dateFormatter } from '@/utils/helpers/format-date';
+import { useGetProjectById } from '@/hooks/use-get-project-by-id';
+import { useGetUserProfile } from '@/hooks/use-get-user-profile';
 
-const projectSlugMock: IProjectSlugTemplateProps = {
-  projectData: {
-    name: 'Project Name',
-    startDate: dateFormatter({ date: '2021-01-01' }) as string,
-    description: 'lorem ipsum dolor sit amet',
-    members: [
-      {
-        uid: '1',
-        name: 'Member 1',
-        imageUrl: ''
-      },
-      {
-        uid: '1',
-        name: 'Member 1',
-        imageUrl: ''
-      },
-      {
-        uid: '1',
-        name: 'Member 1',
-        imageUrl: ''
-      },
-
-      {
-        uid: '1',
-        name: 'Member 1',
-        imageUrl: ''
-      }
-    ],
-    uid: '',
-    status: true,
-    imageProfile: '',
-    imageCover: '',
-    createdAt: '',
-    updatedAt: '',
-    ownerId: '123123'
-  },
-  owner: { imageUrl: '', name: 'Owner', uid: '123123' },
-  handleJoinProject: function (): void {
-    console.log('JOIN');
-  },
-  handleEditProject: function (): void {
-    console.log('EDIT');
-  },
-  handleUnsubscribeProject: function (): void {
-    console.log('UN SUBSCRIBE');
-  }
-};
+import { IMember } from '@/models/member';
 
 export default function SlugProject() {
-  // const router = useRouter();
-  // const { slug } = router.query;
+  const router = useRouter();
+  const { slug } = router.query;
+  const [owner, setOwner] = useState<IMember>({} as IMember);
 
+  const { project, handleGetProjectById } = useGetProjectById();
+  const { currentUser, handleGetUserProfile } = useGetUserProfile();
   const { user } = useAuth();
 
+  const handleGetOwner = () => {
+    if (project.ownerId === user.uid) return user;
+    handleGetUserProfile({ slug: project.ownerId });
+    return currentUser;
+  };
+
+  const handleGetMembers = () => {
+    return project.members?.map((member) => member.uid).includes(user.uid);
+  };
+
+  useEffect(() => {
+    !project.name && slug && handleGetProjectById({ uid: slug as string });
+    project.name && setOwner(handleGetOwner());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [project, slug]);
+
+  // @TODO: Create handle functions to edit, join and unsubscribe project
   return (
     <Base>
       <ProjectSlugTemplate
-        {...projectSlugMock}
-        isOwner={user.uid === projectSlugMock.projectData.ownerId}
-        isMember={false}
+        owner={owner}
+        projectData={project}
+        handleEditProject={() => {
+          console.log('EDIT');
+        }}
+        handleJoinProject={() => {
+          console.log('JOIN');
+        }}
+        handleUnsubscribeProject={() => {
+          console.log('UNSUBSCRIBE');
+        }}
+        isOwner={owner.uid === project.ownerId}
+        isMember={handleGetMembers()}
       />
     </Base>
   );

@@ -30,9 +30,10 @@ function ProjectSlugTemplate({
   return (
     <S.Container>
       <S.Content>
-        <S.Cover />
+        <S.Cover imageCover={projectData.imageCover} />
         <S.WrapperProfile>
           <ProfileBadge
+            imageUrl={projectData.imageProfile}
             width="xsmall"
             height="xsmall"
             icon={FiStar}
@@ -64,7 +65,7 @@ function ProjectSlugTemplate({
             <S.WrapperOwnerAndMember>
               <S.TitleSection>Members: </S.TitleSection>
               <S.DGrid>
-                {projectData.members.map((member) => (
+                {projectData.members?.map((member) => (
                   <S.WrapperCommonUser key={member.uid}>
                     <ProfileBadge
                       imageUrl={member.imageUrl}
@@ -75,6 +76,9 @@ function ProjectSlugTemplate({
                     <S.Name>{member.name}</S.Name>
                   </S.WrapperCommonUser>
                 ))}
+                {projectData.members?.length === 0 && (
+                  <span>This project dont have member</span>
+                )}
               </S.DGrid>
             </S.WrapperOwnerAndMember>
           </S.WrapperUserSection>
@@ -85,7 +89,9 @@ function ProjectSlugTemplate({
                 Unsubscribe
               </Button>
             )}
-            {!isMember && <Button onClick={handleJoinProject}>Join</Button>}
+            {!isMember && !isOwner && (
+              <Button onClick={handleJoinProject}>Join</Button>
+            )}
           </S.WrapperButtons>
         </S.WrapperInnerContent>
       </S.Content>
