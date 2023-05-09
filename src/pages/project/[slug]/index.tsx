@@ -6,6 +6,7 @@ import { Base } from '@/components/Base';
 import { ProjectSlugTemplate } from '@/templates/ProjectSlug';
 
 import { useAuth } from '@/contexts/use-auth';
+import { useProject } from '@/contexts/use-project';
 
 import { useGetProjectById } from '@/hooks/use-get-project-by-id';
 import { useGetUserProfile } from '@/hooks/use-get-user-profile';
@@ -19,7 +20,8 @@ export default function SlugProject() {
   const [owner, setOwner] = useState<IMember>({} as IMember);
   const [hasExecGetOwner, setHasExecGetOwner] = useState<boolean>(false);
 
-  const { project, handleGetProjectById } = useGetProjectById();
+  const { currentProject: project } = useProject();
+  const { handleGetProjectById } = useGetProjectById();
   const { currentUser, handleGetUserProfile } = useGetUserProfile();
   const { handleAddMember, handleRemoveMember } = useMember();
   const { user } = useAuth();
