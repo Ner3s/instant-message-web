@@ -12,5 +12,5 @@ export enum ROUTE_LIST {
   PROJECT = '/project',
   PROJECT_SLUG = '/project/:slug',
   PROJECT_CREATE = '/project/create',
-  PROJECT_EDIT = '/project/edit'
+  PROJECT_EDIT = '/project/edit/:slug'
 }

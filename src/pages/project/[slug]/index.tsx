@@ -13,6 +13,7 @@ import { useGetUserProfile } from '@/hooks/use-get-user-profile';
 import { useMember } from '@/hooks/use-member';
 
 import { IMember } from '@/models/member';
+import { ROUTE_LIST } from '@/utils/constants/route-list';
 
 export default function SlugProject() {
   const router = useRouter();
@@ -62,7 +63,7 @@ export default function SlugProject() {
         owner={owner}
         projectData={project}
         handleEditProject={() => {
-          console.log('EDIT');
+          router.push(ROUTE_LIST.PROJECT_EDIT.replace(':slug', slug as string));
         }}
         handleJoinProject={() => {
           handleAddMember({
