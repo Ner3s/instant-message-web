@@ -34,7 +34,12 @@ function ProfileBadge({
           alt={imageAlt}
         />
       ) : (
-        <S.Circle role="icon" height={height} width={width}>
+        <S.Circle
+          role="icon"
+          aria-label="user icon"
+          height={height}
+          width={width}
+        >
           <Icon size={iconSize} color={iconColor} />
         </S.Circle>
       )}
