@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/use-auth';
 
 import { useGetProjectById } from '@/hooks/use-get-project-by-id';
 import { useGetUserProfile } from '@/hooks/use-get-user-profile';
+import { useMember } from '@/hooks/use-member';
 
 import { IMember } from '@/models/member';
 
@@ -16,15 +17,21 @@ export default function SlugProject() {
   const router = useRouter();
   const { slug } = router.query;
   const [owner, setOwner] = useState<IMember>({} as IMember);
+  const [hasExecGetOwner, setHasExecGetOwner] = useState<boolean>(false);
 
   const { project, handleGetProjectById } = useGetProjectById();
   const { currentUser, handleGetUserProfile } = useGetUserProfile();
+  const { handleAddMember, handleRemoveMember } = useMember();
   const { user } = useAuth();
 
   const handleGetOwner = () => {
-    if (project.ownerId === user.uid) return user;
+    setHasExecGetOwner(true);
+    if (project.ownerId === user.uid) {
+      setOwner(user);
+      return;
+    }
+
     handleGetUserProfile({ slug: project.ownerId });
-    return currentUser;
   };
 
   const handleGetMembers = () => {
@@ -32,12 +39,21 @@ export default function SlugProject() {
   };
 
   useEffect(() => {
-    !project.name && slug && handleGetProjectById({ uid: slug as string });
-    project.name && setOwner(handleGetOwner());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project, slug]);
+    if (!project.name && slug) {
+      handleGetProjectById({ uid: slug as string });
+    }
 
-  // @TODO: Create handle functions to edit, join and unsubscribe project
+    if (!hasExecGetOwner && project.name) {
+      handleGetOwner();
+    }
+
+    if (!owner.name && currentUser.name) {
+      setOwner(currentUser);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [project, slug, currentUser]);
+
   return (
     <Base>
       <ProjectSlugTemplate
@@ -47,12 +63,26 @@ export default function SlugProject() {
           console.log('EDIT');
         }}
         handleJoinProject={() => {
-          console.log('JOIN');
+          handleAddMember({
+            uid: slug as string,
+            member: {
+              uid: user.uid,
+              name: user.name,
+              image_url: user.imageUrl
+            }
+          });
         }}
         handleUnsubscribeProject={() => {
-          console.log('UNSUBSCRIBE');
+          handleRemoveMember({
+            uid: slug as string,
+            member: {
+              uid: user.uid,
+              name: user.name,
+              image_url: user.imageUrl
+            }
+          });
         }}
-        isOwner={owner.uid === project.ownerId}
+        isOwner={user.uid === project.ownerId}
         isMember={handleGetMembers()}
       />
     </Base>
