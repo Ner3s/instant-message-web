@@ -155,6 +155,7 @@ export const Name = styled.span<{ owner?: boolean }>`
     text-overflow: ellipsis;
     max-width: ${owner ? '100%' : theme.spacings.xhero};
     overflow: hidden;
+    text-transform: capitalize;
 
     @media ${theme.breakPoints.minS} {
       max-width: ${owner ? '100%' : theme.frameSizes.xsmall};

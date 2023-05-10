@@ -18,7 +18,6 @@ export interface IProjectSlugTemplateProps {
   handleUnsubscribeProject: () => void;
 }
 
-// @TODO - Fix names for users. // Owner and Members
 function ProjectSlugTemplate({
   projectData,
   owner,
