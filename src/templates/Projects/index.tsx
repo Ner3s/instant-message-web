@@ -104,6 +104,7 @@ function ProjectsTemplate({ projects }: ProjectsTemplateProps) {
                   name={project.name}
                   description={project.description}
                   startDate={project.startDate}
+                  imageUrl={project.imageProfile}
                   handleGotoProject={() =>
                     router.push(
                       ROUTE_LIST.PROJECT_SLUG.replace(':slug', project.uid)
@@ -117,6 +118,7 @@ function ProjectsTemplate({ projects }: ProjectsTemplateProps) {
 
               return project.name.toLowerCase().includes(search.toLowerCase());
             }).length === 0 && <span>Sorry don´t projects to show!</span>}
+            {/* @TODO - REFACTOR --> WHEN DON'T HAVE A PROJECT */}
           </S.WrapperProjects>
         </S.Content>
       </S.InnerContainer>

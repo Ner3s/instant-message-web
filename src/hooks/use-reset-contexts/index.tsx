@@ -4,6 +4,7 @@ import { useUsers } from '@/contexts/use-users';
 import { IContact, TMapContacts } from '@/models/contact';
 import { IUser } from '@/models/user';
 
+// @TODO - REMOVE THIS HOOK /// Refresh page when user logout
 function useResetContexts() {
   const { setContacts, setCurrentContact, setImutableContacts } = useContacts();
   const { setCurrentUser, setUsers } = useUsers();

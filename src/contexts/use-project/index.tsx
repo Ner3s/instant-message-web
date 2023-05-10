@@ -4,14 +4,19 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useReducer,
   useState
 } from 'react';
+
+import { reducer, TProjectAction, TProjectReducer } from './reducer';
 
 import { IProject } from '@/models/project';
 
 interface IProjectContextData {
   currentProject: IProject;
   setCurrentProject: Dispatch<SetStateAction<IProject>>;
+  projects: TProjectReducer;
+  dispatchProjects: Dispatch<TProjectAction>;
 }
 
 interface IProjectProvider {
@@ -22,13 +27,22 @@ const ProjectContext = createContext<IProjectContextData>(
   {} as IProjectContextData
 );
 
+const initialProjectState: TProjectReducer = {
+  global: [],
+  myProjects: [],
+  members: []
+};
+
 function ProjectProvider({ children }: IProjectProvider) {
   const [currentProject, setCurrentProject] = useState<IProject>(
     {} as IProject
   );
+  const [projects, dispatchProjects] = useReducer(reducer, initialProjectState);
 
   return (
-    <ProjectContext.Provider value={{ currentProject, setCurrentProject }}>
+    <ProjectContext.Provider
+      value={{ currentProject, setCurrentProject, projects, dispatchProjects }}
+    >
       {children}
     </ProjectContext.Provider>
   );

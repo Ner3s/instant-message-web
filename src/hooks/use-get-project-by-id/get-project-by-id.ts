@@ -31,6 +31,7 @@ export async function getProjectById({
 
     setProject({
       ...project,
+      uid: projectSnapshot.id,
       startDate: dateFormatter({ date: project.startDate }) as string
     });
   } catch (error: unknown) {

@@ -45,6 +45,9 @@ function AuthProvider({ children }: IAuthProvider) {
       await signOut(auth);
       toast.success('User successfully logged out');
       router.push(ROUTE_LIST.SIGN_IN);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       toast.error(`Error, user don't logged out`);
     } finally {
