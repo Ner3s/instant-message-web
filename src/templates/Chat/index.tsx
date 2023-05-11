@@ -64,7 +64,7 @@ function ChatTemplate({
             iconColor={WHITE_COLOR}
             iconSize={32}
             imageAlt="User image profile"
-            imageUrl={contact?.userInfo.imageUrl}
+            imageUrl={contact?.userInfo?.imageUrl}
             height={theme.spacings.xxhuge}
             width={theme.spacings.xxhuge}
           />
