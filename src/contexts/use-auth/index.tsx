@@ -12,8 +12,6 @@ import { toast } from 'react-toastify';
 
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
-import { useResetContexts } from '@/hooks/use-reset-contexts';
-
 import { IUser } from '@/models/user';
 import { remoteGetUserData } from '@/services/user/get-user-data';
 import { GUEST_ROUTES } from '@/utils/constants/guest-routes';
@@ -36,19 +34,20 @@ const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 function AuthProvider({ children }: IAuthProvider) {
   const auth = getAuth();
   const router = useRouter();
-  const { handleResetAllDataContexts } = useResetContexts();
 
   const [user, setUser] = useState<IUser>({} as IUser);
 
   async function handleClearSession() {
     try {
       await signOut(auth);
-      toast.success('User successfully logged out');
+      toast.success('User successfully logged out, page will be reloaded');
       router.push(ROUTE_LIST.SIGN_IN);
     } catch (error) {
       toast.error(`Error, user don't logged out`);
     } finally {
-      handleResetAllDataContexts();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
     }
   }
 

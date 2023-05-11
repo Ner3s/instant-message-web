@@ -42,7 +42,12 @@ export default function SlugProject() {
   };
 
   useEffect(() => {
+    console.log('RENDER COUNT');
     if (!project.name && slug) {
+      handleGetProjectById({ uid: slug as string });
+    }
+
+    if (project.name && project.uid !== slug) {
       handleGetProjectById({ uid: slug as string });
     }
 
