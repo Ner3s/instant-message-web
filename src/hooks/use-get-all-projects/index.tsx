@@ -7,7 +7,7 @@ import { useProject } from '@/contexts/use-project';
 
 function useGetAllProjects() {
   const { projects, dispatchProjects } = useProject();
-  // @TODO - REDIRECT USER TO HOME PAGE IF NOT LOGGED
+
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 

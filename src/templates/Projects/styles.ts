@@ -127,3 +127,7 @@ export const WrapperProjects = styled.div`
     }
   `};
 `;
+
+export const WrapperSpinner = styled.div`
+  margin-top: ${({ theme }) => theme.spacings.small};
+`;

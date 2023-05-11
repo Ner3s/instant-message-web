@@ -59,7 +59,8 @@ const projectsMock: ProjectsTemplateProps = {
         imageProfile: ''
       }
     ]
-  }
+  },
+  isLoading: false
 };
 
 //@TODO MAKE TESTS

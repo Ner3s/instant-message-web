@@ -5,6 +5,7 @@ import { FiSearch } from 'react-icons/fi';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ProjectModal } from '@/components/ProjectModal';
+import { Spinner } from '@/components/Spinner';
 
 import { TProjectModalDTO } from '@/models/project/project-modal.dto';
 import theme from '@/styles/theme';
@@ -18,9 +19,10 @@ export interface ProjectsTemplateProps {
     global: TProjectModalDTO[];
     associate: TProjectModalDTO[];
   };
+  isLoading: boolean;
 }
 
-function ProjectsTemplate({ projects }: ProjectsTemplateProps) {
+function ProjectsTemplate({ projects, isLoading }: ProjectsTemplateProps) {
   const [typeProject, setTypeProject] = useState<
     'global' | 'myProjects' | 'associate'
   >('global');
@@ -89,37 +91,45 @@ function ProjectsTemplate({ projects }: ProjectsTemplateProps) {
               </S.RadioButton>
             </S.WrapperButtons>
           </S.Filter>
-          <S.WrapperProjects>
-            {projects[typeProject]
-              .filter((project) => {
+          {isLoading && (
+            <S.WrapperSpinner>
+              <Spinner color="#fff" />
+            </S.WrapperSpinner>
+          )}
+          {!isLoading && (
+            <S.WrapperProjects>
+              {projects[typeProject]
+                .filter((project) => {
+                  if (search === '') return true;
+
+                  return project.name
+                    .toLowerCase()
+                    .includes(search.toLowerCase());
+                })
+                .map((project) => (
+                  <ProjectModal
+                    key={project.uid}
+                    name={project.name}
+                    description={project.description}
+                    startDate={project.startDate}
+                    imageUrl={project.imageProfile}
+                    handleGotoProject={() =>
+                      router.push(
+                        ROUTE_LIST.PROJECT_SLUG.replace(':slug', project.uid)
+                      )
+                    }
+                  />
+                ))}
+
+              {projects[typeProject].filter((project) => {
                 if (search === '') return true;
 
                 return project.name
                   .toLowerCase()
                   .includes(search.toLowerCase());
-              })
-              .map((project) => (
-                <ProjectModal
-                  key={project.uid}
-                  name={project.name}
-                  description={project.description}
-                  startDate={project.startDate}
-                  imageUrl={project.imageProfile}
-                  handleGotoProject={() =>
-                    router.push(
-                      ROUTE_LIST.PROJECT_SLUG.replace(':slug', project.uid)
-                    )
-                  }
-                />
-              ))}
-
-            {projects[typeProject].filter((project) => {
-              if (search === '') return true;
-
-              return project.name.toLowerCase().includes(search.toLowerCase());
-            }).length === 0 && <span>Sorry don´t projects to show!</span>}
-            {/* @TODO - REFACTOR --> WHEN DON'T HAVE A PROJECT */}
-          </S.WrapperProjects>
+              }).length === 0 && <span>Sorry don´t projects to show!</span>}
+            </S.WrapperProjects>
+          )}
         </S.Content>
       </S.InnerContainer>
     </S.Container>
