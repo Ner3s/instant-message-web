@@ -221,7 +221,7 @@ export function CreateProjectTemplate({
                 <Checkbox
                   errorMessage={errors.status?.message}
                   checked={field.value || false}
-                  label="Ativo"
+                  label="Active"
                   {...field}
                 />
               )}
