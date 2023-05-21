@@ -6,11 +6,15 @@ interface IContainerFileInput {
   image_url?: boolean;
 }
 
-export const InputContainer = styled(Input)`
-  ${({ theme }) => css`
-    width: ${theme.frameSizes.xsmall};
-    height: ${theme.frameSizes.xsmall};
-    border-radius: 50%;
+interface IInputContainer {
+  appearance?: 'circle' | 'none';
+}
+
+export const InputContainer = styled(Input)<IInputContainer>`
+  ${({ theme, appearance }) => css`
+    width: ${appearance === 'circle' ? theme.frameSizes.xsmall : '100%'};
+    height: ${appearance === 'circle' ? theme.frameSizes.xsmall : '100%'};
+    border-radius: ${appearance === 'circle' ? '50%' : '0'};
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;

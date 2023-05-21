@@ -125,8 +125,6 @@ describe('<ChatTemplate />', () => {
       })
     });
 
-    expect(
-      screen.getByLabelText(/this icon represents the user image/i)
-    ).toBeInTheDocument();
+    expect(screen.getByLabelText(/user icon/i)).toBeInTheDocument();
   });
 });

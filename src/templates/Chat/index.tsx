@@ -7,6 +7,7 @@ import { FiArrowLeft, FiSend, FiUser } from 'react-icons/fi';
 import { BalloonMessage } from '@/components/BalloonMessage';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
+import { ProfileBadge } from '@/components/ProfileBadge';
 
 import { IFormSendMesage, INITIAL_FORM_VALUES } from './form';
 import { validationSchema } from './validations';
@@ -15,6 +16,7 @@ import { IContact } from '@/models/contact';
 import { IMessage } from '@/models/message';
 import { ISendMessageDTO } from '@/models/send-message.dto';
 import { IUser } from '@/models/user';
+import theme from '@/styles/theme';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
 import { joiResolver } from '@hookform/resolvers/joi';
 
@@ -56,18 +58,16 @@ function ChatTemplate({
             router.back();
           }}
         >
-          {/* @TODO - REFACTOR THIS */}
           <FiArrowLeft size={32} color={WHITE_COLOR} />
-          {contact?.userInfo?.imageUrl ? (
-            <S.ImageProfile
-              src={contact?.userInfo?.imageUrl}
-              alt="User image profile"
-            />
-          ) : (
-            <S.Circle aria-label="this icon represents the user image">
-              <FiUser size={32} color={WHITE_COLOR} />
-            </S.Circle>
-          )}
+
+          <ProfileBadge
+            iconColor={WHITE_COLOR}
+            iconSize={32}
+            imageAlt="User image profile"
+            imageUrl={contact?.userInfo?.imageUrl}
+            height={theme.spacings.xxhuge}
+            width={theme.spacings.xxhuge}
+          />
         </S.WrapperArrowAndImage>
         <S.UserName
           aria-label="contact name, if clicked go to profile contact"

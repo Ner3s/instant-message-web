@@ -8,5 +8,9 @@ export enum ROUTE_LIST {
   HOME = '/home',
   PROFILE = '/profile',
   PROFILE_SLUG = '/profile/:slug',
-  PROFILE_EDIT = '/profile/edit'
+  PROFILE_EDIT = '/profile/edit',
+  PROJECT = '/project',
+  PROJECT_SLUG = '/project/:slug',
+  PROJECT_CREATE = '/project/create',
+  PROJECT_EDIT = '/project/edit/:slug'
 }

@@ -10,12 +10,14 @@ export type FileInputProps = InputProps & {
   image_url?: string;
   fileContainerStyles?: CSSProperties;
   fileClassName?: string;
+  appearance?: 'circle' | 'none';
 };
 
 function FileInput({
   image_url,
   fileContainerStyles,
   fileClassName,
+  appearance = 'circle',
   ...props
 }: FileInputProps) {
   return (
@@ -27,6 +29,7 @@ function FileInput({
       <S.InputContainer
         data-testid="input-file"
         type="file"
+        appearance={appearance}
         {...props}
         {...(image_url && {
           icon: <img src={image_url} alt="Input file image" />

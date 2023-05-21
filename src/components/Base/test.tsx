@@ -1,6 +1,11 @@
 import { Base, BaseProps } from '.';
 
 import { screen, render } from '@/utils/test';
+let isLoading = false;
+
+jest.mock('@/contexts/use-auth', () => ({
+  useAuth: () => ({ isLoading })
+}));
 
 const makeSut = (props: BaseProps) => {
   return render(<Base {...props} />);
@@ -25,5 +30,12 @@ describe('<Base />', () => {
     makeSut(props);
 
     expect(screen.getAllByRole('link')[0]).toBeInTheDocument();
+  });
+
+  it('should render spinner when is loading', () => {
+    isLoading = true;
+    makeSut(props);
+
+    expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 });
