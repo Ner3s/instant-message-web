@@ -3,5 +3,8 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": true,
-  "[handlebars]": { "editor.formatOnSave": false }
+  "[handlebars]": {
+    "editor.formatOnSave": false
+  },
+  "todo-tree.tree.scanMode": "workspace only"
 }
