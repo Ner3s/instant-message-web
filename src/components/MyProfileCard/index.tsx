@@ -2,7 +2,7 @@ import { FiEdit, FiLogOut, FiUser } from 'react-icons/fi';
 
 import * as S from './styles';
 
-export interface MyProfileModalProps {
+export interface MyProfileCardProps {
   imageUrl: string;
   name: string;
   handleLogout: () => void;
@@ -10,14 +10,13 @@ export interface MyProfileModalProps {
   handleGotoProfileEdit: () => void;
 }
 
-// @TODO - CREATE STORYBOOK /// RENAME TO MYPROFILECARD
-function MyProfileModal({
+function MyProfileCard({
   imageUrl,
   name,
   handleLogout,
   handleGotoProfile,
   handleGotoProfileEdit
-}: MyProfileModalProps) {
+}: MyProfileCardProps) {
   return (
     <S.Container>
       <S.Content>
@@ -52,4 +51,4 @@ function MyProfileModal({
   );
 }
 
-export { MyProfileModal };
+export { MyProfileCard };

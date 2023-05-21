@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 import { Input } from '@/components/Input';
-import { MyProfileModal } from '@/components/MyProfileModal';
+import { MyProfileCard } from '@/components/MyProfileCard';
 import { Spinner } from '@/components/Spinner';
 import { UserModal } from '@/components/UserModal';
 
@@ -48,7 +48,7 @@ function HomeTemplate({
 
   return (
     <S.Container>
-      <MyProfileModal
+      <MyProfileCard
         handleGotoProfile={() => {
           router.push(ROUTE_LIST.PROFILE);
         }}
