@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   FiAtSign,
   FiCamera,
   FiCalendar,
   FiBookOpen,
-  FiAlertCircle
+  FiAlertCircle,
+  FiXCircle
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
@@ -13,17 +15,21 @@ import { Button } from '@/components/Button';
 import { Checkbox } from '@/components/Checkbox';
 import { FileInput } from '@/components/FileInput';
 import { Input } from '@/components/Input';
+import { ProfileBadge } from '@/components/ProfileBadge';
 import { Textarea } from '@/components/Textarea';
 
-import { INITIAL_FORM_VALUES } from './form';
 import { validationSchema } from './validation';
 
 import { useFileInput } from '@/hooks/use-file-input';
 
+import { IMemberDTO } from '@/models/member/member.dto';
+import { IProject } from '@/models/project';
 import { CreateProject } from '@/models/project/create-project';
 import { IProjectDTO } from '@/models/project/project.dto';
+import { UpdateProject } from '@/models/project/update-project';
 import { IUploadFile } from '@/models/upload-file';
-import { uuidv4 } from '@firebase/util';
+import { convertDateToUsFormatter } from '@/utils/helpers/convert-date-to-us-formatter';
+import { getUidImageProject } from '@/utils/helpers/get-uid-image-project';
 import { joiResolver } from '@hookform/resolvers/joi';
 
 import * as S from './styles';
@@ -32,22 +38,34 @@ const ICON_SIZE = 22;
 
 interface IHandleUploadImg {
   key: string;
+  name: string;
   value: File;
 }
 
-export interface CreateProjectTemplateProps {
+export interface ProjectEditTemplateProps {
   handleUploadFile: (uploadFileData: IUploadFile) => Promise<string | null>;
-  owner_id: string;
   isLoading: boolean;
-  handleCreateProject: ({ data }: { data: IProjectDTO }) => void;
+  handleUpdateProject: ({ project }: { project: IProjectDTO }) => void;
+  projectData: IProject;
 }
 
-export function CreateProjectTemplate({
+export function ProjectEditTemplate({
   handleUploadFile,
-  owner_id,
   isLoading,
-  handleCreateProject
-}: CreateProjectTemplateProps) {
+  handleUpdateProject,
+  projectData
+}: ProjectEditTemplateProps) {
+  const [members, setMembers] = useState<IMemberDTO[]>(
+    projectData.members?.map(
+      (member) =>
+        ({
+          uid: member.uid,
+          name: member.name,
+          image_url: member.imageUrl
+        } ?? [])
+    )
+  );
+
   const {
     files: coverFiles,
     showImages: showCoverImage,
@@ -63,18 +81,21 @@ export function CreateProjectTemplate({
     control,
     handleSubmit,
     formState: { errors }
-    // getValues,
-    // reset
   } = useForm({
-    defaultValues: INITIAL_FORM_VALUES,
+    defaultValues: {
+      name: projectData.name,
+      description: projectData.description,
+      start_date: String(convertDateToUsFormatter(projectData.startDate)),
+      status: projectData.status
+    } as UpdateProject,
     resolver: joiResolver(validationSchema)
   });
 
-  const handleUploadImg = async ({ key, value }: IHandleUploadImg) => {
+  const handleUploadImg = async ({ key, value, name }: IHandleUploadImg) => {
     let urlImage = '';
 
     try {
-      const response = await handleUploadFile({ name: uuidv4(), file: value });
+      const response = await handleUploadFile({ name, file: value });
       response && (urlImage = response);
     } catch (error) {
       toast.error(`Error uploading ${key}`);
@@ -83,21 +104,30 @@ export function CreateProjectTemplate({
     return { [key]: urlImage };
   };
 
+  function handleRenderImage(imageUrl: string, imageFromInput: string) {
+    return imageFromInput ? imageFromInput : imageUrl;
+  }
+
   const onSubmit = async (formData: CreateProject) => {
     let data: IProjectDTO = {
       ...formData,
-      created_at: new Date().toISOString(),
-      updated_at: null,
-      members: [],
-      owner_id,
-      image_cover: null as never,
-      image_profile: null as never
+      updated_at: new Date().toISOString(),
+      created_at: projectData.createdAt,
+      members,
+      owner_id: projectData.ownerId,
+      image_cover: projectData.imageCover,
+      image_profile: projectData.imageProfile,
+      uid: projectData.uid
     };
 
     coverFiles &&
       (data = {
         ...data,
-        ...(await handleUploadImg({ key: 'image_cover', value: coverFiles[0] }))
+        ...(await handleUploadImg({
+          key: 'image_cover',
+          value: coverFiles[0],
+          name: getUidImageProject(String(projectData.imageCover))
+        }))
       });
 
     profileFiles &&
@@ -105,17 +135,18 @@ export function CreateProjectTemplate({
         ...data,
         ...(await handleUploadImg({
           key: 'image_profile',
-          value: profileFiles[0]
+          value: profileFiles[0],
+          name: getUidImageProject(String(projectData.imageProfile))
         }))
       });
 
-    handleCreateProject({ data });
+    handleUpdateProject({ project: data });
   };
 
   return (
     <S.Container>
       <S.WrapperText>
-        <S.Title>Create project</S.Title>
+        <S.Title>Edit project</S.Title>
       </S.WrapperText>
       <S.WrapperForm>
         <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -129,7 +160,10 @@ export function CreateProjectTemplate({
                   placeholder="Image cover"
                   appearance="none"
                   className="cover"
-                  image_url={showCoverImage[0]}
+                  image_url={handleRenderImage(
+                    projectData.imageCover || '',
+                    showCoverImage[0]
+                  )}
                   icon={<FiCamera size={26} />}
                   accept="image/*"
                   data-testid="image_cover"
@@ -149,7 +183,10 @@ export function CreateProjectTemplate({
               render={({ field: { ref, ...props } }) => (
                 <FileInput
                   placeholder="Image profile"
-                  image_url={showProfileImage[0]}
+                  image_url={handleRenderImage(
+                    projectData.imageProfile || '',
+                    showProfileImage[0]
+                  )}
                   icon={<FiCamera size={26} />}
                   accept="image/*"
                   data-testid="image_profile"
@@ -209,10 +246,11 @@ export function CreateProjectTemplate({
               )}
             />
 
-            <S.WrapperStatus>
+            <S.WrapperTitle>
               Status:
+              {/* @TODO - CREATE TOOLTIP FOR DESCRIBE THIS  */}
               <FiAlertCircle size={ICON_SIZE} />
-            </S.WrapperStatus>
+            </S.WrapperTitle>
 
             <Controller
               name="status"
@@ -226,8 +264,39 @@ export function CreateProjectTemplate({
                 />
               )}
             />
+
+            <S.WrapperMembers>
+              <S.WrapperTitle>Members: </S.WrapperTitle>
+              <S.DGrid>
+                {members?.map((member, index) => (
+                  <S.WrapperMember key={member.uid}>
+                    <ProfileBadge
+                      imageUrl={member.image_url}
+                      width="6rem"
+                      height="6rem"
+                      iconSize={24}
+                    />
+                    <S.Name>{member.name}</S.Name>
+                    <S.RemoveMemberButton
+                      type="button"
+                      onClick={() => {
+                        const newMembers = members.filter(
+                          (_, i) => i !== index
+                        );
+                        setMembers(newMembers);
+                      }}
+                    >
+                      <FiXCircle size={ICON_SIZE} />
+                    </S.RemoveMemberButton>
+                  </S.WrapperMember>
+                ))}
+                {members?.length === 0 && (
+                  <span>This project dont have member</span>
+                )}
+              </S.DGrid>
+            </S.WrapperMembers>
             <Button type="submit" isLoading={isLoading}>
-              Create
+              Update
             </Button>
           </S.WrapperInputs>
         </S.Form>

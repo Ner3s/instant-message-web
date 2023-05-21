@@ -44,9 +44,6 @@ export async function getAllProjects({
 
     myProjects = globalProjects.filter((project) => project.ownerId === userId);
 
-    console.log('members ', membersProjects);
-    console.log('Myprojects ', myProjects);
-
     dispatch({ type: 'global', payload: globalProjects });
     dispatch({ type: 'members', payload: membersProjects });
     dispatch({ type: 'myProjects', payload: myProjects });

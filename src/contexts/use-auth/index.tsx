@@ -20,6 +20,7 @@ import storedUserDataMapper from '@/utils/mappings/stored-user-data-mapper';
 
 interface IAuthContextData {
   user: IUser;
+  isLoading: boolean;
   setUser: Dispatch<SetStateAction<IUser>>;
   handleClearSession: () => void;
   handleGetCurrentUser: () => void;
@@ -36,6 +37,7 @@ function AuthProvider({ children }: IAuthProvider) {
   const router = useRouter();
 
   const [user, setUser] = useState<IUser>({} as IUser);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function handleClearSession() {
     try {
@@ -58,6 +60,7 @@ function AuthProvider({ children }: IAuthProvider) {
       if (!user) {
         !GUEST_ROUTES.includes(router.pathname as ROUTE_LIST) &&
           router.push(ROUTE_LIST.SIGN_IN);
+        setIsLoading(false);
         return null;
       }
 
@@ -77,6 +80,7 @@ function AuthProvider({ children }: IAuthProvider) {
           GUEST_ROUTES.includes(router.pathname as ROUTE_LIST) &&
             router.push(ROUTE_LIST.HOME);
         }
+        setIsLoading(false);
       } catch (error) {
         toast.error('Unexpected error');
       }
@@ -85,13 +89,18 @@ function AuthProvider({ children }: IAuthProvider) {
 
   useEffect(() => {
     handleGetCurrentUser();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, handleClearSession, handleGetCurrentUser }}
+      value={{
+        user,
+        setUser,
+        handleClearSession,
+        handleGetCurrentUser,
+        isLoading
+      }}
     >
       {children}
     </AuthContext.Provider>

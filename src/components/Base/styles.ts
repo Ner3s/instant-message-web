@@ -12,3 +12,12 @@ export const Main = styled.main`
     flex-grow: 2;
   `};
 `;
+
+export const WrapperSpinner = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    height: 100%;
+    align-items: center;
+    background-image: ${theme.colors.gradient.vertical};
+  `};
+`;

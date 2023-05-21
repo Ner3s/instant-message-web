@@ -10,6 +10,7 @@ import { Spinner } from '@/components/Spinner';
 import { TProjectModalDTO } from '@/models/project/project-modal.dto';
 import theme from '@/styles/theme';
 import { ROUTE_LIST } from '@/utils/constants/route-list';
+import { dateFormatter } from '@/utils/helpers/format-date';
 
 import * as S from './styles';
 
@@ -111,7 +112,10 @@ function ProjectsTemplate({ projects, isLoading }: ProjectsTemplateProps) {
                     key={project.uid}
                     name={project.name}
                     description={project.description}
-                    startDate={project.startDate}
+                    startDate={
+                      project.startDate &&
+                      String(dateFormatter({ date: project.startDate }))
+                    }
                     imageUrl={project.imageProfile}
                     handleGotoProject={() =>
                       router.push(

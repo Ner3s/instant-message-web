@@ -51,6 +51,7 @@ const projectSlugMock: IProjectSlugTemplateProps = {
   }
 };
 
+// @TODO - Create this test
 describe('<ProjectSlugTemplate />', () => {
   it('should render ProjectSlugTemplate', () => {
     render(<ProjectSlugTemplate {...projectSlugMock} />);
