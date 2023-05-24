@@ -14,6 +14,7 @@ import { Checkbox } from '@/components/Checkbox';
 import { FileInput } from '@/components/FileInput';
 import { Input } from '@/components/Input';
 import { Textarea } from '@/components/Textarea';
+import { Tooltip } from '@/components/Tooltip';
 
 import { INITIAL_FORM_VALUES } from './form';
 import { validationSchema } from './validation';
@@ -208,10 +209,15 @@ export function CreateProjectTemplate({
                 />
               )}
             />
-
             <S.WrapperStatus>
               Status:
               <FiAlertCircle size={ICON_SIZE} />
+              <S.TooltipWrapper>
+                <Tooltip>
+                  The status of the project defines whether it will be visible
+                  to the public, &rsquo;t worry, you can change it later.
+                </Tooltip>
+              </S.TooltipWrapper>
             </S.WrapperStatus>
 
             <Controller
