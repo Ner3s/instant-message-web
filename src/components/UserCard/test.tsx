@@ -1,21 +1,20 @@
-import { ProjectModal, ProjectModalProps } from '.';
+import { UserCard, UserCardProps } from '.';
 
 import { screen, render, userEvent } from '@/utils/test';
 
-const gotoProjectMock = jest.fn();
+const gotoProfileMock = jest.fn();
 
-const propsMock: ProjectModalProps = {
+const propsMock: UserCardProps = {
   imageUrl: 'image mock',
   name: 'name mock',
   description: 'description mock',
-  startDate: '2023-02-01',
-  handleGotoProject: gotoProjectMock
+  handleGotoProfile: gotoProfileMock
 };
 
-const makeSut = (props: ProjectModalProps) => {
+const makeSut = (props: UserCardProps) => {
   const user = userEvent.setup();
 
-  const sut = render(<ProjectModal {...props} />);
+  const sut = render(<UserCard {...props} />);
 
   return {
     ...sut,
@@ -23,8 +22,8 @@ const makeSut = (props: ProjectModalProps) => {
   };
 };
 
-describe('<ProjectModal />', () => {
-  it('should render ProjectModal', () => {
+describe('<UserCard />', () => {
+  it('should render UserCard', () => {
     makeSut(propsMock);
 
     expect(
@@ -50,6 +49,6 @@ describe('<ProjectModal />', () => {
       })
     );
 
-    expect(gotoProjectMock).toBeCalledTimes(1);
+    expect(gotoProfileMock).toBeCalledTimes(1);
   });
 });
