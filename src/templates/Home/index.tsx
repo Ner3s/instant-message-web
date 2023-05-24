@@ -92,6 +92,11 @@ function HomeTemplate({
           </S.WrapperUsers>
         </S.Content>
       )}
+      {!!search && !users?.length && !isLoading && (
+        <S.NoUsers>
+          <S.Subtitle>No users found</S.Subtitle>
+        </S.NoUsers>
+      )}
     </S.Container>
   );
 }
