@@ -1,12 +1,12 @@
-import { BalloonMessage } from '.';
+import { Tooltip } from '.';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'BalloonMessage',
-  component: BalloonMessage
-} as ComponentMeta<typeof BalloonMessage>;
+  title: 'Tooltip',
+  component: Tooltip
+} as ComponentMeta<typeof Tooltip>;
 
-export const Basic: ComponentStory<typeof BalloonMessage> = (args) => (
-  <BalloonMessage {...args} />
+export const Basic: ComponentStory<typeof Tooltip> = (args) => (
+  <Tooltip {...args} />
 );

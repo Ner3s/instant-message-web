@@ -1,14 +1,14 @@
-import { UserModal } from '.';
+import { UserCard } from '.';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'UserModal',
-  component: UserModal
-} as ComponentMeta<typeof UserModal>;
+  title: 'UserCard',
+  component: UserCard
+} as ComponentMeta<typeof UserCard>;
 
-const Template: ComponentStory<typeof UserModal> = (args) => (
-  <UserModal {...args} />
+const Template: ComponentStory<typeof UserCard> = (args) => (
+  <UserCard {...args} />
 );
 
 export const Default = Template.bind({});

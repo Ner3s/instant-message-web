@@ -1,14 +1,14 @@
-import { ProjectModal } from '.';
+import { ProjectCard } from '.';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'ProjectModal',
-  component: ProjectModal
-} as ComponentMeta<typeof ProjectModal>;
+  title: 'ProjectCard',
+  component: ProjectCard
+} as ComponentMeta<typeof ProjectCard>;
 
-const Template: ComponentStory<typeof ProjectModal> = (args) => (
-  <ProjectModal {...args} />
+const Template: ComponentStory<typeof ProjectCard> = (args) => (
+  <ProjectCard {...args} />
 );
 
 export const Default = Template.bind({});
