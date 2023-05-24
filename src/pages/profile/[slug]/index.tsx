@@ -18,7 +18,7 @@ export default function SlugProfile() {
   const { handleCreateConnection, isLoading } = useCreateConnection();
 
   useEffect(() => {
-    !currentUser.uid && slug && handleGetUserProfile({ slug: slug as string });
+    currentUser.uid !== slug && handleGetUserProfile({ slug: slug as string });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
