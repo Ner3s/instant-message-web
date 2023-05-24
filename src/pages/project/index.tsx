@@ -8,6 +8,9 @@ import { useAuth } from '@/contexts/use-auth';
 
 import { useGetAllProjects } from '@/hooks/use-get-all-projects';
 
+import { IProject } from '@/models/project';
+import { storage } from '@/utils/helpers/storage';
+
 export default function Project() {
   const {
     isLoading,
@@ -17,8 +20,30 @@ export default function Project() {
   const { global, members: associate, myProjects } = projectsData;
   const { user } = useAuth();
 
+  const handleRulesToGetProjects = (projects: IProject[], hasUser: boolean) => {
+    const DateTimeCache = storage.getItem<string>({
+      key: 'instantMessage@cache:projects_expires_at'
+    });
+
+    if (DateTimeCache && hasUser) {
+      const now = new Date();
+      const cacheTime = new Date(DateTimeCache);
+
+      if (now > cacheTime) {
+        return true;
+      }
+    }
+
+    if (projects.length === 0 && hasUser) {
+      return true;
+    }
+
+    return false;
+  };
+
   useEffect(() => {
-    projectsData.global.length === 0 && user.name && handleGetAllProjects();
+    handleRulesToGetProjects(projectsData.global, !!user.name) &&
+      handleGetAllProjects();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectsData, user]);
 

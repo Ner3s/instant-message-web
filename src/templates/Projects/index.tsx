@@ -4,7 +4,7 @@ import { FiSearch } from 'react-icons/fi';
 
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
-import { ProjectModal } from '@/components/ProjectModal';
+import { ProjectCard } from '@/components/ProjectCard';
 import { Spinner } from '@/components/Spinner';
 
 import { TProjectModalDTO } from '@/models/project/project-modal.dto';
@@ -108,7 +108,7 @@ function ProjectsTemplate({ projects, isLoading }: ProjectsTemplateProps) {
                     .includes(search.toLowerCase());
                 })
                 .map((project) => (
-                  <ProjectModal
+                  <ProjectCard
                     key={project.uid}
                     name={project.name}
                     description={project.description}

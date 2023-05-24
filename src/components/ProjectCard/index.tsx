@@ -1,8 +1,8 @@
-import { FiUser } from 'react-icons/fi';
+import { ProfileBadge } from '../ProfileBadge';
 
 import * as S from './styles';
 
-export interface ProjectModalProps {
+export interface ProjectCardProps {
   imageUrl?: string;
   name: string;
   description: string;
@@ -10,26 +10,18 @@ export interface ProjectModalProps {
   handleGotoProject: () => void;
 }
 
-// TODO - RENAME TO USER CARD
-function ProjectModal({
+function ProjectCard({
   imageUrl,
   name,
   description,
   startDate,
   handleGotoProject
-}: ProjectModalProps) {
+}: ProjectCardProps) {
   return (
     <S.Container onClick={handleGotoProject} aria-label="Goto profile">
       <S.Content>
         <S.WrapperContent>
-          {/* @TODO - REFACTOR THIS, FOR NEW COMPONENT RULE */}
-          {imageUrl ? (
-            <S.ImageProfile src={imageUrl} alt="User image profile" />
-          ) : (
-            <S.Circle>
-              <FiUser size={32} color="fff" />
-            </S.Circle>
-          )}
+          <ProfileBadge imageUrl={imageUrl} imageAlt="User image profile" />
           <S.WrapperText>
             <S.Title>{name}</S.Title>
             <S.Description>{description}</S.Description>
@@ -41,4 +33,4 @@ function ProjectModal({
   );
 }
 
-export { ProjectModal };
+export { ProjectCard };

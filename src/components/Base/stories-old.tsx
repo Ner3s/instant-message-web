@@ -1,7 +1,10 @@
 import { Base } from '.';
 
+import { AppProvider } from '@/contexts';
+
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
+//@TODO - FIX THIS STORIES - NOT WORKING WITH AUTH CONTEXT
 export default {
   title: 'Base',
   component: Base,
@@ -10,7 +13,11 @@ export default {
   }
 } as ComponentMeta<typeof Base>;
 
-const Template: ComponentStory<typeof Base> = (args) => <Base {...args} />;
+const Template: ComponentStory<typeof Base> = (args) => (
+  <AppProvider>
+    <Base {...args} />
+  </AppProvider>
+);
 
 export const Default = Template.bind({});
 Default.args = {

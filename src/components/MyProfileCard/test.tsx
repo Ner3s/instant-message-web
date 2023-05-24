@@ -1,4 +1,4 @@
-import { MyProfileModal, MyProfileModalProps } from '.';
+import { MyProfileCard, MyProfileCardProps } from '.';
 
 import { screen, render, userEvent } from '@/utils/test';
 
@@ -6,7 +6,7 @@ const logoutMock = jest.fn();
 const gotoProfileMock = jest.fn();
 const gotoProfileEditMock = jest.fn();
 
-const propsMock: MyProfileModalProps = {
+const propsMock: MyProfileCardProps = {
   imageUrl: 'image mock',
   name: 'name mock',
   handleLogout: logoutMock,
@@ -14,10 +14,10 @@ const propsMock: MyProfileModalProps = {
   handleGotoProfileEdit: gotoProfileEditMock
 };
 
-const makeSut = (props: MyProfileModalProps) => {
+const makeSut = (props: MyProfileCardProps) => {
   const user = userEvent.setup();
 
-  const sut = render(<MyProfileModal {...props} />);
+  const sut = render(<MyProfileCard {...props} />);
 
   return {
     ...sut,
@@ -25,8 +25,8 @@ const makeSut = (props: MyProfileModalProps) => {
   };
 };
 
-describe('<MyProfileModal />', () => {
-  it('should render MyProfileModal', () => {
+describe('<MyProfileCard />', () => {
+  it('should render MyProfileCard', () => {
     makeSut(propsMock);
 
     expect(

@@ -58,3 +58,5 @@ export const WrapperUsers = styled.div`
     gap: ${theme.spacings.small};
   `}
 `;
+
+export const NoUsers = styled.div``;

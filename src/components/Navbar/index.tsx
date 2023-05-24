@@ -25,32 +25,6 @@ function Navbar({ menuLinks }: INavbarProps) {
 
   return (
     <S.Container>
-      {/* <S.MenuItem
-        isActive={handleActiveRoute(ROUTE_LIST.HOME)}
-        role="link"
-        onClick={() => router.push(ROUTE_LIST.HOME)}
-      >
-        <S.WrapperMenuItem>
-          <FiHome
-            size={ITEMS_SIZES}
-            color={handleIconColors(ROUTE_LIST.HOME)}
-          />
-          <S.MenuLabel>Home</S.MenuLabel>
-        </S.WrapperMenuItem>
-      </S.MenuItem> */}
-      {/* <S.MenuItem
-        isActive={handleActiveRoute(ROUTE_LIST.CONTACT)}
-        role="link"
-        onClick={() => router.push(ROUTE_LIST.CONTACT)}
-      >
-        <S.WrapperMenuItem>
-          <FiUsers
-            size={ITEMS_SIZES}
-            color={handleIconColors(ROUTE_LIST.CONTACT)}
-          />
-          <S.MenuLabel>Contacts</S.MenuLabel>
-        </S.WrapperMenuItem>
-      </S.MenuItem> */}
       {menuLinks.map(({ icon: Icon, path, label }) => (
         <S.MenuItem
           key={label}
