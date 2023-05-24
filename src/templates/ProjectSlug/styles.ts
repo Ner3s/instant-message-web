@@ -96,6 +96,14 @@ export const Title = styled.h2`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.medium};
     font-weight: ${theme.font.weight.bold};
+    max-width: ${theme.frameSizes.small};
+
+    @media (min-width: 450px) {
+      max-width: ${theme.frameSizes.smallMedium};
+    }
+    @media ${theme.breakPoints.minS} {
+      max-width: 52rem;
+    }
   `};
 `;
 

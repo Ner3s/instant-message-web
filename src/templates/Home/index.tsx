@@ -5,7 +5,7 @@ import { FiSearch } from 'react-icons/fi';
 import { Input } from '@/components/Input';
 import { MyProfileCard } from '@/components/MyProfileCard';
 import { Spinner } from '@/components/Spinner';
-import { UserModal } from '@/components/UserModal';
+import { UserCard } from '@/components/UserCard';
 
 import { useDebounce } from '@/hooks/use-debounce';
 
@@ -81,7 +81,7 @@ function HomeTemplate({
           <S.Subtitle>Result: </S.Subtitle>
           <S.WrapperUsers>
             {users?.map((user) => (
-              <UserModal
+              <UserCard
                 key={user.uid}
                 name={user.name}
                 description={user.description}

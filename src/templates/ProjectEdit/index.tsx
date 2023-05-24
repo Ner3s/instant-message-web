@@ -17,6 +17,7 @@ import { FileInput } from '@/components/FileInput';
 import { Input } from '@/components/Input';
 import { ProfileBadge } from '@/components/ProfileBadge';
 import { Textarea } from '@/components/Textarea';
+import { Tooltip } from '@/components/Tooltip';
 
 import { validationSchema } from './validation';
 
@@ -246,11 +247,16 @@ export function ProjectEditTemplate({
               )}
             />
 
-            <S.WrapperTitle>
+            <S.WrapperStatus>
               Status:
-              {/* @TODO - CREATE TOOLTIP FOR DESCRIBE THIS  */}
               <FiAlertCircle size={ICON_SIZE} />
-            </S.WrapperTitle>
+              <S.TooltipWrapper>
+                <Tooltip>
+                  Deselecting the active status will make the project no longer
+                  visible to the public.
+                </Tooltip>
+              </S.TooltipWrapper>
+            </S.WrapperStatus>
 
             <Controller
               name="status"

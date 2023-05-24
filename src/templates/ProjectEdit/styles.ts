@@ -137,10 +137,55 @@ export const WrapperTitle = styled.span`
     display: flex;
     padding-left: ${theme.spacings.small};
     align-items: center;
+  `};
+`;
+
+export const WrapperStatus = styled.span`
+  ${({ theme }) => css`
+    display: flex;
+    padding-left: ${theme.spacings.small};
+    align-items: center;
+    position: relative;
 
     > svg {
       margin: 0 ${theme.spacings.xxsmall};
       color: ${theme.colors.primary};
+      cursor: pointer;
+    }
+
+    ${TooltipWrapper} {
+      visibility: hidden;
+      opacity: 0;
+      transition: all 300ms ease-in-out;
+    }
+
+    > svg:hover ~ ${TooltipWrapper} {
+      visibility: visible;
+      opacity: 1;
+    }
+  `};
+`;
+
+export const TooltipWrapper = styled.div`
+  ${({ theme }) => css`
+    height: 27.4rem;
+    left: 12rem;
+    position: absolute;
+    top: -21rem;
+    width: 12.8rem;
+
+    @media (min-width: 450px) {
+      height: 12.4rem;
+      left: 12rem;
+      top: -8.5rem;
+      width: 25.8rem;
+    }
+
+    @media ${theme.breakPoints.minS} {
+      height: ${theme.spacings.xsmall};
+      left: 12rem;
+      top: -6rem;
+      width: ${theme.frameSizes.medium};
     }
   `};
 `;
