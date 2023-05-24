@@ -5,7 +5,9 @@ import { TProjectAction } from '@/contexts/use-project/reducer';
 
 import { IProject } from '@/models/project';
 import { remoteGetAllProjects } from '@/services/project/get-all';
+import { addHoursOrMinutes } from '@/utils/helpers/addHoursOrMinutes';
 import { recursiveToCamel } from '@/utils/helpers/camelize';
+import { storage } from '@/utils/helpers/storage';
 
 interface IGetAllProjects {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -44,9 +46,17 @@ export async function getAllProjects({
 
     myProjects = globalProjects.filter((project) => project.ownerId === userId);
 
-    dispatch({ type: 'global', payload: globalProjects });
+    dispatch({
+      type: 'global',
+      payload: globalProjects.filter((project) => project.status && project)
+    });
     dispatch({ type: 'members', payload: membersProjects });
     dispatch({ type: 'myProjects', payload: myProjects });
+
+    storage.setItem({
+      key: 'instantMessage@cache:projects_expires_at',
+      value: addHoursOrMinutes(new Date(), 2).toString()
+    });
   } catch (error: unknown) {
     toast.error('Error while getting projects');
   } finally {
