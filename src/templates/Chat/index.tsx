@@ -84,10 +84,10 @@ function ChatTemplate({
         </S.UserName>
       </S.NavBarUser>
       <S.Main>
-        {messages &&
-          messages.map((message) => (
+        {!!messages?.length &&
+          messages.map((message, index) => (
             <BalloonMessage
-              key={message.uid}
+              key={message?.uid ?? index}
               side={user.uid === message.senderId ? 'RIGHT' : 'LEFT'}
               dateTime={message.date}
             >
