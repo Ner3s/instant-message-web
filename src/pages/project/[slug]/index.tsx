@@ -29,15 +29,13 @@ export default function SlugProject() {
   };
 
   useEffect(() => {
-    if (!project.name && slug) {
+    if (slug) {
       handleGetProjectById({ uid: slug as string });
     }
 
-    if (project.name && project.uid !== slug) {
-      handleGetProjectById({ uid: slug as string });
-    }
-
-    if (project.ownerId !== user.uid) {
+    if (!!project.ownerId && project.ownerId !== user.uid) {
+      console.log('PROJECT OWNER ID', project.ownerId);
+      console.log('USER ID ', user.uid);
       handleGetUserProfile({ slug: project.ownerId });
     }
 

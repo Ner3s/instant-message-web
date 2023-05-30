@@ -8,8 +8,8 @@ import { useAuth } from '@/contexts/use-auth';
 
 import { useGetAllProjects } from '@/hooks/use-get-all-projects';
 
-import { IProject } from '@/models/project';
-import { storage } from '@/utils/helpers/storage';
+// import { IProject } from '@/models/project';
+// import { storage } from '@/utils/helpers/storage';
 
 export default function Project() {
   const {
@@ -20,32 +20,34 @@ export default function Project() {
   const { global, members: associate, myProjects } = projectsData;
   const { user } = useAuth();
 
-  const handleRulesToGetProjects = (projects: IProject[], hasUser: boolean) => {
-    const DateTimeCache = storage.getItem<string>({
-      key: 'instantMessage@cache:projects_expires_at'
-    });
+  // @TODO - REMOVE CACHE TIME
+  // const handleRulesToGetProjects = (projects: IProject[], hasUser: boolean) => {
+  //   const DateTimeCache = storage.getItem<string>({
+  //     key: 'instantMessage@cache:projects_expires_at'
+  //   });
 
-    if (DateTimeCache && hasUser) {
-      const now = new Date();
-      const cacheTime = new Date(DateTimeCache);
+  //   if (DateTimeCache && hasUser) {
+  //     const now = new Date();
+  //     const cacheTime = new Date(DateTimeCache);
 
-      if (now > cacheTime) {
-        return true;
-      }
-    }
+  //     if (now > cacheTime) {
+  //       return true;
+  //     }
+  //   }
 
-    if (projects.length === 0 && hasUser) {
-      return true;
-    }
+  //   if (projects.length === 0 && hasUser) {
+  //     return true;
+  //   }
 
-    return false;
-  };
+  //   return false;
+  // };
 
   useEffect(() => {
-    handleRulesToGetProjects(projectsData.global, !!user.name) &&
-      handleGetAllProjects();
+    // @TODO - REMOVE CACHE TIME
+    // handleRulesToGetProjects(projectsData.global, !!user.name) &&
+    !!user.name && handleGetAllProjects();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projectsData, user]);
+  }, [user]);
 
   return (
     <Base>
